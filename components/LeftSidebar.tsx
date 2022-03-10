@@ -88,10 +88,12 @@ export const LeftSidebar = () => {
           className="text-text flex items-center justify-center mt-auto hoverAnimation xl:-mr-5 "
           onClick={() => signOut()}
         >
-          <img
+          <Image
+            width={40}
+            height={40}
             src={session?.user?.image}
             alt=""
-            className="h-10 w-10 rounded-full xl:mr-2.5 "
+            className="rounded-full xl:mr-2.5 "
           />
           <div className="hidden xl:inline leading-5">
             <h4 className="font-bold truncate">{session?.user?.name}</h4>

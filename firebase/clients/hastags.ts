@@ -80,8 +80,6 @@ export const watchHastagsPostwitts = (hashtag: string, callback) => {
 };
 
 export const getHashtags = async () => {
-  console.log("HELLOUUU");
-
   const hastagDocs = await getDocs(
     query(collection(db, "postwitts"), where("hashtags", "!=", false))
   );

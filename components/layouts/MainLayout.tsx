@@ -10,7 +10,6 @@ import { PostContext, PostContextProps } from "context/posts/PostContext";
 import { UserContext, UserContextProps } from "context/users/UserContext";
 import { newUser, userExists } from "../../firebase/clients/users";
 import { SessionProvider, useSession } from "next-auth/react";
-import Head from "next/head";
 import { ReactElement, useContext, useEffect, useState } from "react";
 import {
   FollowResultInterface,
@@ -42,24 +41,18 @@ export const MainLayout = ({
   const [exist, setExist] = useState<boolean>(true);
 
   useEffect(() => {
-    userExists(session?.user.uid, setExist);
-
-    if (!exist) {
-      newUser(session?.user);
+    if (session) {
+      userExists(session?.user.uid, setExist);
+      if (!exist) {
+        newUser(session?.user);
+      }
     }
-  }, [exist, session?.user]);
+  }, [exist, session]);
 
   if (!session) return <Login providers={providers} />;
 
   return (
     <div>
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
       <main className="bg-primary min-h-screen flex justify-center mx-auto max-h-screen">
         <LeftSidebar />
         <div
