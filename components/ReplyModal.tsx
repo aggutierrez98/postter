@@ -37,7 +37,7 @@ export const ReplyModal = () => {
       watchPostwitt(postwittId, setPostwitt);
       // setShowEmojis(false);
     };
-  }, [postwittId, setShowEmojis]);
+  }, [postwittId]);
 
   return (
     <Transition.Root show={modalReplyIsOpen} as={Fragment}>
