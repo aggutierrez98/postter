@@ -9,7 +9,6 @@ import {
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getUser, watchUser } from "../../firebase/clients/users";
 import { getUsersIds } from "../../firebase/clients/users";
-import { db } from "../../firebase/firebase.config";
 import { BookmarksFeed } from "components/BookmarksFeed";
 import { MainLayout } from "components/layouts/MainLayout";
 
@@ -30,7 +29,7 @@ export default function BookmarksPage({
 }: Props) {
   const [userInfo, setUserInfo] = useState<UserInterface>();
 
-  useEffect(() => watchUser(userId, setUserInfo), [db]);
+  useEffect(() => watchUser(userId, setUserInfo), [userId]);
 
   return (
     <MainLayout

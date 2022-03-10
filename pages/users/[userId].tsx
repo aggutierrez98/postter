@@ -27,7 +27,7 @@ export default function UserPage({
   providers,
 }: Props) {
   const [userInfo, setUserInfo] = useState<UserInterface>();
-  useEffect(() => watchUser(userData.uid, setUserInfo), [db]);
+  useEffect(() => watchUser(userData.uid, setUserInfo), [userData?.uid]);
 
   return (
     <MainLayout

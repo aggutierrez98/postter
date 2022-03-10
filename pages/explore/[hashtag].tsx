@@ -29,7 +29,7 @@ export default function HashtagPage({
 
   useEffect(() => {
     watchHastagsPostwitts(hashtag, setHastagPostwitts);
-  }, [db, hashtag]);
+  }, [hashtag]);
 
   return (
     <MainLayout

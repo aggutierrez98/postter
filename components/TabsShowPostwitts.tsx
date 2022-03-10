@@ -77,7 +77,7 @@ export const TabsShowPostwitts = ({ userData }) => {
     return () => {
       setPostwitts([]);
     };
-  }, [index, totalPostwitts, reposts, userData]);
+  }, [index, totalPostwitts, reposts, userData, postwittsLiked]);
 
   return (
     <div>
