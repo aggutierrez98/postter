@@ -1,4 +1,4 @@
-# Proyecto Twitter clone:
+# Proyecto Postter:
 
 Proyecto realizado con React, NextJS, Typescript, Tailwind y Firebase en el cual se busca replicar varias de las funcionalidades de [Twitter](https://twitter.com)
 

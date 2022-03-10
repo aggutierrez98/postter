@@ -61,6 +61,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
   const { hashtag } = params;
 
+  console.log({ hashtag });
+
   const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
     (res) => res.json()
   );
