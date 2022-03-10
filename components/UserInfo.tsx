@@ -25,7 +25,7 @@ export const UserInfo = ({ userInfo }: Props) => {
     if (userInfo?.followers?.includes(session.user.uid)) {
       setIsFollowing(true);
     }
-  }, [userInfo]);
+  }, [userInfo, session?.user.uid]);
 
   const updateWidth = (e) => {
     const screenWidth = e.target.screen.width;

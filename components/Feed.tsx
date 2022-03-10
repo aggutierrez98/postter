@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { db } from "../firebase/firebase.config";
+// import { db } from "../firebase/firebase.config";
 import { NewPostwitt, Postwitt } from "./index";
 import { watchPostwitts } from "../firebase/clients/postwitts";
 import { watchReposts } from "../firebase/clients/reposts";
@@ -15,8 +15,8 @@ export const Feed = () => {
   const { data: session } = useSession();
   const { setModalLeftMenuIsOpen } = useContext(PostContext);
 
-  useEffect(() => watchPostwitts(setTotalPostwitts), [db]);
-  useEffect(() => watchReposts(setReposts), [db]);
+  useEffect(() => watchPostwitts(setTotalPostwitts), []);
+  useEffect(() => watchReposts(setReposts), []);
   useEffect(
     () =>
       setPostwitts(

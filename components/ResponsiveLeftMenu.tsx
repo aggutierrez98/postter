@@ -18,7 +18,7 @@ export const ResponsiveLeftMenu = () => {
   } = useSession();
   const [userInfo, setUserInfo] = useState<UserInterface>(user);
 
-  useEffect(() => watchUser(user.uid, setUserInfo), [db, user]);
+  useEffect(() => watchUser(user.uid, setUserInfo), [user]);
 
   return (
     <Transition.Root show={modalLeftMenuIsOpen} as={Fragment}>

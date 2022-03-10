@@ -25,7 +25,7 @@ export const TabsShowPostwitts = ({ userData }) => {
       watchPostwittsByUserByLikes(userData.uid, setPostwittsLiked);
       watchPostwittsByUserByReposts(userData.uid, setReposts);
     };
-  }, [db]);
+  }, [userData?.uid]);
 
   useEffect(() => {
     if (totalPostwitts.length === 0) return;

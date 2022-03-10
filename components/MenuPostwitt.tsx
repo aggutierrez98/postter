@@ -24,7 +24,7 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
   const [userData, setUserData] = useState<UserInterface>();
   const { data: session } = useSession();
 
-  useEffect(() => watchUser(userId, setUserData), [db, userId]);
+  useEffect(() => watchUser(userId, setUserData), [userId]);
 
   useEffect(() => {
     if (userData?.followers?.includes(session.user.uid)) {
@@ -36,7 +36,7 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
         setIsFollowing(true);
       } else setIsFollowing(false);
     };
-  }, [userData, setIsFollowing]);
+  }, [userData, setIsFollowing, session.user.uid]);
 
   return (
     <Menu

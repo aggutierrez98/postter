@@ -47,7 +47,7 @@ export const MainLayout = ({
     if (!exist) {
       newUser(session?.user);
     }
-  }, []);
+  }, [exist, session?.user]);
 
   if (!session) return <Login providers={providers} />;
 

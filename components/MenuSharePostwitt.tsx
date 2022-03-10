@@ -28,7 +28,10 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
     action: null,
   });
 
-  useEffect(() => watchUser(session.user.uid, setUserData), [db]);
+  useEffect(
+    () => watchUser(session.user.uid, setUserData),
+    [session?.user.uid]
+  );
 
   useEffect(() => {
     if (userData?.bookmarks?.includes(postwittId)) {

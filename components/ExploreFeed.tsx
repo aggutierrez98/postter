@@ -2,7 +2,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { watchHastags } from "../firebase/clients/hastags";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { db } from "../firebase/firebase.config";
+// import { db } from "../firebase/firebase.config";
 import { HashtagCard } from "./HashtagCard";
 
 export const ExploreFeed = ({ hashtagsFromServer }) => {
@@ -11,7 +11,7 @@ export const ExploreFeed = ({ hashtagsFromServer }) => {
 
   useEffect(() => {
     watchHastags(setHashtags);
-  }, [db]);
+  }, []);
 
   return (
     <div className=" border-l border-r border-secondary min-h-full">

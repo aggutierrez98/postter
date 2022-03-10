@@ -40,8 +40,8 @@ export default function PostwittPage({
   const router: NextRouter = useRouter();
   const { id }: { id?: string } = router.query;
 
-  useEffect(() => watchPostwitt(id, setPostwitt), [db, id]);
-  useEffect(() => watchPostwittReplies(id, setReplies), [db, id]);
+  useEffect(() => watchPostwitt(id, setPostwitt), [id]);
+  useEffect(() => watchPostwittReplies(id, setReplies), [id]);
 
   return (
     <MainLayout

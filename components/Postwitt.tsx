@@ -44,23 +44,23 @@ export const Postwitt = ({
   useEffect(
     () =>
       watchPostwittReplies(repostedBy ? idOriginal : postwittId, setReplies),
-    [db, postwittId, repostedBy, idOriginal]
+    [postwittId, repostedBy, idOriginal]
   );
   useEffect(
     () => watchPostwittLikes(repostedBy ? idOriginal : postwittId, setLikes),
-    [db, postwittId, repostedBy, idOriginal]
+    [postwittId, repostedBy, idOriginal]
   );
   useEffect(
     () =>
       watchPostwittReposts(repostedBy ? idOriginal : postwittId, setReposts),
-    [db, postwittId, repostedBy, idOriginal]
+    [postwittId, repostedBy, idOriginal]
   );
   useEffect(
     () =>
       setLiked(
         likes.findIndex((like) => like.id === session?.user?.uid) !== -1
       ),
-    [likes]
+    [likes, session?.user.uid]
   );
   useEffect(
     () =>
@@ -69,7 +69,7 @@ export const Postwitt = ({
           (repost) => repost.data().userId === session?.user.uid
         ) !== -1
       ),
-    [reposts]
+    [reposts, session?.user.uid]
   );
 
   return (

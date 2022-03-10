@@ -26,16 +26,15 @@ export const ModalEditUser = () => {
     editBannerImg,
     editProfileImg,
     userChangeLoading,
-    setUserChangeLoading,
+    // setUserChangeLoading,
   } = useEditUser();
 
   useEffect(() => {
     watchUser(userId, setUserValues);
     return () => {
       watchUser(userId, setUserValues);
-      setUserChangeLoading(false);
     };
-  }, [db, userId]);
+  }, [userId, setUserValues]);
 
   return (
     <Transition

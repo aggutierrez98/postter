@@ -13,8 +13,9 @@ module.exports = {
   extends: [
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    "xo",
-    // Comentar siguiente linea si solo se quiere usar eslint:
+    // "plugin:import/recommended",
+    "plugin:react-hooks/recommended",
+    // "plugin:jsx-a11y/recommended",
     "prettier",
   ],
   parser: "@typescript-eslint/parser",
