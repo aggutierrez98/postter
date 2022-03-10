@@ -1,16 +1,33 @@
 import Head from "next/head";
-import { getProviders, getSession } from "next-auth/react";
+import { getProviders, getSession, SessionProvider } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import { Feed } from "components";
+import { MainLayout } from "components/layouts/MainLayout";
+import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 
-export default function Home() {
+interface Props {
+  trendingResults: TrendingResultInterface[];
+  followResults: FollowResultInterface[];
+  providers: typeof SessionProvider;
+  hashtag: string;
+}
+
+export default function Home({
+  trendingResults,
+  followResults,
+  providers,
+}: Props) {
   return (
-    <>
+    <MainLayout
+      trendingResults={trendingResults}
+      followResults={followResults}
+      providers={providers}
+    >
       <Head>
         <title>Home / Postter</title>
       </Head>
       <Feed />
-    </>
+    </MainLayout>
   );
 }
 

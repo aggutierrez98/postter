@@ -11,6 +11,7 @@ import { getUser, watchUser } from "../../firebase/clients/users";
 import { getUsersIds } from "../../firebase/clients/users";
 import { db } from "../../firebase/firebase.config";
 import { BookmarksFeed } from "components/BookmarksFeed";
+import { MainLayout } from "components/layouts/MainLayout";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -20,13 +21,23 @@ interface Props {
   bookmarks: string[];
 }
 
-export default function BookmarksPage({ userId, bookmarks }: Props) {
+export default function BookmarksPage({
+  userId,
+  bookmarks,
+  trendingResults,
+  followResults,
+  providers,
+}: Props) {
   const [userInfo, setUserInfo] = useState<UserInterface>();
 
   useEffect(() => watchUser(userId, setUserInfo), [db]);
 
   return (
-    <>
+    <MainLayout
+      trendingResults={trendingResults}
+      followResults={followResults}
+      providers={providers}
+    >
       <Head>
         <title>Bookmarks / Postter</title>
       </Head>
@@ -34,7 +45,7 @@ export default function BookmarksPage({ userId, bookmarks }: Props) {
         bookmarks={userInfo?.bookmarks || bookmarks}
         userInfo={userInfo}
       />
-    </>
+    </MainLayout>
   );
 }
 

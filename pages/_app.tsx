@@ -8,7 +8,7 @@ import "../styles/globals.css";
 import "../styles/emoji.css";
 import { NextPage } from "next";
 import Fallback from "components/FallbackComponent";
-import getLayoutForEveryPage from "helpers/getLayout";
+// import getLayoutForEveryPage from "helpers/getLayout";
 
 // TODO: Por hacer:
 // 1) Agregar opciones de login
@@ -32,14 +32,15 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout): ReactElement {
-  const getLayout = getLayoutForEveryPage;
+  // const getLayout = getLayoutForEveryPage;
 
   return (
     <SessionProvider session={session}>
       <PostProvider>
         <UserProvider>
           <ErrorBoundary fallback={<Fallback />}>
-            {getLayout(<Component {...pageProps} />)}
+            {/* {getLayout(<Component {...pageProps} />)} */}
+            <Component {...pageProps} />
           </ErrorBoundary>
         </UserProvider>
       </PostProvider>

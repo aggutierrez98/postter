@@ -4,6 +4,7 @@ import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 import { GetStaticProps } from "next";
 import { getHashtags } from "../../firebase/clients/hastags";
 import { ExploreFeed } from "components";
+import { MainLayout } from "components/layouts/MainLayout";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -15,14 +16,23 @@ interface Props {
   };
 }
 
-export default function BookmarksPage({ hashtags }: Props) {
+export default function BookmarksPage({
+  hashtags,
+  trendingResults,
+  followResults,
+  providers,
+}: Props) {
   return (
-    <>
+    <MainLayout
+      trendingResults={trendingResults}
+      followResults={followResults}
+      providers={providers}
+    >
       <Head>
         <title>Explore / Postter</title>
       </Head>
       <ExploreFeed hashtagsFromServer={hashtags} />
-    </>
+    </MainLayout>
   );
 }
 

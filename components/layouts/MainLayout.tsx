@@ -42,10 +42,10 @@ export const MainLayout = ({
   const [exist, setExist] = useState<boolean>(true);
 
   useEffect(() => {
-    userExists(session.user.uid, setExist);
+    userExists(session?.user.uid, setExist);
 
     if (!exist) {
-      newUser(session.user);
+      newUser(session?.user);
     }
   }, []);
 

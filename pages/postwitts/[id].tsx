@@ -1,11 +1,15 @@
 import { QueryDocumentSnapshot, DocumentData } from "@firebase/firestore";
-import { getProviders } from "next-auth/react";
+import { getProviders, SessionProvider } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase.config";
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { PostwittInterface } from "../../interfaces/index";
+import {
+  FollowResultInterface,
+  PostwittInterface,
+  TrendingResultInterface,
+} from "../../interfaces/index";
 import {
   fetchPostwitt,
   getPostwittIds,
@@ -14,12 +18,21 @@ import {
 } from "../../firebase/clients/postwitts";
 import { Postwitt } from "../../components/Postwitt";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { MainLayout } from "components/layouts/MainLayout";
 
 interface Props {
   postData: any;
+  trendingResults: TrendingResultInterface[];
+  followResults: FollowResultInterface[];
+  providers: typeof SessionProvider;
 }
 
-export default function PostwittPage({ postData }: Props) {
+export default function PostwittPage({
+  postData,
+  trendingResults,
+  followResults,
+  providers,
+}: Props) {
   const [postwitt, setPostwitt] = useState<PostwittInterface>();
   const [replies, setReplies] = useState<
     PostwittInterface[] | QueryDocumentSnapshot[]
@@ -31,7 +44,11 @@ export default function PostwittPage({ postData }: Props) {
   useEffect(() => watchPostwittReplies(id, setReplies), [db, id]);
 
   return (
-    <>
+    <MainLayout
+      trendingResults={trendingResults}
+      followResults={followResults}
+      providers={providers}
+    >
       <Head>
         <title>
           {postwitt ? postwitt.userName : postData.userName} on Postter: "
@@ -75,7 +92,7 @@ export default function PostwittPage({ postData }: Props) {
           </div>
         )}
       </div>
-    </>
+    </MainLayout>
   );
 }
 

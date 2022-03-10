@@ -10,6 +10,7 @@ import {
 } from "../../firebase/clients/hastags";
 import { db } from "../../firebase/firebase.config";
 import { HashtagPostwittsList } from "components/HashtagPostwittsList";
+import { MainLayout } from "components/layouts/MainLayout";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -18,7 +19,12 @@ interface Props {
   hashtag: string;
 }
 
-export default function HashtagPage({ hashtag }: Props) {
+export default function HashtagPage({
+  hashtag,
+  trendingResults,
+  followResults,
+  providers,
+}: Props) {
   const [hastagPostwitts, setHastagPostwitts] = useState([]);
 
   useEffect(() => {
@@ -26,12 +32,16 @@ export default function HashtagPage({ hashtag }: Props) {
   }, [db, hashtag]);
 
   return (
-    <>
+    <MainLayout
+      trendingResults={trendingResults}
+      followResults={followResults}
+      providers={providers}
+    >
       <Head>
         <title>{hashtag} / Postter</title>
       </Head>
       <HashtagPostwittsList hashtag={hashtag} postwitts={hastagPostwitts} />
-    </>
+    </MainLayout>
   );
 }
 

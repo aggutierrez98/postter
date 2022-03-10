@@ -11,6 +11,7 @@ import { getUser, watchUser } from "../../firebase/clients/users";
 import { getUsersIds } from "../../firebase/clients/users";
 import { Profile } from "components/Profile";
 import { db } from "../../firebase/firebase.config";
+import { MainLayout } from "components/layouts/MainLayout";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -19,12 +20,21 @@ interface Props {
   userData: UserInterface;
 }
 
-export default function UserPage({ userData }: Props) {
+export default function UserPage({
+  userData,
+  trendingResults,
+  followResults,
+  providers,
+}: Props) {
   const [userInfo, setUserInfo] = useState<UserInterface>();
   useEffect(() => watchUser(userData.uid, setUserInfo), [db]);
 
   return (
-    <>
+    <MainLayout
+      trendingResults={trendingResults}
+      followResults={followResults}
+      providers={providers}
+    >
       <Head>
         <title>
           {userInfo ? userInfo.name : userData.name} (
@@ -32,7 +42,7 @@ export default function UserPage({ userData }: Props) {
         </title>
       </Head>
       <Profile userData={userInfo ? userInfo : userData} />
-    </>
+    </MainLayout>
   );
 }
 
