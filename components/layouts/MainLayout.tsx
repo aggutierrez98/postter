@@ -15,6 +15,7 @@ import {
   FollowResultInterface,
   TrendingResultInterface,
 } from "../../interfaces/index";
+import Head from "next/head";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -39,6 +40,7 @@ export const MainLayout = ({
     useContext<UserContextProps>(UserContext);
   const { data: session } = useSession();
   const [exist, setExist] = useState<boolean>(true);
+  const origin = typeof window === "undefined" ? "" : window.location.origin;
 
   useEffect(() => {
     if (session) {
@@ -53,6 +55,10 @@ export const MainLayout = ({
 
   return (
     <div>
+      <Head>
+        <meta property="og:title" content="Posster" />
+        <meta property="og:image" content={`${origin}/banner.jpg`} />;
+      </Head>
       <main className="bg-primary min-h-screen flex justify-center mx-auto max-h-screen">
         <LeftSidebar />
         <div

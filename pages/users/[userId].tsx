@@ -40,6 +40,10 @@ export default function UserPage({
           {userInfo ? userInfo.name : userData.name} (
           {userInfo ? userInfo.tag : userData.tag}) / Postter
         </title>
+        <meta
+          property="og:description"
+          content={`See ${userInfo?.name} profile`}
+        />
       </Head>
       <Profile userData={userInfo ? userInfo : userData} />
     </MainLayout>

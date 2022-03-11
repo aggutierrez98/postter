@@ -25,6 +25,10 @@ export default function Home({
     >
       <Head>
         <title>Home / Postter</title>
+        <meta
+          property="og:description"
+          content="Get in touch making posts with your friends"
+        />
       </Head>
       <Feed />
     </MainLayout>

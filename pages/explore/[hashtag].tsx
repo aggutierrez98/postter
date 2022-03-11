@@ -39,6 +39,7 @@ export default function HashtagPage({
     >
       <Head>
         <title>{hashtag} / Postter</title>
+        <meta property="og:description" content={`${hashtag} postwitts`} />
       </Head>
       <HashtagPostwittsList hashtag={hashtag} postwitts={hastagPostwitts} />
     </MainLayout>
@@ -60,8 +61,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
   const { hashtag } = params;
-
-  console.log({ hashtag });
 
   const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
     (res) => res.json()

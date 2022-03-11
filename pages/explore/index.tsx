@@ -30,6 +30,10 @@ export default function BookmarksPage({
     >
       <Head>
         <title>Explore / Postter</title>
+        <meta
+          property="og:description"
+          content="Search for most popular hashtags"
+        />
       </Head>
       <ExploreFeed hashtagsFromServer={hashtags} />
     </MainLayout>

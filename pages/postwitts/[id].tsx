@@ -54,6 +54,7 @@ export default function PostwittPage({
           {postwitt ? postwitt.userName : postData.userName} on Postter: "
           {postwitt ? postwitt.text : postData.text}"
         </title>
+        <meta property="og:description" content={`See postwitt information`} />
       </Head>
 
       <div className="border-l border-r border-secondary min-h-full">

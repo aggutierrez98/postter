@@ -39,6 +39,10 @@ export default function BookmarksPage({
     >
       <Head>
         <title>Bookmarks / Postter</title>
+        <meta
+          property="og:description"
+          content={`See bookmarks from ${userInfo?.name}`}
+        />
       </Head>
       <BookmarksFeed
         bookmarks={userInfo?.bookmarks || bookmarks}
