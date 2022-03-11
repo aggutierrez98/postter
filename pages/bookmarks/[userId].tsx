@@ -41,7 +41,7 @@ export default function BookmarksPage({
         <title>Bookmarks / Postter</title>
         <meta
           property="og:description"
-          content={`See your favorite Postwitts`}
+          content={`Bookmarks from ${userInfo?.name}`}
         />
       </Head>
       <BookmarksFeed
@@ -68,6 +68,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
   const { userId } = params;
 
+  console.log({ userId });
+
   const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
     (res) => res.json()
   );
@@ -76,7 +78,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   );
   const providers = await getProviders();
   const userData = await getUser(userId);
-  const { bookmarks } = userData.data();
+  const bookmarks = userData.data().bookmarks || [];
 
   return {
     props: {
