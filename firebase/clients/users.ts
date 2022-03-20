@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import {
   addDoc,
   collection,
@@ -12,20 +13,27 @@ import {
 } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { UserInterface } from "interfaces";
-import { Dispatch, SetStateAction } from "react";
 import { db, storage } from "../firebase.config";
 
 type Callback = Dispatch<SetStateAction<DocumentData>>;
 const usersRef = collection(db, "users");
 
-export const userExists = async (
-  uid: string,
-  callback: Dispatch<SetStateAction<boolean>>
-) => {
+export const getUserByEmail = async (email: string) => {
+  const q = query(usersRef, where("email", "==", email));
+  const userSnap = await getDocs(q);
+
+  let docData: DocumentData;
+  userSnap.forEach((doc) => {
+    docData = doc.data();
+  });
+
+  return docData;
+};
+
+export const userExists = async (uid: string) => {
   const userData = await getUser(uid);
-  if (!userData) {
-    callback(false);
-  }
+  if (userData) return true;
+  else return false;
 };
 
 export const getUser = async (id: string | string[]) => {
@@ -80,10 +88,10 @@ export const editUser = async (id: string, data: UserInterface) => {
     location = null,
     birthday = null,
     image = null,
-    // bookmarts,
-    // pinned,
-    // following,
-    // followers,
+    // // bookmarts,
+    // // pinned,
+    // // following,
+    // // followers,
   } = data;
 
   try {

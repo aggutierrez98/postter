@@ -2,10 +2,7 @@
   "compilerOptions": {
     "paths": {
       "@p/*": ["pages/*"],
-      // "@c/*": [
-      //   "components/*"
-      // ],
-      "@h/*": ["hooks/*"]
+      "@f/*": ["firebase/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext", "es2017"],

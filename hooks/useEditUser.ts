@@ -1,11 +1,10 @@
-import { editUser } from "../firebase/clients/users";
-import { ChangeEvent, useContext, useRef, useState } from "react";
-import { useForm } from "./useForm";
-import { UserContext, UserContextProps } from "context/users/UserContext";
+import { editUser } from "@f/index";
+import { ChangeEvent, useContext, useRef } from "react";
+import { useForm } from "hooks";
+import { UserContext } from "context";
 
 export const useEditUser = () => {
-  const { setIsOpen, userId } = useContext<UserContextProps>(UserContext);
-  const [userChangeLoading, setUserChangeLoading] = useState(false);
+  const { setIsOpen, userId, setLoadingChanges } = useContext(UserContext);
   const profileImagePickerRef = useRef(null);
   const bannerImagePickerRef = useRef(null);
 
@@ -15,11 +14,19 @@ export const useEditUser = () => {
     reset: setUserValues,
   }: {
     values: any;
-    // eslint-disable-next-line no-unused-vars
     handleInputChange: ({ target }: { target: HTMLInputElement }) => void;
-    // eslint-disable-next-line no-unused-vars
     reset: (newFormState: any) => void;
-  } = useForm();
+  } = useForm({
+    tag: null,
+    name: null,
+    birthday: null,
+    biography: null,
+    uid: null,
+    image: null,
+    email: null,
+    location: null,
+    bannerImg: null,
+  });
 
   const dateFrom18Years = ((d) => new Date(d.setDate(d.getDay() - 6570)))(
     new Date()
@@ -29,9 +36,9 @@ export const useEditUser = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setUserChangeLoading(true);
+    setLoadingChanges(true);
     await editUser(userId, userValues);
-    setUserChangeLoading(false);
+    setLoadingChanges(false);
     setIsOpen(false);
   };
 
@@ -81,7 +88,5 @@ export const useEditUser = () => {
     deleteBannerImg,
     editBannerImg,
     editProfileImg,
-    userChangeLoading,
-    setUserChangeLoading,
   };
 };

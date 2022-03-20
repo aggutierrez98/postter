@@ -1,20 +1,14 @@
 import { ReactElement, createContext, useState } from "react";
 
-const INITIAL_STATE: {
-  modalIsOpen: boolean;
-  userId: string;
-} = {
-  modalIsOpen: false,
-  userId: null,
-};
-
 export interface UserContextProps {
   modalIsOpen: boolean;
+  loadingChanges: boolean;
+  modalConfigIsOpen: boolean;
   userId?: string;
-  // eslint-disable-next-line no-unused-vars
   setIsOpen: (value: boolean) => void;
-  // eslint-disable-next-line no-unused-vars
+  setLoadingChanges: (value: boolean) => void;
   setUserId?: (value: string) => void;
+  setModalConfigIsOpen: (value: boolean) => void;
 }
 
 export const UserContext = createContext({} as UserContextProps);
@@ -23,15 +17,21 @@ export const UserProvider = ({
 }: {
   children: ReactElement | ReactElement[];
 }) => {
-  const [modalIsOpen, setIsOpen] = useState<boolean>(INITIAL_STATE.modalIsOpen);
-  const [userId, setUserId] = useState<string>(INITIAL_STATE.userId);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalConfigIsOpen, setModalConfigIsOpen] = useState(false);
+  const [loadingChanges, setLoadingChanges] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   return (
     <UserContext.Provider
       value={{
         // ...state,
         modalIsOpen,
+        modalConfigIsOpen,
+        loadingChanges,
         setIsOpen,
+        setModalConfigIsOpen,
+        setLoadingChanges,
         userId,
         setUserId,
       }}

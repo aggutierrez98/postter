@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import {
   addDoc,
   collection,
@@ -18,7 +19,6 @@ import {
 } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { UserInterface } from "interfaces";
-import { Dispatch, SetStateAction } from "react";
 import { db, storage } from "../firebase.config";
 import { getUser } from "./users";
 
@@ -189,8 +189,7 @@ export const fetchPostwitt = async (id: any) => {
     return postwittSnap.data();
   }
 
-  console.log("El post no existe!");
-  throw new Error("El post no existe");
+  return null;
 };
 
 export const bookmartPostwitt = async (idPostwitt: string, idUser: string) => {

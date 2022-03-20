@@ -57,3 +57,8 @@ export interface UserInterface {
   following?: string[];
   followers?: string[];
 }
+
+export interface HashtagInterface {
+  hashtag: string;
+  postwitts: number;
+}

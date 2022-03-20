@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 import {
   collection,
   doc,
@@ -8,7 +10,6 @@ import {
   serverTimestamp,
 } from "@firebase/firestore";
 import { UserInterface } from "interfaces";
-import { Dispatch, SetStateAction } from "react";
 import { db } from "../firebase.config";
 
 type Callback = Dispatch<SetStateAction<DocumentData>>;

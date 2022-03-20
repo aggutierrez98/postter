@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import {
   doc,
   deleteDoc,
@@ -12,9 +13,8 @@ import {
   collection,
   documentId,
 } from "@firebase/firestore";
-import { Dispatch, SetStateAction } from "react";
 import { db } from "../firebase.config";
-import { UserInterface } from "../../interfaces/index";
+import { UserInterface } from "interfaces";
 
 type Callback = Dispatch<SetStateAction<DocumentData>>;
 //   type InputData = { text: string; file: string };

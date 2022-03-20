@@ -1,15 +1,11 @@
 import { ReactElement } from "react";
-import { MainLayout } from "../components/layouts/MainLayout";
+import { MainLayout } from "components";
 
 function getLayout(page: ReactElement) {
-  const { providers, trendingResults, followResults } = page.props;
+  const { trendingResults, followResults } = page.props;
 
   return (
-    <MainLayout
-      providers={providers}
-      trendingResults={trendingResults}
-      followResults={followResults}
-    >
+    <MainLayout trendingResults={trendingResults} followResults={followResults}>
       {page}
     </MainLayout>
   );

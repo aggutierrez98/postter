@@ -1,25 +1,29 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
+      boxShadow: {
+        sh: "rgba(0, 0, 0, 0.25) 0px 0px 20px",
+        mh: "rgba(0, 0, 0, 0.25) 0px 0px 35px",
+      },
       colors: {
-        primary: "#261C2C",
-        secondary: "#3E2C41",
-        terciary: "#5C527F",
-        // alternative: "#6E85B2",
-        alternative: "#6285B2",
-        // background: "#191919",
-        // background: "#18001F",
-        background: "#261C2C",
-        placeholder: "#AAAAAA",
-        text: "#D9D9D9",
-        link: "#AE5EFF",
+        custom: {
+          primary: "var(--primary)",
+          secondary: "var(--secondary)",
+          terciary: "var(--terciary)",
+          alternative: "var(--alternative)",
+          placeholder: "var(--placeholder)",
+          text: "var(--text)",
+          link: "var(--link)",
+          hover: "var(--hover)",
+          link_hover: "var(--link_hover)",
+        },
       },
       fontFamily: {
         sans: ["Outfit", "sans-serif"],

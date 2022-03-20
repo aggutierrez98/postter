@@ -1,26 +1,25 @@
-import { LeftSidebar } from "components/LeftSidebar";
-import { Login } from "components/Login";
-import { ModalConfirmation } from "components/ModalConfirmation";
-import { ModalEditUser } from "components/ModalEditUser";
-import { ModalNewPostwitt } from "components/ModalNewPostwittw";
-import { ReplyModal } from "components/ReplyModal";
-import { ResponsiveLeftMenu } from "components/ResponsiveLeftMenu";
-import { RightSidebar } from "components/RightSidebar";
-import { PostContext, PostContextProps } from "context/posts/PostContext";
-import { UserContext, UserContextProps } from "context/users/UserContext";
-import { newUser, userExists } from "../../firebase/clients/users";
-import { SessionProvider, useSession } from "next-auth/react";
-import { ReactElement, useContext, useEffect, useState } from "react";
+import {
+  LeftSidebar,
+  ModalConfirmation,
+  ModalEditUser,
+  ModalNewPostwitt,
+  ReplyModal,
+  ResponsiveLeftMenu,
+  RightSidebar,
+  ModalOptions,
+} from "components";
+import { PostContext } from "context/posts/PostContext";
+import { UserContext } from "context/users/UserContext";
+import { ReactElement, useContext } from "react";
 import {
   FollowResultInterface,
   TrendingResultInterface,
-} from "../../interfaces/index";
+} from "interfaces/index";
 import Head from "next/head";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
   followResults: FollowResultInterface[];
-  providers: typeof SessionProvider;
   children: ReactElement[] | ReactElement;
 }
 
@@ -28,30 +27,17 @@ export const MainLayout = ({
   trendingResults,
   followResults,
   children,
-  providers,
 }: Props) => {
   const {
     modalNewIsOpen,
     modalReplyIsOpen,
     modalConfirmIsOpen,
     modalLeftMenuIsOpen,
-  } = useContext<PostContextProps>(PostContext);
-  const { modalIsOpen: modalEditUserOpen } =
-    useContext<UserContextProps>(UserContext);
-  const { data: session } = useSession();
-  const [exist, setExist] = useState<boolean>(true);
+  } = useContext(PostContext);
+  const { modalIsOpen: modalEditUserOpen, modalConfigIsOpen } =
+    useContext(UserContext);
+
   const origin = typeof window === "undefined" ? "" : window.location.origin;
-
-  useEffect(() => {
-    if (session) {
-      userExists(session?.user.uid, setExist);
-      if (!exist) {
-        newUser(session?.user);
-      }
-    }
-  }, [exist, session]);
-
-  if (!session) return <Login providers={providers} />;
 
   return (
     <div>
@@ -59,7 +45,7 @@ export const MainLayout = ({
         <meta property="og:title" content="Posster" />
         <meta property="og:image" content={`${origin}/banner.jpg`} />;
       </Head>
-      <main className="bg-primary min-h-screen flex justify-center mx-auto max-h-screen">
+      <main className="bg-custom-primary min-h-screen flex justify-center mx-auto max-h-screen">
         <LeftSidebar />
         <div
           id="main"
@@ -79,6 +65,7 @@ export const MainLayout = ({
         {modalEditUserOpen && <ModalEditUser />}
         {modalConfirmIsOpen && <ModalConfirmation />}
         {modalLeftMenuIsOpen && <ResponsiveLeftMenu />}
+        {modalConfigIsOpen && <ModalOptions />}
       </main>
     </div>
   );

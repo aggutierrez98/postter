@@ -8,6 +8,7 @@ module.exports = {
     domains: [
       "rb.gy",
       "lh3.googleusercontent.com",
+      "avatars.githubusercontent.com",
       "www.desktopbackground.org",
       "firebasestorage.googleapis.com",
     ],
