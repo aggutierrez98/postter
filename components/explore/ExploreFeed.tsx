@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { watchHastags } from "@firebase/index";
+import { watchHastags } from "@f/index";
 import { HashtagCard } from "components";
 import { HashtagInterface } from "interfaces";
 

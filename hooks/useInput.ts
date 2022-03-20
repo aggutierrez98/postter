@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useContext, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import { PostContext, PostContextProps } from "context";
-import { newPostwitt } from "@firebase/index";
+import { newPostwitt } from "@f/index";
 
 export const useInput = () => {
   const { setModalReplyIsOpen, setModalNewIsOpen, postwittId } =

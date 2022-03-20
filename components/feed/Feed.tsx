@@ -6,7 +6,7 @@ import defaultImage from "public/user-template.png";
 import { PostContext } from "context";
 import { PostwittInterface } from "interfaces";
 import { NewPostwitt, Postwitt } from "components";
-import { watchPostwitts, watchReposts } from "@firebase/index";
+import { watchPostwitts, watchReposts } from "@f/index";
 
 export const Feed = () => {
   const [totalPostwitts, setTotalPostwitts] = useState([]);

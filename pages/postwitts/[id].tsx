@@ -14,7 +14,7 @@ import {
   getPostwittIds,
   watchPostwitt,
   watchPostwittReplies,
-} from "@firebase/index";
+} from "@f/index";
 import { Postwitt, MainLayout } from "components";
 
 interface Props {

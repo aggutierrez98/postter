@@ -4,7 +4,7 @@ import {
   watchPostwittsByUser,
   watchPostwittsByUserByLikes,
   watchPostwittsByUserByReposts,
-} from "@firebase/index";
+} from "@f/index";
 import { PostwittsByUserList, TabFilterSelector } from "components";
 
 export const TabsShowPostwitts = ({ userData }) => {

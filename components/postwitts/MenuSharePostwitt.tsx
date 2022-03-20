@@ -3,10 +3,10 @@ import { Menu, Transition } from "@headlessui/react";
 import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
-import { bookmartPostwitt, unBookmartPostwitt } from "@firebase/index";
+import { bookmartPostwitt, unBookmartPostwitt } from "@f/index";
 import { Fragment, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { watchUser } from "@firebase/index";
+import { watchUser } from "@f/index";
 import { UserInterface } from "interfaces";
 
 const domain = "http://localhost:3000";

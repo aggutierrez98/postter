@@ -1,7 +1,7 @@
 import { DocumentData } from "firebase/firestore";
 import { Postwitt } from "components";
 import { useEffect, useState } from "react";
-import { watchBookmarkedPostwitts } from "@firebase/index";
+import { watchBookmarkedPostwitts } from "@f/index";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
 import { UserInterface } from "interfaces";

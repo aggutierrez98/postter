@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Fragment, useContext, useEffect, useState } from "react";
 import defaultImage from "public/user-template.png";
-import { watchUser } from "@firebase/index";
+import { watchUser } from "@f/index";
 import { PostContext, PostContextProps } from "context";
 import { UserInterface } from "interfaces";
 import { LeftMenuLinkList } from "components";
