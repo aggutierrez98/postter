@@ -16,6 +16,7 @@ import {
   TrendingResultInterface,
 } from "interfaces/index";
 import Head from "next/head";
+import { useToogleTheme, useTranslation } from "hooks";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -36,6 +37,8 @@ export const MainLayout = ({
   } = useContext(PostContext);
   const { modalIsOpen: modalEditUserOpen, modalConfigIsOpen } =
     useContext(UserContext);
+  useTranslation();
+  useToogleTheme();
 
   const origin = typeof window === "undefined" ? "" : window.location.origin;
 

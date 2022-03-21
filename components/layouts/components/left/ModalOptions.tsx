@@ -1,20 +1,23 @@
 import { Dialog, Listbox, Switch, Transition } from "@headlessui/react";
 import { UserContext } from "context";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useToogleTheme, useTranslation } from "hooks";
 import CheckIcon from "@mui/icons-material/Check";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const languages = [
-  { id: "en", name: "English", unavailable: false },
-  { id: "es", name: "Español", unaviable: false },
-];
-
 export const ModalOptions = () => {
   const { setModalConfigIsOpen, modalConfigIsOpen } = useContext(UserContext);
   const { themeState, toogleTheme } = useToogleTheme();
-  const { language, setLanguage, setFallbackLanguage, t } = useTranslation();
+  const { language, changeLang, langOptions, t } = useTranslation();
+
+  {
+    langOptions.filter((lang) => {
+      if (lang.id === language) {
+        return lang.name;
+      }
+    });
+  }
 
   return (
     <Transition
@@ -48,13 +51,13 @@ export const ModalOptions = () => {
               <CloseOutlinedIcon className="h-[22px] text-custom-text" />
             </div>
             <div className="text-custom-text font-bold ml-8 text-lg flex-grow">
-              Settings
+              {t("settings")}
             </div>
           </div>
 
           <div className="p-5 text-custom-text">
             <div className="flex text-custom-text">
-              <p>Switch theme</p>
+              <p>{t("switch")}</p>
               <Switch
                 checked={themeState}
                 onChange={toogleTheme}
@@ -68,14 +71,14 @@ export const ModalOptions = () => {
               </Switch>
             </div>
             <div className="w-full relative flex items-center mt-8">
-              <p>Select language</p>
-              <Listbox value={language} onChange={setLanguage}>
+              <p>{t("select language")}</p>
+              <Listbox value={language} onChange={changeLang}>
                 <div className="relative mt-1 ml-5">
                   <Listbox.Button
                     className="relative w-[250px] py-2 pl-3 pr-10 text-left bg-custom-primary rounded-lg shadow-xl cursor-default 
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75  sm:text-sm"
                   >
-                    <span className="block truncate">{language.name}</span>
+                    <span className="block truncate">{language?.name}</span>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                       <ExpandMoreIcon
                         className="w-5 h-5 text-custom-text"
@@ -93,11 +96,11 @@ export const ModalOptions = () => {
                       className="absolute w-full py-1 mt-1 overflow-auto text-base bg-custom-primary rounded-md shadow-lg max-h-60 ring-1 ç
                       ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                     >
-                      {languages.map((lang, langId) => (
+                      {langOptions.map((lang, langId) => (
                         <Listbox.Option
                           key={langId}
                           className={({ active }) =>
-                            `cursor-default select-none relative py-2 pl-10 pr-4 ${
+                            `cursor-pointer select-none relative py-2 pl-10 pr-4 ${
                               active
                                 ? "text-custom-alternative bg-[#6285d2] bg-opacity-20"
                                 : "text-custom-text"

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { formatDate } from "./useDateTimeFormat";
 
 const DEFAULT_LANGUAGE = "en";
+const ISSERVER = typeof window === "undefined";
 
 const isRelativeTimeFormatSupported =
   typeof Intl !== "undefined" && Intl.RelativeTimeFormat;
@@ -29,9 +30,11 @@ const getDateDiffs = (
 };
 
 export const useTimeAgo = (timestamp: Date): string | Date => {
-  if (!timestamp) {
-    return "";
-  }
+  let lang = DEFAULT_LANGUAGE;
+
+  // // if (!timestamp) {
+  // //   return "";
+  // // }
 
   const [timeago, setTimeago] = useState<{
     value: number;
@@ -53,7 +56,11 @@ export const useTimeAgo = (timestamp: Date): string | Date => {
     return formatDate(timestamp);
   }
 
-  const rtf = new Intl.RelativeTimeFormat(DEFAULT_LANGUAGE, { style: "short" });
+  if (!ISSERVER) {
+    lang = localStorage.getItem("lang");
+  }
+
+  const rtf = new Intl.RelativeTimeFormat(lang, { style: "short" });
 
   const { value, unit }: { value: any; unit: any } = timeago;
 

@@ -8,6 +8,7 @@ import {
 } from "interfaces";
 import { getUser, watchUser, getUsersIds } from "@f/index";
 import { Profile, MainLayout } from "components";
+import { useTranslation } from "hooks";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -22,6 +23,7 @@ export default function UserPage({
 }: Props) {
   const [userInfo, setUserInfo] = useState<UserInterface>();
   useEffect(() => watchUser(userData.uid, setUserInfo), [userData?.uid]);
+  const { t } = useTranslation();
 
   return (
     <MainLayout trendingResults={trendingResults} followResults={followResults}>
@@ -30,9 +32,10 @@ export default function UserPage({
           {userInfo ? userInfo.name : userData.name} (
           {userInfo ? userInfo.tag : userData.tag}) / Postter
         </title>
+        <meta name="description" content={t(`${userInfo?.name} profile`)} />
         <meta
           property="og:description"
-          content={`See ${userInfo?.name} profile`}
+          content={t(`${userInfo?.name} profile`)}
         />
       </Head>
       <Profile userData={userInfo ? userInfo : userData} />

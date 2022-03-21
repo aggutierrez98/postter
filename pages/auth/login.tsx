@@ -13,6 +13,7 @@ import { isEmail } from "utils/validations";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { AuthLayout } from "components/layouts/AuthLayout";
+import { useTranslation } from "hooks";
 
 const emailPattern =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -24,6 +25,7 @@ type FormData = {
 
 const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -54,7 +56,7 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
   };
 
   return (
-    <AuthLayout title={"Login page"}>
+    <AuthLayout title={t("login_page")}>
       <form
         className=" flex flex-col items-start w-4/5 sm:w-[550px] pt-10 shadow-mh px-5 border-[1px] border-[#1d9bf045] rounded-xl"
         onSubmit={handleSubmit(onLoginUser)}
@@ -67,7 +69,7 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
           <input
             autoComplete="off"
             type="text"
-            placeholder="Email"
+            placeholder={t("email")}
             className={`custom-input text-black w-full h-12 p-4 focus:outline-hidden focus-visible:outline-hidden outline-0 placeholder-gray-300 
               placeholder-opacity-0 basic-3 ${
                 errors.email ? "basic-3-error" : ""
@@ -88,7 +90,7 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
               errors.email ? "text-red-600" : "text-custom-terciary"
             }  text-opacity-80 absolute left-3 top-3 px-1 transition duration-200 input-text`}
           >
-            Email
+            {t("email")}
           </span>
           {errors.email && (
             <p className="text-sm absolute text-red-600 dark:text-red-500 p-4 pt-1 truncate">
@@ -105,7 +107,7 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
           <input
             autoComplete="off"
             type="password"
-            placeholder="Password"
+            placeholder={t("password")}
             className={`custom-input text-black w-full h-12 p-4 focus:outline-hidden focus-visible:outline-hidden outline-0 placeholder-gray-300 
               placeholder-opacity-0 basic-3 ${
                 errors.password ? "basic-3-error" : ""
@@ -122,7 +124,7 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
               errors.password ? "text-red-600" : "text-custom-terciary"
             }  text-opacity-80 absolute left-3 top-3 px-1 transition duration-200 input-text`}
           >
-            Password
+            {t("password")}
           </span>
           {errors.password && (
             <p className="text-sm absolute text-red-600 dark:text-red-500 p-4 pt-1 truncate">
@@ -139,7 +141,7 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
           type="submit"
           //   disabled={isSubmitting}
         >
-          LOGIN
+          {t("login")}
         </button>
 
         <div className="self-end flex text-[18px] mt-8">
@@ -148,7 +150,7 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
               className="ml-2 underline dark:text-custom-link text-custom-link mb-8 focus-visible:outline-custom-light dark:focus-visible:outline-custom-dark
               hover:opacity-70 transition-all"
             >
-              Dont have account?
+              {t("dont_have_account")}
             </a>
           </Link>
         </div>
@@ -170,7 +172,7 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
                     duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"
                 ></span>
                 <span className="relative w-full text-left text-black transition-colors duration-300 ease-in-out group-hover:text-white">
-                  Sign in with {provider?.name}
+                  {t("sing_in_with")} {provider?.name}
                 </span>
               </button>
             </div>

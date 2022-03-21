@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { AuthLayout } from "components/layouts/AuthLayout";
 import { isEmail } from "utils/validations";
 import Link from "next/link";
+import { useTranslation } from "hooks";
 
 type FormData = {
   name: string;
@@ -19,6 +20,7 @@ const emailPattern =
 
 const RegisterPage = () => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -38,7 +40,7 @@ const RegisterPage = () => {
     if (res.error) {
       if (res.error === "auth/email-already-in-use") {
         setError("email", {
-          message: "Email already in use",
+          message: t("email error_already_in_use"),
         });
       }
     } else {
@@ -47,7 +49,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <AuthLayout title={"Login page"}>
+    <AuthLayout title={t("register_page")}>
       <form
         className=" flex flex-col items-start w-4/5 sm:w-[550px] shadow-mh pt-10 px-5 border-[1px] border-[#1d9bf045] rounded-xl"
         onSubmit={handleSubmit(onRegisterForm)}
@@ -58,7 +60,7 @@ const RegisterPage = () => {
           <input
             autoComplete="off"
             type="text"
-            placeholder="Name"
+            placeholder={t("name")}
             className={`custom-input text-black w-full h-12 p-4 focus:outline-hidden focus-visible:outline-hidden outline-0 placeholder-gray-300 
               placeholder-opacity-0 basic-3 ${
                 errors.name ? "basic-3-error" : ""
@@ -66,15 +68,15 @@ const RegisterPage = () => {
             {...register("name", {
               required: {
                 value: true,
-                message: "Name is required",
+                message: t("nombre error_is_required"),
               },
               minLength: {
                 value: 6,
-                message: "Name should be more than 6 characters",
+                message: t("nombre error_low_length"),
               },
               maxLength: {
                 value: 30,
-                message: "Name should be less than 30 characters",
+                message: t("nombre error_high_length"),
               },
             })}
           />
@@ -83,7 +85,7 @@ const RegisterPage = () => {
               errors.name ? "text-red-600" : "text-custom-terciary"
             }  text-opacity-80 absolute left-3 top-3 px-1 transition duration-200 input-text`}
           >
-            Name
+            {t("name")}
           </span>
           {errors.name && (
             <p className="text-sm absolute text-red-600 dark:text-red-500 p-4 pt-1 truncate">
@@ -98,7 +100,7 @@ const RegisterPage = () => {
           <input
             autoComplete="off"
             type="text"
-            placeholder="Email"
+            placeholder={t("email")}
             className={`custom-input text-black w-full h-12 p-4 focus:outline-hidden focus-visible:outline-hidden outline-0 placeholder-gray-300 
               placeholder-opacity-0 basic-3 ${
                 errors.email ? "basic-3-error" : ""
@@ -106,11 +108,11 @@ const RegisterPage = () => {
             {...register("email", {
               required: {
                 value: true,
-                message: "Email is required",
+                message: t("email error_is_required"),
               },
               pattern: {
                 value: emailPattern,
-                message: "Email should be valid",
+                message: t("email error_not_valid"),
               },
             })}
           />
@@ -119,7 +121,7 @@ const RegisterPage = () => {
               errors.email ? "text-red-600" : "text-custom-terciary"
             }  text-opacity-80 absolute left-3 top-3 px-1 transition duration-200 input-text`}
           >
-            Email
+            {t("email")}
           </span>
           {errors.email && (
             <p className="text-sm absolute text-red-600 dark:text-red-500 p-4 pt-1 truncate">
@@ -134,7 +136,7 @@ const RegisterPage = () => {
           <input
             autoComplete="off"
             type="password"
-            placeholder="Password"
+            placeholder={t("password")}
             className={`custom-input text-black w-full h-12 p-4 focus:outline-hidden focus-visible:outline-hidden outline-0 placeholder-gray-300 
               placeholder-opacity-0 basic-3 ${
                 errors.password ? "basic-3-error" : ""
@@ -142,7 +144,15 @@ const RegisterPage = () => {
             {...register("password", {
               required: {
                 value: true,
-                message: "Password is required",
+                message: t("password error_is_required"),
+              },
+              minLength: {
+                value: 6,
+                message: t("password error_low_length"),
+              },
+              maxLength: {
+                value: 30,
+                message: t("password error_high_length"),
               },
             })}
           />
@@ -151,7 +161,7 @@ const RegisterPage = () => {
               errors.password ? "text-red-600" : "text-custom-terciary"
             }  text-opacity-80 absolute left-3 top-3 px-1 transition duration-200 input-text`}
           >
-            Password
+            {t("password")}
           </span>
           {errors.password && (
             <p className="text-sm absolute text-red-600 dark:text-red-500 p-4 pt-1 truncate">
@@ -166,7 +176,7 @@ const RegisterPage = () => {
           type="submit"
           //   disabled={isSubmitting}
         >
-          REGISTER
+          {t("register")}
         </button>
 
         <div className="self-end flex text-[18px] mt-8">
@@ -175,7 +185,7 @@ const RegisterPage = () => {
               className="ml-2 underline dark:text-custom-link text-custom-link mb-8 focus-visible:outline-custom-light dark:focus-visible:outline-custom-dark 
               hover:opacity-70"
             >
-              Already registered?
+              {t("already_have_account")}
             </a>
           </Link>
         </div>

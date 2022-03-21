@@ -2,6 +2,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 import { useEffect, useState } from "react";
 import { RightInfoList } from "components";
+import { useTranslation } from "hooks";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -10,6 +11,7 @@ interface Props {
 
 export const RightSidebar = ({ trendingResults, followResults }: Props) => {
   const [height, setHeight] = useState(0);
+  const { t } = useTranslation();
 
   const updateHeight = () => {
     setHeight(document?.getElementById("main")?.scrollHeight);
@@ -34,7 +36,7 @@ export const RightSidebar = ({ trendingResults, followResults }: Props) => {
             type="text"
             className="bg-transparent placeholder-custom-placeholder outline-none text-custom-text absolute inset-0 pl-12 border
             border-transparent w-full focus:border-custom-terciary rounded-full focus:bg-background focus:shadow-lg"
-            placeholder="Search Postter"
+            placeholder={t("search postter")}
           />
         </div>
       </div>

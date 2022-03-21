@@ -26,6 +26,7 @@ export default function HashtagPage({
     <MainLayout trendingResults={trendingResults} followResults={followResults}>
       <Head>
         <title>{hashtag} / Postter</title>
+        <meta property="description" content={`${hashtag} postwitts`} />
         <meta property="og:description" content={`${hashtag} postwitts`} />
       </Head>
       <HashtagPostwittsList hashtag={hashtag} postwitts={hastagPostwitts} />

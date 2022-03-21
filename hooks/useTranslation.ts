@@ -1,34 +1,54 @@
-import { useLocalStorage } from "hooks/useStorage";
-import * as translations from "translations";
+import { useEffect, useState } from "react";
+import { Language } from "interfaces";
+import { languages } from "translations";
+
+const langOptions = [];
+for (const lan of languages) {
+  langOptions.push(lan);
+}
+
+const ISSERVER = typeof window === "undefined";
 
 export const useTranslation = () => {
-  const [language, setLanguage] = useLocalStorage("language", "en");
-  const [fallbackLanguage, setFallbackLanguage] = useLocalStorage(
-    "fallbackLanguage",
-    "en"
-  );
+  const [language, setLanguage] = useState<Language>(languages.en);
 
-  const translate = (key) => {
-    const keys = key.split(".");
+  let localLang = "en";
 
-    return (
-      getNestedTranslation(language, keys) ??
-      getNestedTranslation(fallbackLanguage, keys) ??
-      key
-    );
+  if (!ISSERVER) {
+    localLang = localStorage?.getItem("lang") || "en";
+  }
+
+  useEffect(() => {
+    setLanguage(languages[localLang]);
+  }, [localLang]);
+
+  const changeLang = (langConf: Language) => {
+    localStorage?.setItem("lang", langConf.id);
+    setLanguage(languages[langConf.id]);
+  };
+
+  const getTranslation = (key: string) => {
+    const keys = key.split(" ");
+    return capitalizeFirstLetter(getNestedTranslation(language, keys));
   };
 
   return {
     language,
     setLanguage,
-    fallbackLanguage,
-    setFallbackLanguage,
-    t: translate,
+    changeLang,
+    langOptions,
+    t: getTranslation,
   };
 };
 
-function getNestedTranslation(language, keys) {
-  return keys.reduce((obj, key) => {
-    return obj?.[key];
-  }, translations[language]);
-}
+const getNestedTranslation = (language: Language, keys: string[]) => {
+  return keys
+    .map((key) => {
+      return language.words[key] ?? key;
+    })
+    .join(" ");
+};
+
+const capitalizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};

@@ -10,6 +10,7 @@ import {
 } from "@f/index";
 import Image from "next/image";
 import { LoadingCircle } from "components/layouts";
+import { useTranslation } from "hooks";
 
 export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
   const {
@@ -21,6 +22,7 @@ export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
   const { setLoadingChanges } = useContext(UserContext);
   const { data: session } = useSession();
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <Transition
@@ -54,7 +56,7 @@ export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
             <div className="flex flex-col mt-[24px]">
               <button
                 onClick={async () => {
-                  if (modalConfirmData.action === "Delete") {
+                  if (modalConfirmData.action === "delete") {
                     setLoadingChanges(true);
                     await deletePostwitt(postwittId);
                     if (postPage) router.push("/");
@@ -62,14 +64,14 @@ export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
                     setModalConfirmIsOpen(false);
                   }
 
-                  if (modalConfirmData.action === "Pin on") {
+                  if (modalConfirmData.action === "pin_on") {
                     setLoadingChanges(true);
                     await userPinupPostwitt(postwittId, session.user.uid);
                     setLoadingChanges(false);
                     setModalConfirmIsOpen(false);
                   }
 
-                  if (modalConfirmData.action === "Pin off") {
+                  if (modalConfirmData.action === "pin_off") {
                     setLoadingChanges(true);
                     await userPinoffPostwitt(session.user.uid);
                     setLoadingChanges(false);
@@ -82,7 +84,7 @@ export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
                     : "bg-custom-alternative"
                 } rounded-3xl mb-[12px] text-white`}
               >
-                {modalConfirmData.action}
+                {t(modalConfirmData.action)}
               </button>
               <button
                 onClick={() => {
@@ -90,7 +92,7 @@ export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
                 }}
                 className="w-[256px] h-[44px] bg-custom-placeholder rounded-3xl text-custom-primary"
               >
-                Cancel
+                {t("cancel")}
               </button>
             </div>
           </div>

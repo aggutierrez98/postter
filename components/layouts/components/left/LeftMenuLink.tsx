@@ -4,7 +4,6 @@ import { ComponentProps, ReactElement } from "react";
 interface Props {
   text: string;
   route?: string;
-  // eslint-disable-next-line no-unused-vars
   Icon: (props: ComponentProps<"svg">) => ReactElement;
 }
 

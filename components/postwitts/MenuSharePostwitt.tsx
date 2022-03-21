@@ -1,4 +1,4 @@
-import { useCopyToClipboard } from "hooks";
+import { useCopyToClipboard, useTranslation } from "hooks";
 import { Menu, Transition } from "@headlessui/react";
 import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
@@ -23,6 +23,7 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
     success: false,
     action: null,
   });
+  const { t } = useTranslation();
 
   useEffect(
     () => watchUser(session?.user.uid, setUserData),
@@ -102,7 +103,7 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
                 >
                   <BookmarkAddOutlinedIcon className="mr-3" />
                   <span className="w-full text-left">
-                    Remove from bookmarts
+                    {t("remove from bookmarks")}
                   </span>
                 </Menu.Item>
               ) : (
@@ -131,7 +132,9 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
                   className="hover:text-custom-text my-3 flex items-center w-full truncate"
                 >
                   <BookmarkAddOutlinedIcon className="mr-3" />
-                  <span className="w-full text-left">Add to bookmarts</span>
+                  <span className="w-full text-left">
+                    {t("add to bookmarks")}
+                  </span>
                 </Menu.Item>
               )}
 
@@ -151,7 +154,9 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
                 className="hover:text-custom-text my-3 flex items-center w-full truncate"
               >
                 <ContentCopyOutlinedIcon className="mr-3" />
-                <span className="w-full text-left">Copy Postwitt link</span>
+                <span className="w-full text-left">
+                  {t("copy postwitt_link")}
+                </span>
               </Menu.Item>
             </Menu.Items>
           </Transition>
@@ -161,11 +166,11 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
               className="fixed bottom-[32px] left-[32px] bg-custom-link text-custom-primary p-[12px] rounded-[3px] z-[2] 
               text-[18px] pointer-events-none"
             >
-              {operation.action === "clipboard" && "Copied to clipboard"}
+              {operation.action === "clipboard" && t("postwitt copy_clipboard")}
               {operation.action === "bookmarked" &&
-                "Postwitt added to bookmarks"}
+                t("postwitt added_bookmarks")}
               {operation.action === "unbookmarked" &&
-                " Postwitt removed from bookmarks"}
+                t("postwitt removed_bookmarks")}
             </div>
           )}
         </>

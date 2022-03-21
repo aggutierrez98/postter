@@ -30,6 +30,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <meta name="author" content="Agustin Gutierrez"></meta>
+          <meta name="keywords" content="Postter, postwitts, posts"></meta>
         </Head>
         <body>
           <Main />

@@ -8,6 +8,7 @@ import { watchUser } from "@f/index";
 import { PostContext, PostContextProps } from "context";
 import { UserInterface } from "interfaces";
 import { LeftMenuLinkList } from "components";
+import { useTranslation } from "hooks";
 
 export const ResponsiveLeftMenu = () => {
   const { modalLeftMenuIsOpen, setModalLeftMenuIsOpen } =
@@ -16,7 +17,7 @@ export const ResponsiveLeftMenu = () => {
     data: { user },
   } = useSession();
   const [userInfo, setUserInfo] = useState<UserInterface>(user);
-
+  const { t } = useTranslation();
   useEffect(() => watchUser(user.uid, setUserInfo), [user]);
 
   return (
@@ -51,7 +52,7 @@ export const ResponsiveLeftMenu = () => {
             <div className=" bg-custom-primary shadow-xl transform transition-all sm:my-8 sm:align-middle w-[280px] h-screen">
               <div className="flex items-center justify-between px-1.5 py-2 border-b border-custom-secondary">
                 <h3 className="text-custom-text text-lg font-bold ml-2 truncate">
-                  Account Information
+                  {t("account")}
                 </h3>
                 <div
                   className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0"
@@ -88,13 +89,17 @@ export const ResponsiveLeftMenu = () => {
                     <span className="text-custom-text mr-1 font-bold">
                       {userInfo.following ? userInfo.following.length : 0}
                     </span>
-                    <span className="text-custom-placeholder">Following</span>
+                    <span className="text-custom-placeholder">
+                      {t("following")}
+                    </span>
                   </span>
                   <span className="ml-5">
                     <span className="text-custom-text mr-1 font-bold">
                       {userInfo.followers ? userInfo.followers.length : 0}
                     </span>
-                    <span className="text-custom-placeholder">Followers</span>
+                    <span className="text-custom-placeholder">
+                      {t("followers")}
+                    </span>
                   </span>
                 </div>
                 <LeftMenuLinkList userInfo={userInfo} />

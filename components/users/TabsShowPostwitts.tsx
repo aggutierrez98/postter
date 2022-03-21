@@ -6,6 +6,7 @@ import {
   watchPostwittsByUserByReposts,
 } from "@f/index";
 import { PostwittsByUserList, TabFilterSelector } from "components";
+import { useTranslation } from "hooks";
 
 export const TabsShowPostwitts = ({ userData }) => {
   const [totalPostwitts, setTotalPostwitts] = useState([]);
@@ -13,6 +14,7 @@ export const TabsShowPostwitts = ({ userData }) => {
   const [reposts, setReposts] = useState([]);
   const [postwitts, setPostwitts] = useState([]);
   const [index, setIndex] = useState(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     watchPostwittsByUser(userData.uid, setTotalPostwitts);
@@ -94,18 +96,18 @@ export const TabsShowPostwitts = ({ userData }) => {
             {({ selected }) => (
               <TabFilterSelector
                 selected={selected}
-                title="Postwitts and answers"
+                title={t("postwitts and answers")}
               />
             )}
           </Tab>
           <Tab as="div">
             {({ selected }) => (
-              <TabFilterSelector selected={selected} title="Media" />
+              <TabFilterSelector selected={selected} title={t("media")} />
             )}
           </Tab>
           <Tab as="div">
             {({ selected }) => (
-              <TabFilterSelector selected={selected} title="Likes" />
+              <TabFilterSelector selected={selected} title={t("likes")} />
             )}
           </Tab>
         </Tab.List>

@@ -1,4 +1,5 @@
 import { MainLayout } from "components/layouts/MainLayout";
+import { useTranslation } from "hooks";
 import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 import { GetStaticProps } from "next";
 import Head from "next/head";
@@ -9,25 +10,24 @@ interface Props {
   followResults: FollowResultInterface[];
 }
 
-const custom404 = ({ trendingResults, followResults }: Props) => {
+const Custom404 = ({ trendingResults, followResults }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <MainLayout trendingResults={trendingResults} followResults={followResults}>
       <Head>
-        <title>Page not found</title>
-        <meta
-          name="description"
-          content="Page you are looking for is not found"
-        />
+        <title>{t("page_not_found")}</title>
+        <meta name="description" content={t("meta_not_found_description")} />
         <meta
           property="og:description"
-          content="Page you are looking for is not found"
+          content={t("meta_not_found_description")}
         />
       </Head>
       <div className="flex items-center justify-center flex-col h-[250px] w-full">
-        <h2 className="text-custom-text text-2xl">Page not found</h2>
+        <h2 className="text-custom-text text-2xl">{t("page_not_found")}</h2>
         <Link href="/" passHref>
           <button className="mt-4 flex py-2 px-4 bg-custom-alternative rounded-full text-custom-text hover:opacity-80 transition-all">
-            Go back to main page
+            {t("back_to_main_page")}
           </button>
         </Link>
       </div>
@@ -51,4 +51,4 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default custom404;
+export default Custom404;

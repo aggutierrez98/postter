@@ -7,6 +7,7 @@ import { PostContext } from "context";
 import { PostwittInterface } from "interfaces";
 import { NewPostwitt, Postwitt } from "components";
 import { watchPostwitts, watchReposts } from "@f/index";
+import { useTranslation } from "hooks";
 
 export const Feed = () => {
   const [totalPostwitts, setTotalPostwitts] = useState([]);
@@ -14,6 +15,7 @@ export const Feed = () => {
   const [postwitts, setPostwitts] = useState([]);
   const { data: session } = useSession();
   const { setModalLeftMenuIsOpen } = useContext(PostContext);
+  const { t } = useTranslation();
 
   useEffect(() => watchPostwitts(setTotalPostwitts), []);
   useEffect(() => watchReposts(setReposts), []);
@@ -40,7 +42,7 @@ export const Feed = () => {
             alt=""
           />
         </span>
-        <h2 className="text-lg sm:text-xl font-bold">Home</h2>
+        <h2 className="text-lg sm:text-xl font-bold">{t("home")}</h2>
         <div className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0 ml-auto">
           <AutoAwesomeOutlinedIcon className="h-5 text-custom-text" />
         </div>

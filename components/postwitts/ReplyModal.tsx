@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Dialog, Transition } from "@headlessui/react";
 import { PostContext, PostContextProps } from "context";
-import { useInput } from "hooks";
+import { useInput, useTranslation } from "hooks";
 import {
   AddImage,
   NewPostwittActions,
@@ -21,6 +21,7 @@ export const ReplyModal = () => {
   const { modalReplyIsOpen, setModalReplyIsOpen, postwittId } =
     useContext<PostContextProps>(PostContext);
   const [postwitt, setPostwitt] = useState<PostwittInterface>();
+  const { t } = useTranslation();
 
   const {
     addImage,
@@ -52,7 +53,7 @@ export const ReplyModal = () => {
       >
         <div
           className="items-start justify-center min-h-[800px] sm:min-h-screen phone:pt-4 phone:px-4 pb-20
-         text-center flex p-0"
+            text-center flex p-0"
         >
           <Transition.Child
             as={Fragment}
@@ -77,7 +78,7 @@ export const ReplyModal = () => {
           >
             <div
               className="flex flex-col align-bottom bg-custom-primary rounded-2xl text-left phone:shadow-xl 
-            transform transition-all phone:my-8 max-w-[550px] phone:h-auto h-screen w-full"
+                transform transition-all phone:my-8 max-w-[550px] phone:h-auto h-screen w-full"
             >
               <div className="flex items-center px-1.5 py-2 border-b border-custom-secondary w-full">
                 <div
@@ -144,7 +145,7 @@ export const ReplyModal = () => {
                       <TextAreaAutosize
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                        placeholder="Postwitt your reply"
+                        placeholder={t("postwitt_reply")}
                         rows="2"
                         className="bg-transparent outline-none text-custom-text text-lg placeholder-custom-placeholder tracking-wide 
                         w-full min-h-[80px]"

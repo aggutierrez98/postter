@@ -6,6 +6,7 @@ import {
   FollowResultInterface,
 } from "interfaces/index";
 import { getToken } from "next-auth/jwt";
+import { useTranslation } from "hooks";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -13,19 +14,14 @@ interface Props {
 }
 
 export default function Home({ trendingResults, followResults }: Props) {
+  const { t } = useTranslation();
+
   return (
     <MainLayout trendingResults={trendingResults} followResults={followResults}>
       <Head>
-        <title>Home / Postter</title>
-        <meta
-          name="description"
-          content="Get in touch making posts with your friends"
-        />
-        <meta name="keywords" content="Postter, postwitts, posts" />/
-        <meta
-          property="og:description"
-          content="Get in touch making posts with your friends"
-        />
+        <title>{t("home")} / Postter</title>
+        <meta name="description" content={t("meta_home_description")} />
+        <meta property="og:description" content={t("meta_home_description")} />
       </Head>
       <Feed />
     </MainLayout>

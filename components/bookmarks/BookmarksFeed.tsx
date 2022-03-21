@@ -5,6 +5,7 @@ import { watchBookmarkedPostwitts } from "@f/index";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
 import { UserInterface } from "interfaces";
+import { useTranslation } from "hooks";
 
 interface Props {
   bookmarks: string[];
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const BookmarksFeed = ({ bookmarks, userInfo }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [postwitts, setPostwitts] = useState([]);
 
@@ -36,7 +38,7 @@ export const BookmarksFeed = ({ bookmarks, userInfo }: Props) => {
           <ArrowBackIcon className="h-5 text-custom-text" />
         </div>
         <div className="flex flex-col mb-1">
-          Bookmarks
+          {t("bookmarks")}
           <span className="text-custom-placeholder text-sm leading-[8px]">
             @{userInfo?.tag}
           </span>

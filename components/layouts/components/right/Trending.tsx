@@ -1,12 +1,15 @@
 import { TrendingResultInterface } from "interfaces";
 import Image from "next/image";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import { useTranslation } from "hooks";
 
 interface Props {
   result: TrendingResultInterface;
 }
 
 export const Trending = ({ result }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-2 cursor-pointer transition duration-200 ease-out flex 
@@ -20,7 +23,7 @@ export const Trending = ({ result }: Props) => {
           {result.description}
         </h6>
         <p className="text-custom-terciary text-xs font-medium max-w-[250px]">
-          Trending with{" "}
+          {t("trending with")}{" "}
           {result.tags.map((tag, index) => (
             <span className="tag" key={index}>
               {tag}

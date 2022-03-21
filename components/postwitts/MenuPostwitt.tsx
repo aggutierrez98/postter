@@ -8,6 +8,7 @@ import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import { followUser, unfollowUser, watchUser } from "@f/index";
 import { UserInterface } from "interfaces";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import { useTranslation } from "hooks";
 
 interface Props {
   userId: string;
@@ -22,6 +23,7 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [userData, setUserData] = useState<UserInterface>();
   const { data: session } = useSession();
+  const { t } = useTranslation();
 
   useEffect(() => watchUser(userId, setUserData), [userId]);
 
@@ -69,10 +71,9 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                     as="button"
                     onClick={() => {
                       setModalConfirmData({
-                        title: "Confirm delete postwitt?",
-                        description: `This action cannot be reversed, and you will be removed from your profile, the timeline of accounts 
-                    that follow you, and Postter search results.`,
-                        action: "Delete",
+                        title: `${t("confirm delete postwitt")}?`,
+                        description: t("CD"),
+                        action: "delete",
                         danger: true,
                       });
                       setPostwittId(postwittId);
@@ -81,17 +82,16 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                     className="hover:text-red-600 my-3 flex items-center w-full truncate text-red-800"
                   >
                     <DeleteOutlinedIcon className="mr-3" />
-                    <span className="w-full text-left">Delete</span>
+                    <span className="w-full text-left">{t("delete")}</span>
                   </Menu.Item>
                   {pinned ? (
                     <Menu.Item
                       as="button"
                       onClick={() => {
                         setModalConfirmData({
-                          title: "Confirm pin off postwitt?",
-                          description:
-                            "This will no longer automatically appear at the top of your profile",
-                          action: "Pin off",
+                          title: `${t("confirm pin_off postwitt")}?`,
+                          description: t("CUP"),
+                          action: "pin_off",
                           danger: false,
                         });
                         setPostwittId(postwittId);
@@ -100,17 +100,18 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                       className="hover:text-custom-text my-3 flex items-center w-full truncate"
                     >
                       <PushPinOutlinedIcon className="mr-3" />
-                      <span className="w-full text-left">Pin off Postwitt</span>
+                      <span className="w-full text-left">
+                        {t("pin_off")} Postwitt
+                      </span>
                     </Menu.Item>
                   ) : (
                     <Menu.Item
                       as="button"
                       onClick={() => {
                         setModalConfirmData({
-                          title: "Confirm pin on postwitt?",
-                          description:
-                            "This Postwitt will appear at the top of your profile and will replace any other Postwitts you've previously pinned.",
-                          action: "Pin on",
+                          title: `${t("confirm pin_on postwitt")}?`,
+                          description: t("CP"),
+                          action: "pin_on",
                           danger: false,
                         });
                         setPostwittId(postwittId);
@@ -119,7 +120,9 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                       className="hover:text-custom-text my-3 flex items-center w-full truncate"
                     >
                       <PushPinOutlinedIcon className="mr-3" />
-                      <span className="w-full text-left">Pin on Postwitt</span>
+                      <span className="w-full text-left">
+                        {t("pin_on")} Postwitt
+                      </span>
                     </Menu.Item>
                   )}
                 </>
@@ -132,7 +135,7 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                       className="hover:text-custom-text my-3 flex items-center w-full truncate"
                     >
                       <PersonAddAltOutlinedIcon className="mr-3" />
-                      <span className="w-full text-left">Unfollow</span>
+                      <span className="w-full text-left">{t("unfollow")}</span>
                     </Menu.Item>
                   ) : (
                     <Menu.Item
@@ -141,7 +144,7 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                       className="hover:text-custom-text my-3 flex items-center w-full truncate"
                     >
                       <PersonAddAltOutlinedIcon className="mr-3" />
-                      <span className="w-full text-left">Follow</span>
+                      <span className="w-full text-left">{t("follow")}</span>
                     </Menu.Item>
                   )}
                 </>

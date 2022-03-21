@@ -3,6 +3,7 @@ import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 import { GetStaticProps } from "next";
 import { getHashtags } from "@f/index";
 import { ExploreFeed, MainLayout } from "components";
+import { useTranslation } from "hooks";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -18,13 +19,16 @@ export default function BookmarksPage({
   trendingResults,
   followResults,
 }: Props) {
+  const { t } = useTranslation();
+
   return (
     <MainLayout trendingResults={trendingResults} followResults={followResults}>
       <Head>
-        <title>Explore / Postter</title>
+        <title>{t("explore")} / Postter</title>
+        <meta name="description" content={t("meta_explore_description")} />
         <meta
           property="og:description"
-          content="Search for most popular hashtags"
+          content={t("meta_explore_description")}
         />
       </Head>
       <ExploreFeed hashtagsFromServer={hashtags} />

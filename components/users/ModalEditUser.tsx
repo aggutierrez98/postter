@@ -6,7 +6,7 @@ import LocalSeeOutlinedIcon from "@mui/icons-material/LocalSeeOutlined";
 import defaultBanner from "public/banner.jpg";
 import defaultImage from "public/user-template.png";
 import { InputCustom } from "components";
-import { useEditUser } from "hooks";
+import { useEditUser, useTranslation } from "hooks";
 import { watchUser } from "@f/index";
 import { UserContext } from "context";
 import { LoadingCircle } from "components";
@@ -28,6 +28,7 @@ export const ModalEditUser = () => {
   } = useEditUser();
 
   useEffect(() => watchUser(userId, setUserValues), [userId, setUserValues]);
+  const { t } = useTranslation();
 
   return (
     <Transition
@@ -64,20 +65,20 @@ export const ModalEditUser = () => {
                 <CloseOutlinedIcon className="h-[22px] text-custom-text" />
               </div>
               <div className="text-custom-text font-bold ml-8 text-lg flex-grow">
-                Edit Profile
+                {t("edit profile")}
               </div>
               <button
                 type="submit"
                 className="rounded-3xl border-text border px-3 mr-2 bg-custom-text text-custom-primary font-bold ml-5 text-lg"
               >
-                Save
+                {t("save")}
               </button>
             </div>
 
             <div className="flex pt-5 pb-2.5 justify-center flex-col items-center relative">
               <div className="flex justify-center items-center">
                 <div
-                  title="Add Image"
+                  title={t("add image")}
                   className="cursor-pointer mr-16 z-[1] rounded-full absolute w-[50px] h-[50px] bg-gray-400 bg-opacity-80 flex items-center 
                   justify-center text-custom-text hover:bg-opacity-60"
                   onClick={() => bannerImagePickerRef.current.click()}
@@ -92,7 +93,7 @@ export const ModalEditUser = () => {
                   <LocalSeeOutlinedIcon />
                 </div>
                 <div
-                  title="Delete Image"
+                  title={t("delete image")}
                   onClick={deleteBannerImg}
                   className="cursor-pointer ml-16 z-[1] rounded-full absolute w-[50px] h-[50px] bg-gray-400 bg-opacity-80 flex items-center 
                   justify-center text-custom-text hover:bg-opacity-60"
@@ -115,7 +116,7 @@ export const ModalEditUser = () => {
                     items-center justify-center"
               >
                 <div
-                  title="Change Profile Image"
+                  title={t("change_profile_image")}
                   className="cursor-pointer z-[1] rounded-full absolute w-[50px] h-[50px] bg-gray-400 bg-opacity-80 flex items-center 
                   justify-center text-custom-text  hover:bg-opacity-60"
                   onClick={() => profileImagePickerRef.current.click()}
@@ -148,7 +149,7 @@ export const ModalEditUser = () => {
                   containerClassName="relative my-2 h-14 rounded-[4px] text-custom-placeholder text-lg border-custom-placeholder border"
                   className="pt-6 px-4 placeholder-custom-placeholder text-custom-text tracking-wide w-full bg-transparent outline-none"
                   focusClasses="text-[#ae5eff] border-custom-link"
-                  label="Name"
+                  label={t("name")}
                 />
                 <InputCustom
                   autoComplete="off"
@@ -163,7 +164,7 @@ export const ModalEditUser = () => {
                   className="resize-none h-[120px] pt-[25px] px-4 placeholder-custom-placeholder text-custom-text tracking-wide w-full
                       bg-transparent outline-none text-ellipsis"
                   focusClasses="text-[#ae5eff] border-custom-link"
-                  label="Biography"
+                  label={t("biography")}
                   textarea
                 />
                 <InputCustom
@@ -177,7 +178,7 @@ export const ModalEditUser = () => {
                   containerClassName="relative my-2 h-14 rounded-[4px] text-custom-placeholder text-lg border-custom-placeholder border"
                   className="pt-6 px-4 placeholder-custom-placeholder text-custom-text tracking-wide w-full bg-transparent outline-none"
                   focusClasses="border-custom-link text-[#ae5eff]"
-                  label="Location"
+                  label={t("location")}
                 />
                 <InputCustom
                   autoComplete="off"
@@ -189,7 +190,7 @@ export const ModalEditUser = () => {
                   containerClassName="relative my-2 h-14 rounded-[4px] text-custom-placeholder text-lg border-custom-placeholder border"
                   className="datepicker pt-6 px-4 placeholder-custom-placeholder text-custom-text tracking-wide w-full bg-transparent outline-none"
                   focusClasses="text-[#ae5eff] border-custom-link"
-                  label="Birthday"
+                  label={t("birthday")}
                   type="date"
                 />
               </div>

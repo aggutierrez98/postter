@@ -7,11 +7,9 @@ import { Fallback } from "components";
 import { UserProvider, PostProvider } from "context";
 import "../styles/globals.css";
 import "../styles/emoji.css";
-import { useToogleTheme } from "hooks";
 
 // TODO: Por hacer:
-// 1) Agregar og metatags
-// // 3) Implementar configuraciones en mas opciones: 1ero->Idioma
+// // 1) Agregar og metatags
 // 5) Arreglar animaciones del transition de headlessui
 // 6) Hacer funcionar barra de busqueda junto con la funcionalidad de explorar
 // 7) Cargado paginado de postwitts
@@ -30,8 +28,6 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout): ReactElement {
-  useToogleTheme();
-
   return (
     <SessionProvider session={session}>
       <PostProvider>

@@ -8,6 +8,7 @@ import defaultImage from "public/user-template.png";
 import { UserInterface } from "interfaces";
 import { UserContext } from "context";
 import { followUser, unfollowUser } from "@f/index";
+import { useTranslation } from "hooks";
 
 interface Props {
   userInfo: UserInterface;
@@ -21,6 +22,7 @@ export const UserInfo = ({ userInfo }: Props) => {
     isSm: false,
   });
   const { data: session } = useSession();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (userInfo?.followers?.includes(session.user.uid)) {
@@ -75,7 +77,7 @@ export const UserInfo = ({ userInfo }: Props) => {
               className="h-[36px] w-[120px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-text font-bold bg-custom-primary
               hover:bg-opacity-80 ease-in-out"
             >
-              Edit Profile
+              {t("edit profile")}
             </button>
           ) : (
             <>
@@ -85,7 +87,7 @@ export const UserInfo = ({ userInfo }: Props) => {
                   className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
                     font-bold hover:bg-opacity-90 ease-in-out"
                 >
-                  Unfollow
+                  {t("unfollow")}
                 </button>
               ) : (
                 <button
@@ -93,7 +95,7 @@ export const UserInfo = ({ userInfo }: Props) => {
                   className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
                     font-bold hover:bg-opacity-90 ease-in-out"
                 >
-                  Follow
+                  {t("follow")}
                 </button>
               )}
             </>
@@ -106,16 +108,16 @@ export const UserInfo = ({ userInfo }: Props) => {
           </div>
         </div>
         <div className=" text-custom-text font-bold">
-          {userInfo.biography ? userInfo.biography : "No biography"}
+          {userInfo.biography ? userInfo.biography : t("no_biography")}
         </div>
         <div className="text-custom-placeholder leading-9 flex ml-[-5px] flex-col sm:flex-row">
           <span className="flex items-center ">
             <LocationOnOutlinedIcon className="scale-75" />
-            {userInfo.location ? userInfo.location : "No location"}
+            {userInfo.location ? userInfo.location : t("no_location")}
           </span>
           <span className="sm:ml-3 flex items-center">
             <DateRangeOutlinedIcon className="scale-75" />
-            {userInfo.birthday ? userInfo.birthday : "No birthday"}
+            {userInfo.birthday ? userInfo.birthday : t("no_birthday")}
           </span>
         </div>
         <div className="text-custom-text leading-8">
@@ -123,13 +125,13 @@ export const UserInfo = ({ userInfo }: Props) => {
             <span className="text-custom-text mr-1 font-bold">
               {userInfo.following ? userInfo.following.length : 0}
             </span>
-            <span className="text-custom-placeholder">Following</span>
+            <span className="text-custom-placeholder">{t("following")}</span>
           </span>
           <span className="ml-5">
             <span className="text-custom-text mr-1 font-bold">
               {userInfo.followers ? userInfo.followers.length : 0}
             </span>
-            <span className="text-custom-placeholder">Followers</span>
+            <span className="text-custom-placeholder">{t("followers")}</span>
           </span>
         </div>
       </div>

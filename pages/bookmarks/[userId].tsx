@@ -8,6 +8,7 @@ import {
 } from "interfaces";
 import { getUser, watchUser, getUsersIds } from "@f/index";
 import { BookmarksFeed, MainLayout } from "components";
+import { useTranslation } from "hooks";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -23,16 +24,20 @@ export default function BookmarksPage({
   followResults,
 }: Props) {
   const [userInfo, setUserInfo] = useState<UserInterface>();
-
+  const { t } = useTranslation();
   useEffect(() => watchUser(userId, setUserInfo), [userId]);
 
   return (
     <MainLayout trendingResults={trendingResults} followResults={followResults}>
       <Head>
-        <title>Bookmarks / Postter</title>
+        <title>{t("bookmarks")} / Postter</title>
+        <meta
+          property="description"
+          content={t(`bookmarks from ${userInfo?.name}`)}
+        />
         <meta
           property="og:description"
-          content={`Bookmarks from ${userInfo?.name}`}
+          content={t(`bookmarks from ${userInfo?.name}`)}
         />
       </Head>
       <BookmarksFeed

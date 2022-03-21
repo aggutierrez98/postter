@@ -1,7 +1,7 @@
 import { SetStateAction } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { TextAreaAutosize, NewPostwittActions } from "components";
-import { useInput } from "hooks";
+import { useInput, useTranslation } from "hooks";
 import { AddImage } from "./AddImage";
 import { Session } from "next-auth";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import defaultImage from "public/user-template.png";
 
 export const NewPostwitt = () => {
   const { data: session }: { data: Session } = useSession();
+  const { t } = useTranslation();
 
   const {
     loading,
@@ -51,7 +52,7 @@ export const NewPostwitt = () => {
             onChange={(e: { target: { value: SetStateAction<string> } }) =>
               setText(e.target.value)
             }
-            placeholder="What's happening?"
+            placeholder={t("whats_happening")}
             className="h-10 outline-none text-custom-text text-lg pl-[8px] pt-[10px] bg-transparent placeholder-custom-placeholder tracking-wide w-full"
           />
           {selectedFile && (

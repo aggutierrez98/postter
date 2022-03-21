@@ -1,3 +1,4 @@
+import { useTranslation } from "hooks";
 import { FollowResultInterface } from "interfaces";
 import Image from "next/image";
 
@@ -6,10 +7,12 @@ interface Props {
 }
 
 export const FollowResult = ({ result }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-2 cursor-pointer transition duration-200 ease-out flex
-   items-center"
+        items-center"
     >
       <Image
         src={result.userImg}
@@ -23,7 +26,7 @@ export const FollowResult = ({ result }: Props) => {
         <h5 className="text-custom-terciary text-[15px]">{result.tag}</h5>
       </div>
       <button className="ml-auto bg-white text-black rounded-full font-bold text-sm py-1.5 px-3.5">
-        Follow
+        {t("follow")}
       </button>
     </div>
   );

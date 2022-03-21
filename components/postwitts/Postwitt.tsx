@@ -12,6 +12,7 @@ import {
 } from "@f/index";
 import { PostwittInterface } from "interfaces";
 import { TimeFormated, PostwittActions, MenuPostwitt } from "components";
+import { useTranslation } from "hooks";
 
 interface Props {
   postwittId: string;
@@ -35,6 +36,7 @@ export const Postwitt = ({
   timePostedOriginal,
 }: Props) => {
   const { data: session } = useSession<boolean>();
+  const { t } = useTranslation();
   const [replies, setReplies] = useState<DocumentData[]>([]);
   const [likes, setLikes] = useState<DocumentData[]>([]);
   const [liked, setLiked] = useState<boolean>(false);
@@ -78,29 +80,29 @@ export const Postwitt = ({
         {pinned && (
           <div className="flex items-center text-custom-placeholder ml-8 mt-2 text-sm font-bold ">
             <PushPinIcon className="scale-75" />
-            Postwitt pinned
+            Postwitt {t("pinned")}
           </div>
         )}
         {repostedBy && (
           <div className="flex items-center text-custom-placeholder ml-8 mt-2 text-sm font-bold ">
             <RepeatOutlinedIcon className="scale-75" />
-            {repostedBy} reposted
+            {repostedBy} {t("reposted")}
           </div>
         )}
         <div className="p-3 flex cursor-pointer border-b border-custom-secondary hover:bg-gray-400/10 dark:hover:bg-black/5 transition-all">
           {!postPage && (
             <Link href={`/users/${postwitt.userId}`} passHref>
-              <a>
-                <span className="mr-4">
-                  <Image
-                    width={44}
-                    height={44}
-                    src={postwitt?.userImg}
-                    alt=""
-                    className="rounded-full"
-                  />
-                </span>
-              </a>
+              {/* <a> */}
+              <span className="mr-4">
+                <Image
+                  width={44}
+                  height={44}
+                  src={postwitt?.userImg}
+                  alt=""
+                  className="rounded-full"
+                />
+              </span>
+              {/* </a> */}
             </Link>
           )}
           <div className="flex flex-col space-y-2 w-full min-w-0">

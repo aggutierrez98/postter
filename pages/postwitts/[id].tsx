@@ -16,6 +16,7 @@ import {
   watchPostwittReplies,
 } from "@f/index";
 import { Postwitt, MainLayout } from "components";
+import { useTranslation } from "hooks";
 
 interface Props {
   postData: any;
@@ -34,7 +35,7 @@ export default function PostwittPage({
   >([]);
   const router: NextRouter = useRouter();
   const { id }: { id?: string } = router.query;
-
+  const { t } = useTranslation();
   useEffect(() => watchPostwitt(id, setPostwitt), [id]);
   useEffect(() => watchPostwittReplies(id, setReplies), [id]);
 
@@ -42,10 +43,20 @@ export default function PostwittPage({
     <MainLayout trendingResults={trendingResults} followResults={followResults}>
       <Head>
         <title>
-          {postwitt ? postwitt.userName : postData.userName} on Postter: "
-          {postwitt ? postwitt.text : postData.text}"
+          {t(
+            ` ${postwitt ? postwitt.userName : postData.userName} on Postter: ${
+              postwitt ? postwitt.text : postData.text
+            }`
+          )}
         </title>
-        <meta property="og:description" content={`See postwitt information`} />
+        <meta
+          name="description"
+          content={t("meta_postwitt_description")}
+        ></meta>
+        <meta
+          property="og:description"
+          content={t("meta_postwitt_description")}
+        />
       </Head>
 
       <div className="border-l border-r border-custom-secondary min-h-full">

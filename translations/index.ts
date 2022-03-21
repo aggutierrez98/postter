@@ -1,4 +1,9 @@
 import en from "./en.json";
 import es from "./es.json";
-
-export { en, es };
+export const languages = {
+  en,
+  es,
+  [Symbol.iterator]: function* () {
+    yield* Object.values(this);
+  },
+};

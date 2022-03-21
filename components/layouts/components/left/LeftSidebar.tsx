@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -16,15 +16,28 @@ import icon from "public/favicon.ico";
 import defaultImage from "public/user-template.png";
 import { LeftSidebarLink } from "components";
 import { PostContext, UserContext } from "context";
-// import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-// import NotificationsIcon from "@mui/icons-material/Notifications";
-// import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-// import EmailIcon from "@mui/icons-material/Email";
+import { useTranslation } from "hooks";
+// // import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+// // import NotificationsIcon from "@mui/icons-material/Notifications";
+// // import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+// // import EmailIcon from "@mui/icons-material/Email";
+
+// // <Leftsidebarlink
+// //   text="notifications"
+// //   icon={notificationsnoneoutlinedicon}
+// //   activeicon={notificationsicon}
+// // />
+// // <Leftsidebarlink
+// //   text="messages"
+// //   icon={emailoutlinedicon}
+// //   activeicon={emailicon}
+// // />
 
 export const LeftSidebar = () => {
   const { data: session } = useSession<boolean>();
   const { setModalNewIsOpen } = useContext(PostContext);
   const { setModalConfigIsOpen } = useContext(UserContext);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -37,13 +50,13 @@ export const LeftSidebar = () => {
         </div>
         <div className="space-y-2 mt-1 mb-2.5 ">
           <LeftSidebarLink
-            text="Home"
+            text={t("home")}
             Icon={HomeOutlinedIcon}
             ActiveIcon={HomeIcon}
             route={"/"}
           />
           <LeftSidebarLink
-            text="Explore"
+            text={t("explore")}
             Icon={TagOutlinedIcon}
             ActiveIcon={TagIcon}
             route={`/explore`}
@@ -51,29 +64,19 @@ export const LeftSidebar = () => {
           {session && (
             <>
               <LeftSidebarLink
-                text="Bookmarks"
+                text={t("bookmarks")}
                 Icon={BookmarkBorderOutlinedIcon}
                 ActiveIcon={BookmarkIcon}
                 route={`/bookmarks/${session.user.uid}`}
               />
               <LeftSidebarLink
-                text="Profile"
+                text={t("profile")}
                 Icon={PersonOutlineOutlinedIcon}
                 ActiveIcon={PersonIcon}
                 route={`/users/${session.user.uid}`}
               />
             </>
           )}
-          {/* <LeftSidebarLink
-            text="Notifications"
-            Icon={NotificationsNoneOutlinedIcon}
-            ActiveIcon={NotificationsIcon}
-          />
-          <LeftSidebarLink
-            text="Messages"
-            Icon={EmailOutlinedIcon}
-            ActiveIcon={EmailIcon}
-          /> */}
           <button
             className="text-custom-text flex items-center justify-center xl:justify-start text-xl space-x-3 hoverAnimation hover:opacity-100
               opacity-80 w-full"
@@ -82,7 +85,7 @@ export const LeftSidebar = () => {
             }}
           >
             <SettingsIcon className="h-7" />
-            <span className="hidden xl:inline">{"Options"}</span>
+            <span className="hidden xl:inline">{t("options")}</span>
           </button>
         </div>
 

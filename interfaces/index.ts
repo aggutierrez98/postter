@@ -62,3 +62,9 @@ export interface HashtagInterface {
   hashtag: string;
   postwitts: number;
 }
+
+export interface Language {
+  id: string;
+  name: string;
+  words: {};
+}
