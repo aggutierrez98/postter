@@ -16,7 +16,9 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
       <Head>
         <title>{title}</title>
         <meta name="description" content={title} />
+        <meta property="og:title" content={title} />
         <meta property="og:description" content={title} />
+        <meta property="og:image" content={`${origin}/banner.jpg`} />
       </Head>
 
       <main>

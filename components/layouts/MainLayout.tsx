@@ -45,8 +45,8 @@ export const MainLayout = ({
   return (
     <div>
       <Head>
-        <meta property="og:title" content="Posster" />
-        <meta property="og:image" content={`${origin}/banner.jpg`} />;
+        {/* <meta property="og:title" content="Posster" /> */}
+        {/* <meta property="og:image" content={`${origin}/banner.jpg`} />; */}
       </Head>
       <main className="bg-custom-primary min-h-screen flex justify-center mx-auto max-h-screen">
         <LeftSidebar />

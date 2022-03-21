@@ -16,6 +16,8 @@ interface Props {
   userData: UserInterface;
 }
 
+const origin = typeof window === "undefined" ? "" : window.location.origin;
+
 export default function UserPage({
   userData,
   trendingResults,
@@ -32,10 +34,20 @@ export default function UserPage({
           {userInfo ? userInfo.name : userData.name} (
           {userInfo ? userInfo.tag : userData.tag}) / Postter
         </title>
+        <meta
+          property="og:title"
+          content={` ${userInfo ? userInfo.name : userData.name} (${
+            userInfo ? userInfo.tag : userData.tag
+          }) / Postter`}
+        />
+        <meta
+          name="og:image"
+          content={userInfo.image ? userInfo.image : `${origin}/banner.jpg`}
+        />
         <meta name="description" content={t(`${userInfo?.name} profile`)} />
         <meta
           property="og:description"
-          content={t(`${userInfo?.name} profile`)}
+          content={t(`${userInfo ? userInfo.name : userData.name} profile`)}
         />
       </Head>
       <Profile userData={userInfo ? userInfo : userData} />
