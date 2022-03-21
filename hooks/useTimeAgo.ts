@@ -57,7 +57,7 @@ export const useTimeAgo = (timestamp: Date): string | Date => {
   }
 
   if (!ISSERVER) {
-    lang = localStorage.getItem("lang");
+    lang = localStorage.getItem("lang") || "en";
   }
 
   const rtf = new Intl.RelativeTimeFormat(lang, { style: "short" });
