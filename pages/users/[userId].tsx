@@ -34,6 +34,7 @@ export default function UserPage({
           {userInfo ? userInfo.name : userData.name} (
           {userInfo ? userInfo.tag : userData.tag}) / Postter
         </title>
+        <meta name="description" content={t(`${userInfo?.name} profile`)} />
         <meta
           property="og:title"
           content={` ${userInfo ? userInfo.name : userData.name} (${
@@ -41,19 +42,18 @@ export default function UserPage({
           }) / Postter`}
         />
         <meta
-          name="og:image"
-          content={
-            userInfo?.image
-              ? userInfo.image
-              : userData.image
-              ? userData.image
-              : `${origin}/banner.jpg`
-          }
-        />
-        <meta name="description" content={t(`${userInfo?.name} profile`)} />
-        <meta
           property="og:description"
           content={t(`${userInfo ? userInfo.name : userData.name} profile`)}
+        />
+        <meta
+          name="og:image"
+          content={
+            userInfo?.bannerImg
+              ? userInfo.bannerImg
+              : userData.bannerImg
+              ? userData.bannerImg
+              : `${origin}/banner.jpg`
+          }
         />
       </Head>
       <Profile userData={userInfo ? userInfo : userData} />

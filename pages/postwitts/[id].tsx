@@ -24,6 +24,8 @@ interface Props {
   followResults: FollowResultInterface[];
 }
 
+const origin = typeof window === "undefined" ? "" : window.location.origin;
+
 export default function PostwittPage({
   postData,
   trendingResults,
@@ -36,6 +38,7 @@ export default function PostwittPage({
   const router: NextRouter = useRouter();
   const { id }: { id?: string } = router.query;
   const { t } = useTranslation();
+
   useEffect(() => watchPostwitt(id, setPostwitt), [id]);
   useEffect(() => watchPostwittReplies(id, setReplies), [id]);
 
@@ -49,13 +52,22 @@ export default function PostwittPage({
             }`
           )}
         </title>
+        <meta name="description" content={t("meta_postwitt_description")} />
         <meta
-          name="description"
-          content={t("meta_postwitt_description")}
-        ></meta>
+          property="og:title"
+          content={t(
+            ` ${postwitt ? postwitt.userName : postData.userName} on Postter: ${
+              postwitt ? postwitt.text : postData.text
+            }`
+          )}
+        />
         <meta
           property="og:description"
           content={t("meta_postwitt_description")}
+        />
+        <meta
+          name="og:image"
+          content={postData.image ? postData.image : `${origin}/banner.jpg`}
         />
       </Head>
 

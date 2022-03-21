@@ -40,14 +40,8 @@ export const MainLayout = ({
   useTranslation();
   useToogleTheme();
 
-  const origin = typeof window === "undefined" ? "" : window.location.origin;
-
   return (
     <div>
-      <Head>
-        {/* <meta property="og:title" content="Posster" /> */}
-        {/* <meta property="og:image" content={`${origin}/banner.jpg`} />; */}
-      </Head>
       <main className="bg-custom-primary min-h-screen flex justify-center mx-auto max-h-screen">
         <LeftSidebar />
         <div

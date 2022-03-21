@@ -10,6 +10,8 @@ interface Props {
   followResults: FollowResultInterface[];
 }
 
+const origin = typeof window === "undefined" ? "" : window.location.origin;
+
 const Custom404 = ({ trendingResults, followResults }: Props) => {
   const { t } = useTranslation();
 
@@ -18,10 +20,12 @@ const Custom404 = ({ trendingResults, followResults }: Props) => {
       <Head>
         <title>{t("page_not_found")}</title>
         <meta name="description" content={t("meta_not_found_description")} />
+        <meta property="og:title" content={t("page_not_found")} />
         <meta
           property="og:description"
           content={t("meta_not_found_description")}
         />
+        <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
       <div className="flex items-center justify-center flex-col h-[250px] w-full">
         <h2 className="text-custom-text text-2xl">{t("page_not_found")}</h2>

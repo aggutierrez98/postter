@@ -11,6 +11,8 @@ interface Props {
   hashtag: string;
 }
 
+const origin = typeof window === "undefined" ? "" : window.location.origin;
+
 export default function HashtagPage({
   hashtag,
   trendingResults,
@@ -27,7 +29,9 @@ export default function HashtagPage({
       <Head>
         <title>{hashtag} / Postter</title>
         <meta property="description" content={`${hashtag} postwitts`} />
+        <meta property="og:title" content={`${hashtag} / Postter`} />
         <meta property="og:description" content={`${hashtag} postwitts`} />
+        <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
       <HashtagPostwittsList hashtag={hashtag} postwitts={hastagPostwitts} />
     </MainLayout>

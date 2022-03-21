@@ -17,6 +17,8 @@ interface Props {
   bookmarks: string[];
 }
 
+const origin = typeof window === "undefined" ? "" : window.location.origin;
+
 export default function BookmarksPage({
   userId,
   bookmarks,
@@ -35,10 +37,12 @@ export default function BookmarksPage({
           property="description"
           content={t(`bookmarks from ${userInfo?.name}`)}
         />
+        <meta property="og:title" content={`${t("bookmarks")} / Postter`} />
         <meta
           property="og:description"
           content={t(`bookmarks from ${userInfo?.name}`)}
         />
+        <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
       <BookmarksFeed
         bookmarks={userInfo?.bookmarks || bookmarks}

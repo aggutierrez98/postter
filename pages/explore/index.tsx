@@ -14,6 +14,8 @@ interface Props {
   };
 }
 
+const origin = typeof window === "undefined" ? "" : window.location.origin;
+
 export default function BookmarksPage({
   hashtags,
   trendingResults,
@@ -26,10 +28,12 @@ export default function BookmarksPage({
       <Head>
         <title>{t("explore")} / Postter</title>
         <meta name="description" content={t("meta_explore_description")} />
+        <meta property="og:title" content={t("explore")} />
         <meta
           property="og:description"
           content={t("meta_explore_description")}
         />
+        <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
       <ExploreFeed hashtagsFromServer={hashtags} />
     </MainLayout>
