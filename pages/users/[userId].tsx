@@ -42,7 +42,13 @@ export default function UserPage({
         />
         <meta
           name="og:image"
-          content={userInfo.image ? userInfo.image : `${origin}/banner.jpg`}
+          content={
+            userInfo?.image
+              ? userInfo.image
+              : userData.image
+              ? userData.image
+              : `${origin}/banner.jpg`
+          }
         />
         <meta name="description" content={t(`${userInfo?.name} profile`)} />
         <meta
