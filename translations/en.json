@@ -80,7 +80,9 @@
     "save": "save",
     "image": "image",
     "change_profile_image": "change profile image",
+    "error_quote": "ups... Something went wrong",
     "page_not_found": "page not found",
-    "back_to_main_page": "back to main page"
+    "back_to_main_page": "go back to main page",
+    "click_here": "click here"
   }
 }

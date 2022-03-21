@@ -80,7 +80,9 @@
     "save": "guardar",
     "image": "imagen",
     "change_profile_image": "cambiar imagen de perfil",
+    "error_quote": "Ups... Algo salio mal",
     "page_not_found": "pagina no encotrada",
-    "back_to_main_page": "volver a la pagina principal"
+    "back_to_main_page": "volver a la pagina principal",
+    "click_here": "hacer click aqui"
   }
 }

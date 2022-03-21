@@ -1,6 +1,6 @@
 import { Dialog, Listbox, Switch, Transition } from "@headlessui/react";
 import { UserContext } from "context";
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useEffect } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useToogleTheme, useTranslation } from "hooks";
 import CheckIcon from "@mui/icons-material/Check";
