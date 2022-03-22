@@ -1,11 +1,9 @@
 import Head from "next/head";
-import { Feed } from "components";
-import { MainLayout } from "components/layouts/MainLayout";
+import { Feed, MainLayout } from "components";
 import {
   TrendingResultInterface,
   FollowResultInterface,
 } from "interfaces/index";
-import { getToken } from "next-auth/jwt";
 import { useTranslation } from "hooks";
 
 interface Props {
@@ -32,18 +30,7 @@ export default function Home({ trendingResults, followResults }: Props) {
   );
 }
 
-export const getServerSideProps = async ({ req }) => {
-  const session = await getToken({ req, secret: process.env.JWT_SECRET_SEED });
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth/login",
-        permanent: false,
-      },
-    };
-  }
-
+export const getServerSideProps = async () => {
   const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
     (res) => res.json()
   );

@@ -18,7 +18,7 @@ import defaultImage from "public/user-template.png";
 
 export const ReplyModal = () => {
   const { data: session }: { data: Session } = useSession();
-  const { modalReplyIsOpen, setModalReplyIsOpen, postwittId } =
+  const { setModalReplyIsOpen, postwittId } =
     useContext<PostContextProps>(PostContext);
   const [postwitt, setPostwitt] = useState<PostwittInterface>();
   const { t } = useTranslation();
@@ -45,7 +45,7 @@ export const ReplyModal = () => {
   }, [postwittId]);
 
   return (
-    <Transition.Root show={modalReplyIsOpen} as={Fragment}>
+    <Transition.Root show={true} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-50 inset-0 phone:pt-8 overflow-auto"

@@ -7,6 +7,7 @@ import {
   ResponsiveLeftMenu,
   RightSidebar,
   ModalOptions,
+  ModalLoggedOut,
 } from "components";
 import { PostContext } from "context/posts/PostContext";
 import { UserContext } from "context/users/UserContext";
@@ -17,6 +18,7 @@ import {
 } from "interfaces/index";
 import Head from "next/head";
 import { useToogleTheme, useTranslation } from "hooks";
+import { useSession } from "next-auth/react";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -39,6 +41,7 @@ export const MainLayout = ({
     useContext(UserContext);
   useTranslation();
   useToogleTheme();
+  const { data: session } = useSession();
 
   return (
     <div>
@@ -56,13 +59,13 @@ export const MainLayout = ({
             followResults={followResults}
           />
         </div>
-
         {modalNewIsOpen && <ModalNewPostwitt />}
         {modalReplyIsOpen && <ReplyModal />}
         {modalEditUserOpen && <ModalEditUser />}
         {modalConfirmIsOpen && <ModalConfirmation />}
         {modalLeftMenuIsOpen && <ResponsiveLeftMenu />}
         {modalConfigIsOpen && <ModalOptions />}
+        {!session && <ModalLoggedOut />}
       </main>
     </div>
   );

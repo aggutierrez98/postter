@@ -12,7 +12,7 @@ import { UserContext } from "context";
 import { LoadingCircle } from "components";
 
 export const ModalEditUser = () => {
-  const { modalIsOpen, setIsOpen, userId } = useContext(UserContext);
+  const { setIsOpen, userId } = useContext(UserContext);
 
   const {
     userValues,
@@ -32,7 +32,7 @@ export const ModalEditUser = () => {
 
   return (
     <Transition
-      show={modalIsOpen}
+      show={true}
       enter="transition-opacity"
       enterFrom="opacity-0"
       enterTo="opacity-100"

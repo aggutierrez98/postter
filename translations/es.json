@@ -11,8 +11,8 @@
     "name": "nombre",
     "email": "email",
     "password": "contraseña",
-    "login": "INGRESAR",
-    "register": "REGISTRARSE",
+    "login": "ingresar",
+    "register": "registrarse",
     "dont_have_account": "no tienes cuenta?",
     "already_have_account": "ya tienes cuenta?",
     "sing_in_with": "ingresar con",
@@ -83,6 +83,7 @@
     "error_quote": "Ups... Algo salio mal",
     "page_not_found": "pagina no encotrada",
     "back_to_main_page": "volver a la pagina principal",
-    "click_here": "hacer click aqui"
+    "click_here": "hacer click aqui",
+    "dont_miss": "No te pierdas lo que está pasando"
   }
 }

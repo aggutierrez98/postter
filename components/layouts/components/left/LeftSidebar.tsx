@@ -17,6 +17,7 @@ import defaultImage from "public/user-template.png";
 import { LeftSidebarLink } from "components";
 import { PostContext, UserContext } from "context";
 import { useTranslation } from "hooks";
+import { useRouter } from "next/router";
 // // import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 // // import NotificationsIcon from "@mui/icons-material/Notifications";
 // // import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
@@ -35,6 +36,7 @@ import { useTranslation } from "hooks";
 
 export const LeftSidebar = () => {
   const { data: session } = useSession<boolean>();
+  const router = useRouter();
   const { setModalNewIsOpen } = useContext(PostContext);
   const { setModalConfigIsOpen } = useContext(UserContext);
   const { t } = useTranslation();
@@ -61,22 +63,18 @@ export const LeftSidebar = () => {
             ActiveIcon={TagIcon}
             route={`/explore`}
           />
-          {session && (
-            <>
-              <LeftSidebarLink
-                text={t("bookmarks")}
-                Icon={BookmarkBorderOutlinedIcon}
-                ActiveIcon={BookmarkIcon}
-                route={`/bookmarks/${session.user.uid}`}
-              />
-              <LeftSidebarLink
-                text={t("profile")}
-                Icon={PersonOutlineOutlinedIcon}
-                ActiveIcon={PersonIcon}
-                route={`/users/${session.user.uid}`}
-              />
-            </>
-          )}
+          <LeftSidebarLink
+            text={t("bookmarks")}
+            Icon={BookmarkBorderOutlinedIcon}
+            ActiveIcon={BookmarkIcon}
+            route={session ? `/bookmarks/${session.user.uid}` : "/auth/login"}
+          />
+          <LeftSidebarLink
+            text={t("profile")}
+            Icon={PersonOutlineOutlinedIcon}
+            ActiveIcon={PersonIcon}
+            route={session ? `/users/${session.user.uid}` : "/auth/login"}
+          />
           <button
             className="text-custom-text flex items-center justify-center xl:justify-start text-xl space-x-3 hoverAnimation hover:opacity-100
               opacity-80 w-full"
@@ -91,6 +89,7 @@ export const LeftSidebar = () => {
 
         <button
           onClick={() => {
+            if (!session) return router.push("/auth/login");
             setModalNewIsOpen(true);
           }}
           className="my-3 bg-custom-alternative text-white rounded-full w-[50px] xl:w-56 h-[50px] text-lg font-bold 
@@ -129,7 +128,10 @@ export const LeftSidebar = () => {
           </div>
         )}
       </div>
-      <div className="flex justify-around phone:hidden fixed bottom-[0] w-full h-[53px] bg-custom-primary border-black border-0 border-top-2 dark:border-custom-secondary border-t-[1px] z-[2]">
+      <div
+        className="flex justify-around phone:hidden fixed bottom-[0] w-full h-[53px] bg-custom-primary border-black border-0 border-top-2 
+          dark:border-custom-secondary border-t-[1px] z-[2]"
+      >
         <LeftSidebarLink
           text="Home"
           Icon={HomeOutlinedIcon}
@@ -142,25 +144,22 @@ export const LeftSidebar = () => {
           ActiveIcon={TagIcon}
           route={`/explore`}
         />
-        {session && (
-          <>
-            <LeftSidebarLink
-              text="Bookmarks"
-              Icon={BookmarkBorderOutlinedIcon}
-              ActiveIcon={BookmarkIcon}
-              route={`/bookmarks/${session.user.uid}`}
-            />
-            <LeftSidebarLink
-              text="Profile"
-              Icon={PersonOutlineOutlinedIcon}
-              ActiveIcon={PersonIcon}
-              route={`/users/${session.user.uid}`}
-            />
-          </>
-        )}
+        <LeftSidebarLink
+          text="Bookmarks"
+          Icon={BookmarkBorderOutlinedIcon}
+          ActiveIcon={BookmarkIcon}
+          route={session ? `/bookmarks/${session.user.uid}` : "/auth/login"}
+        />
+        <LeftSidebarLink
+          text="Profile"
+          Icon={PersonOutlineOutlinedIcon}
+          ActiveIcon={PersonIcon}
+          route={session ? `/users/${session.user.uid}` : "/auth/login"}
+        />
 
         <button
           onClick={() => {
+            if (!session) return router.push("/auth/login");
             setModalNewIsOpen(true);
           }}
           className="my-3 bg-custom-alternative text-white rounded-full w-[50px] h-[50px] text-lg font-bold 

@@ -9,6 +9,7 @@ import { UserInterface } from "interfaces";
 import { UserContext } from "context";
 import { followUser, unfollowUser } from "@f/index";
 import { useTranslation } from "hooks";
+import { useRouter } from "next/router";
 
 interface Props {
   userInfo: UserInterface;
@@ -21,6 +22,7 @@ export const UserInfo = ({ userInfo }: Props) => {
     isPhone: false,
     isSm: false,
   });
+  const router = useRouter();
   const { data: session } = useSession();
   const { t } = useTranslation();
 
@@ -83,7 +85,9 @@ export const UserInfo = ({ userInfo }: Props) => {
             <>
               {isFollowing ? (
                 <button
-                  onClick={() => unfollowUser(session.user.uid, userInfo.uid)}
+                  onClick={() => {
+                    unfollowUser(session.user.uid, userInfo.uid);
+                  }}
                   className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
                     font-bold hover:bg-opacity-90 ease-in-out"
                 >
@@ -91,7 +95,10 @@ export const UserInfo = ({ userInfo }: Props) => {
                 </button>
               ) : (
                 <button
-                  onClick={() => followUser(session.user.uid, userInfo.uid)}
+                  onClick={() => {
+                    if (!session) return router.push("/auth/login");
+                    followUser(session.user.uid, userInfo.uid);
+                  }}
                   className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
                     font-bold hover:bg-opacity-90 ease-in-out"
                 >

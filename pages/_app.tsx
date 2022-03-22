@@ -9,11 +9,10 @@ import "../styles/globals.css";
 import "../styles/emoji.css";
 
 // TODO: Por hacer:
-// // 1) Agregar og metatags
-// 5) Arreglar animaciones del transition de headlessui
-// 6) Hacer funcionar barra de busqueda junto con la funcionalidad de explorar
-// 7) Cargado paginado de postwitts
-// 9) Agregar logo propio de Postter tanto en LeftSideBar como en Login
+// 1) Cargado paginado de postwitts
+// 2) Arreglar animaciones del transition de headlessui
+// 3) Hacer funcionar barra de busqueda junto con la funcionalidad de explorar
+// 4) Agregar logo propio de Postter tanto en LeftSideBar como en Login
 // // 4) Cambiar los custom-placeholders de el RightSideBar
 // // 8) Agregar features de mensajes y notificaciones
 

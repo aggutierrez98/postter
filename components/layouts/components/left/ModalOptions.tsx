@@ -1,13 +1,13 @@
 import { Dialog, Listbox, Switch, Transition } from "@headlessui/react";
 import { UserContext } from "context";
-import { Fragment, useContext, useEffect } from "react";
+import { Fragment, useContext } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useToogleTheme, useTranslation } from "hooks";
 import CheckIcon from "@mui/icons-material/Check";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const ModalOptions = () => {
-  const { setModalConfigIsOpen, modalConfigIsOpen } = useContext(UserContext);
+  const { setModalConfigIsOpen } = useContext(UserContext);
   const { themeState, toogleTheme } = useToogleTheme();
   const { language, changeLang, langOptions, t } = useTranslation();
 
@@ -22,7 +22,7 @@ export const ModalOptions = () => {
   return (
     <Transition
       as="div"
-      show={modalConfigIsOpen}
+      show={true}
       enter="ease duration-1500"
       enterFrom="opacity-0"
       enterTo="opacity-100"

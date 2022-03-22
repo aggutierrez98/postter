@@ -28,7 +28,9 @@ export const useTranslation = () => {
   };
 
   const getTranslation = (key: string) => {
-    const keys = key.split(" ");
+    if (!key) return "";
+
+    const keys = key?.split(" ");
     return capitalizeFirstLetter(getNestedTranslation(language, keys));
   };
 

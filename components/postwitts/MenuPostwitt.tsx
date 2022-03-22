@@ -9,6 +9,7 @@ import { followUser, unfollowUser, watchUser } from "@f/index";
 import { UserInterface } from "interfaces";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { useTranslation } from "hooks";
+import { useRouter } from "next/router";
 
 interface Props {
   userId: string;
@@ -24,6 +25,7 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
   const [userData, setUserData] = useState<UserInterface>();
   const { data: session } = useSession();
   const { t } = useTranslation();
+  const router = useRouter();
 
   useEffect(() => watchUser(userId, setUserData), [userId]);
 
@@ -131,7 +133,9 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                   {isFollowing ? (
                     <Menu.Item
                       as="button"
-                      onClick={() => unfollowUser(session.user.uid, userId)}
+                      onClick={() => {
+                        unfollowUser(session.user.uid, userId);
+                      }}
                       className="hover:text-custom-text my-3 flex items-center w-full truncate"
                     >
                       <PersonAddAltOutlinedIcon className="mr-3" />
@@ -140,7 +144,10 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                   ) : (
                     <Menu.Item
                       as="button"
-                      onClick={() => followUser(session.user.uid, userId)}
+                      onClick={() => {
+                        if (!session) return router.push("/auth/login");
+                        followUser(session.user.uid, userId);
+                      }}
                       className="hover:text-custom-text my-3 flex items-center w-full truncate"
                     >
                       <PersonAddAltOutlinedIcon className="mr-3" />

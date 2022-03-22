@@ -8,8 +8,9 @@ import { Fragment, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { watchUser } from "@f/index";
 import { UserInterface } from "interfaces";
+import { useRouter } from "next/router";
 
-const domain = "http://localhost:3000";
+const domain = typeof window === "undefined" ? "" : window.location.origin;
 
 export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
   const {
@@ -24,11 +25,16 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
     action: null,
   });
   const { t } = useTranslation();
+  const router = useRouter();
 
-  useEffect(
-    () => watchUser(session?.user.uid, setUserData),
-    [session?.user.uid]
-  );
+  useEffect(() => {
+    if (session) {
+      watchUser(session?.user.uid, setUserData);
+      return () => {
+        watchUser(session?.user.uid, setUserData);
+      };
+    }
+  }, [session, session?.user.uid]);
 
   useEffect(() => {
     if (userData?.bookmarks?.includes(postwittId)) {
@@ -110,6 +116,7 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
                 <Menu.Item
                   as="button"
                   onClick={async () => {
+                    if (!session) return router.push("/auth/login");
                     const success = await bookmartPostwitt(
                       postwittId,
                       session.user.uid
@@ -141,6 +148,7 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
               <Menu.Item
                 as="button"
                 onClick={() => {
+                  if (!session) return router.push("/auth/login");
                   copyToClipboard(`${domain}/postwitts/${postwittId}`);
                   setTimeout(
                     () =>

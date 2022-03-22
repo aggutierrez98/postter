@@ -8,17 +8,12 @@ import {
   userPinupPostwitt,
   userPinoffPostwitt,
 } from "@f/index";
-import Image from "next/image";
 import { LoadingCircle } from "components/layouts";
 import { useTranslation } from "hooks";
 
 export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
-  const {
-    setModalConfirmIsOpen,
-    modalConfirmIsOpen,
-    modalConfirmData,
-    postwittId,
-  } = useContext(PostContext);
+  const { setModalConfirmIsOpen, modalConfirmData, postwittId } =
+    useContext(PostContext);
   const { setLoadingChanges } = useContext(UserContext);
   const { data: session } = useSession();
   const router = useRouter();
@@ -27,7 +22,7 @@ export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
   return (
     <Transition
       as="div"
-      show={modalConfirmIsOpen}
+      show={true}
       enter="ease duration-1500"
       enterFrom="opacity-0"
       enterTo="opacity-100"
@@ -49,14 +44,14 @@ export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
                 transform transition-all sm:my-8 sm:align-middle sm:max-w-[320px] sm:w-full"
         >
           <div className="flex items-center justify-between px-1.5 py-2 flex-col text-custom-text">
-            <h2 className="text-2xl mb-2">{modalConfirmData.title}</h2>
+            <h2 className="text-2xl mb-2">{modalConfirmData?.title}</h2>
             <p className="text-custom-placeholder">
-              {modalConfirmData.description}
+              {modalConfirmData?.description}
             </p>
             <div className="flex flex-col mt-[24px]">
               <button
                 onClick={async () => {
-                  if (modalConfirmData.action === "delete") {
+                  if (modalConfirmData?.action === "delete") {
                     setLoadingChanges(true);
                     await deletePostwitt(postwittId);
                     if (postPage) router.push("/");
@@ -64,14 +59,14 @@ export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
                     setModalConfirmIsOpen(false);
                   }
 
-                  if (modalConfirmData.action === "pin_on") {
+                  if (modalConfirmData?.action === "pin_on") {
                     setLoadingChanges(true);
                     await userPinupPostwitt(postwittId, session.user.uid);
                     setLoadingChanges(false);
                     setModalConfirmIsOpen(false);
                   }
 
-                  if (modalConfirmData.action === "pin_off") {
+                  if (modalConfirmData?.action === "pin_off") {
                     setLoadingChanges(true);
                     await userPinoffPostwitt(session.user.uid);
                     setLoadingChanges(false);
@@ -79,12 +74,12 @@ export const ModalConfirmation = ({ postPage }: { postPage?: boolean }) => {
                   }
                 }}
                 className={`w-[256px] h-[44px] ${
-                  modalConfirmData.danger
+                  modalConfirmData?.danger
                     ? "bg-red-700"
                     : "bg-custom-alternative"
                 } rounded-3xl mb-[12px] text-white`}
               >
-                {t(modalConfirmData.action)}
+                {t(modalConfirmData?.action)}
               </button>
               <button
                 onClick={() => {

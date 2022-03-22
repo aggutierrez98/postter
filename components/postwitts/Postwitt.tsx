@@ -35,7 +35,7 @@ export const Postwitt = ({
   idOriginal,
   timePostedOriginal,
 }: Props) => {
-  const { data: session } = useSession<boolean>();
+  const { data: session } = useSession();
   const { t } = useTranslation();
   const [replies, setReplies] = useState<DocumentData[]>([]);
   const [likes, setLikes] = useState<DocumentData[]>([]);

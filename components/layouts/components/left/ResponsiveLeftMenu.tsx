@@ -5,23 +5,29 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Fragment, useContext, useEffect, useState } from "react";
 import defaultImage from "public/user-template.png";
 import { watchUser } from "@f/index";
-import { PostContext, PostContextProps } from "context";
+import { PostContext, PostContextProps, UserContext } from "context";
 import { UserInterface } from "interfaces";
 import { LeftMenuLinkList } from "components";
 import { useTranslation } from "hooks";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 export const ResponsiveLeftMenu = () => {
-  const { modalLeftMenuIsOpen, setModalLeftMenuIsOpen } =
-    useContext<PostContextProps>(PostContext);
-  const {
-    data: { user },
-  } = useSession();
-  const [userInfo, setUserInfo] = useState<UserInterface>(user);
+  const { setModalLeftMenuIsOpen } = useContext<PostContextProps>(PostContext);
+  const { data: session } = useSession();
+  const [userInfo, setUserInfo] = useState<UserInterface>(session?.user);
   const { t } = useTranslation();
-  useEffect(() => watchUser(user.uid, setUserInfo), [user]);
+  useEffect(() => {
+    if (session) {
+      watchUser(session?.user.uid, setUserInfo);
+      return () => {
+        watchUser(session?.user.uid, setUserInfo);
+      };
+    }
+  }, [session?.user, session]);
+  const { setModalConfigIsOpen } = useContext(UserContext);
 
   return (
-    <Transition.Root show={modalLeftMenuIsOpen} as={Fragment}>
+    <Transition.Root show={true} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-50 inset-0"
@@ -64,45 +70,61 @@ export const ResponsiveLeftMenu = () => {
                 </div>
               </div>
               <div className="flex pt-[16px] px-[16px] w-full flex-col items-start h-[70px]">
-                <div
-                  className="bg-custom-primary flex 
+                {session && (
+                  <>
+                    <div
+                      className="bg-custom-primary flex 
                     items-center justify-center"
-                >
-                  <Image
-                    className="rounded-full"
-                    width={40}
-                    height={40}
-                    src={userInfo?.image ? userInfo.image : defaultImage}
-                  ></Image>
-                </div>
-                <span className="flex flex-col text-custom-text mt-[16px] mb-[15px]">
-                  <span className="font-bold">{userInfo?.name}</span>
-                  <span className=" text-custom-placeholder">
-                    @{userInfo?.tag}
-                  </span>
-                </span>
-                <span className=" text-custom-text font-bold">
-                  {userInfo.biography ? userInfo.biography : "No biography"}
-                </span>
-                <div className="text-custom-text mt-[10px]">
-                  <span>
-                    <span className="text-custom-text mr-1 font-bold">
-                      {userInfo.following ? userInfo.following.length : 0}
+                    >
+                      <Image
+                        className="rounded-full"
+                        width={40}
+                        height={40}
+                        src={userInfo?.image ? userInfo.image : defaultImage}
+                      ></Image>
+                    </div>
+                    <span className="flex flex-col text-custom-text mt-[16px] mb-[15px]">
+                      <span className="font-bold">{userInfo?.name}</span>
+                      <span className=" text-custom-placeholder">
+                        @{userInfo?.tag}
+                      </span>
                     </span>
-                    <span className="text-custom-placeholder">
-                      {t("following")}
+                    <span className=" text-custom-text font-bold">
+                      {userInfo?.biography
+                        ? userInfo.biography
+                        : "No biography"}
                     </span>
-                  </span>
-                  <span className="ml-5">
-                    <span className="text-custom-text mr-1 font-bold">
-                      {userInfo.followers ? userInfo.followers.length : 0}
-                    </span>
-                    <span className="text-custom-placeholder">
-                      {t("followers")}
-                    </span>
-                  </span>
-                </div>
+                    <div className="text-custom-text mt-[10px]">
+                      <span>
+                        <span className="text-custom-text mr-1 font-bold">
+                          {userInfo?.following ? userInfo.following.length : 0}
+                        </span>
+                        <span className="text-custom-placeholder">
+                          {t("following")}
+                        </span>
+                      </span>
+                      <span className="ml-5">
+                        <span className="text-custom-text mr-1 font-bold">
+                          {userInfo?.followers ? userInfo.followers.length : 0}
+                        </span>
+                        <span className="text-custom-placeholder">
+                          {t("followers")}
+                        </span>
+                      </span>
+                    </div>
+                  </>
+                )}
                 <LeftMenuLinkList userInfo={userInfo} />
+                <button
+                  className="text-custom-text hover:font-bold flex items-center  space-x-2 w-full py-[16px]"
+                  onClick={() => {
+                    setModalConfigIsOpen(true);
+                  }}
+                >
+                  <SettingsIcon className="h-[20px] w-[20px]" />
+                  <span className="inline text-[15px]">{t("settings")}</span>
+                  <span className="hidden xl:inline">{t("options")}</span>
+                </button>
               </div>
             </div>
           </Transition.Child>

@@ -11,13 +11,13 @@ module.exports = {
     node: true,
   },
   extends: [
+    "prettier",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    // "plugin:import/recommended",
-    // "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@next/next/recommended",
-    "prettier",
+    // "plugin:import/recommended",
+    // "plugin:jsx-a11y/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -36,7 +36,6 @@ module.exports = {
     "react/react-in-jsx-scope": RULES.OFF,
     "arrow-body-style": RULES.OFF,
     "react/no-unescaped-entities": RULES.OFF,
-    // "react-hooks/exhaustive-deps": RULES.WARN,
     "no-warning-comments": [
       0,
       {

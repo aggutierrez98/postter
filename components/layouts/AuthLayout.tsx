@@ -8,6 +8,8 @@ interface Props {
   title: string;
 }
 
+const origin = typeof window === "undefined" ? "" : window.location.origin;
+
 export const AuthLayout: FC<Props> = ({ children, title }) => {
   useTranslation();
 

@@ -135,7 +135,7 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
 
         <button
           className={`self-center relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all
-          bg-[#1d9bf0] group text-white rounded hover:bg-opacity-80 ${
+          bg-[#1d9bf0] group text-white rounded hover:bg-opacity-80  ${
             Object.keys(errors).length === 0 ? "" : "mt-5"
           }`}
           type="submit"

@@ -1,3 +1,4 @@
+export { ModalLoggedOut } from "./ModalLoggedOut";
 export { AddImage } from "./AddImage";
 export { Feed } from "./Feed";
 export { ModalNewPostwitt } from "./ModalNewPostwittw";

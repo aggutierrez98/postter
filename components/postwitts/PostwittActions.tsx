@@ -8,6 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { PostContext, PostContextProps } from "context";
 import { likePostwitt, repostPostwitt } from "@f/index";
 import { MenuSharePostwitt } from "components";
+import { useRouter } from "next/router";
 
 interface Props {
   uid: string;
@@ -33,6 +34,7 @@ export const PostwittActions = ({
   const { setModalReplyIsOpen, setPostwittId } =
     useContext<PostContextProps>(PostContext);
   const { data: session } = useSession<boolean>();
+  const router = useRouter();
 
   return (
     <div
@@ -44,6 +46,7 @@ export const PostwittActions = ({
         className="flex items-center space-x-1 group"
         onClick={(e) => {
           e.preventDefault();
+          if (!session) return router.push("/auth/login");
           setPostwittId(id);
           setModalReplyIsOpen(true);
         }}
@@ -61,6 +64,7 @@ export const PostwittActions = ({
         className="flex items-center space-x-1 group"
         onClick={async (e) => {
           e.preventDefault();
+          if (!session) return router.push("/auth/login");
           repostPostwitt(id, session.user, reposted);
         }}
       >
@@ -85,6 +89,7 @@ export const PostwittActions = ({
         className="flex items-center space-x-1 group"
         onClick={async (e) => {
           e.preventDefault();
+          if (!session) return router.push("/auth/login");
           likePostwitt(id, session.user, liked);
         }}
       >
@@ -105,7 +110,7 @@ export const PostwittActions = ({
           </span>
         )}
       </div>
-      {session && <MenuSharePostwitt postwittId={id} />}
+      <MenuSharePostwitt postwittId={id} />
     </div>
   );
 };
