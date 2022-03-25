@@ -1,22 +1,16 @@
 import { GetServerSideProps } from "next";
-import Nextink from "next/link";
 import {
   signIn,
   getSession,
   getProviders,
   SessionProvider,
 } from "next-auth/react";
-
-import { useForm } from "react-hook-form";
-import { isEmail } from "utils/validations";
-
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { AuthLayout } from "components/layouts/AuthLayout";
+import { useForm } from "react-hook-form";
+import { emailPattern } from "helpers";
+import { AuthLayout } from "components";
 import { useTranslation } from "hooks";
-
-const emailPattern =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 type FormData = {
   email: string;

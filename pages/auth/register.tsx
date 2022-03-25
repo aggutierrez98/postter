@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { signIn, getSession } from "next-auth/react";
-
 import { useForm } from "react-hook-form";
-
-import { AuthLayout } from "components/layouts/AuthLayout";
-import { isEmail } from "helpers";
-import Link from "next/link";
+import { AuthLayout } from "components";
+import { emailPattern } from "helpers";
 import { useTranslation } from "hooks";
 
 type FormData = {
@@ -14,9 +12,6 @@ type FormData = {
   email: string;
   password: string;
 };
-
-const emailPattern =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const RegisterPage = () => {
   const router = useRouter();
