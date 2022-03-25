@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import icon from "public/vercel.svg";
+import icon from "public/post.png";
 import { useTranslation } from "hooks";
 
 interface Props {
@@ -25,7 +25,14 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
 
       <main>
         <div className="flex justify-center flex-col items-center sm:h-screen">
-          <Image src={icon} width={150} height={150} objectFit="contain" />
+          <div className="flex items-center mb-6 phone:mb-10 mt-6 phone:mt-10">
+            <div className="h-[65px] w-[65px] sm:h-[80px] sm:w-[80px] md:h-[100px] md:w-[100px] relative">
+              <Image src={icon} layout="fill" objectFit="contain" />
+            </div>
+            <h1 className="text-[50px] sm:text-[80px] ml-3 text-[#1d9bf0]">
+              Postter
+            </h1>
+          </div>
           {children}
         </div>
       </main>

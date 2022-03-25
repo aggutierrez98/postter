@@ -9,16 +9,13 @@ import {
   ModalOptions,
   ModalLoggedOut,
 } from "components";
-import { PostContext } from "context/posts/PostContext";
-import { UserContext } from "context/users/UserContext";
-import { ReactElement, useContext } from "react";
+import { ReactElement } from "react";
 import {
   FollowResultInterface,
   TrendingResultInterface,
 } from "interfaces/index";
-import Head from "next/head";
-import { useToogleTheme, useTranslation } from "hooks";
 import { useSession } from "next-auth/react";
+import { useToogleTheme, useTranslation } from "hooks";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -31,14 +28,6 @@ export const MainLayout = ({
   followResults,
   children,
 }: Props) => {
-  const {
-    modalNewIsOpen,
-    modalReplyIsOpen,
-    modalConfirmIsOpen,
-    modalLeftMenuIsOpen,
-  } = useContext(PostContext);
-  const { modalIsOpen: modalEditUserOpen, modalConfigIsOpen } =
-    useContext(UserContext);
   useTranslation();
   useToogleTheme();
   const { data: session } = useSession();
@@ -59,12 +48,13 @@ export const MainLayout = ({
             followResults={followResults}
           />
         </div>
-        {modalNewIsOpen && <ModalNewPostwitt />}
-        {modalReplyIsOpen && <ReplyModal />}
-        {modalEditUserOpen && <ModalEditUser />}
-        {modalConfirmIsOpen && <ModalConfirmation />}
-        {modalLeftMenuIsOpen && <ResponsiveLeftMenu />}
-        {modalConfigIsOpen && <ModalOptions />}
+        <ModalNewPostwitt />
+        <ReplyModal />
+        <ModalEditUser />
+        <ModalConfirmation />
+        <ResponsiveLeftMenu />
+        <ModalOptions />
+
         {!session && <ModalLoggedOut />}
       </main>
     </div>

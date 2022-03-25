@@ -5,7 +5,7 @@ import { signIn, getSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 
 import { AuthLayout } from "components/layouts/AuthLayout";
-import { isEmail } from "utils/validations";
+import { isEmail } from "helpers";
 import Link from "next/link";
 import { useTranslation } from "hooks";
 

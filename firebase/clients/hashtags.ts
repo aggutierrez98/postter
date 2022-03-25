@@ -5,17 +5,21 @@ import {
   getDocs,
   where,
   query,
+  limit,
+  DocumentData,
 } from "@firebase/firestore";
 import { db } from "../firebase.config";
 
-type Callback = Dispatch<
-  SetStateAction<{ hashtag: string; postwitts: number }[]>
->;
+type Callback = Dispatch<SetStateAction<DocumentData>>;
+type CallbackLoading = Dispatch<SetStateAction<Boolean>>;
+
+const LIMIT_CHARGE_POSTWITTS = 6;
 
 export const watchHastags = (callback: Callback) => {
   let hastagsFromDocs = [];
+
   onSnapshot(
-    query(collection(db, "postwitts"), where("hashtags", "!=", false)),
+    query(collection(db, "postwitts"), where("hashtags", "!=", null)),
     (hashtagSnapshots) => {
       if (hashtagSnapshots.docs.length <= 0) {
         callback([]);
@@ -29,6 +33,11 @@ export const watchHastags = (callback: Callback) => {
       hastagsFromDocs = [...hastagsFromDocs].filter(
         (ele, pos) => [...hastagsFromDocs].indexOf(ele) === pos
       );
+
+      if (hastagsFromDocs.length <= 0) {
+        callback([]);
+        return;
+      }
 
       onSnapshot(
         query(
@@ -62,11 +71,73 @@ export const watchHastags = (callback: Callback) => {
   );
 };
 
-export const watchHastagsPostwitts = (hashtag: string, callback) => {
+export const getHashtagsByName = async (name: string) => {
+  let hastagsFromDocs = [];
+
+  if (name.length <= 0) return [];
+
+  const hashs = await getDocs(
+    query(collection(db, "postwitts"), where("hashtags", "!=", null))
+  );
+
+  if (hashs.docs.length <= 0) return [];
+
+  hashs.forEach((doc) => {
+    hastagsFromDocs.push(...doc.data().hashtags);
+  });
+
+  hastagsFromDocs = [...hastagsFromDocs].filter(
+    (ele, pos) => [...hastagsFromDocs].indexOf(ele) === pos
+  );
+
+  hastagsFromDocs = hastagsFromDocs.filter((hashtag) =>
+    hashtag.toLowerCase().includes(name)
+  );
+
+  if (hastagsFromDocs.length <= 0) return [];
+
+  const hashsFinal = await getDocs(
+    query(
+      collection(db, "postwitts"),
+      where("hashtags", "array-contains-any", hastagsFromDocs)
+    )
+  );
+
+  const postwittFromHashtags = hashsFinal.docs.map(
+    (doc) => doc.data().hashtags
+  );
+  let hashsWithPostwittsCount = hastagsFromDocs.map((hash) => {
+    let postwitts = 0;
+    postwittFromHashtags.forEach((hashsFromPost) => {
+      if (hashsFromPost.includes(hash)) postwitts++;
+    });
+
+    return {
+      hashtag: hash,
+      postwitts,
+    };
+  });
+
+  hashsWithPostwittsCount = hashsWithPostwittsCount.sort(
+    (a, b) => b.postwitts - a.postwitts
+  );
+
+  return hashsWithPostwittsCount;
+};
+
+export const watchHastagsPostwitts = (
+  hashtag: string,
+  callback: Callback,
+  setLoading: CallbackLoading,
+  pageNumber = 1
+) => {
+  const limitNumber = pageNumber * LIMIT_CHARGE_POSTWITTS;
+
   onSnapshot(
     query(
       collection(db, "postwitts"),
-      where("hashtags", "array-contains", hashtag)
+      where("hashtags", "array-contains", hashtag),
+      limit(limitNumber)
     ),
     (snapshot) => {
       callback(
@@ -75,6 +146,7 @@ export const watchHastagsPostwitts = (hashtag: string, callback) => {
           id: doc.id,
         }))
       );
+      setLoading(false);
     }
   );
 };

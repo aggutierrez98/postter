@@ -18,10 +18,6 @@ interface Props {
 export const UserInfo = ({ userInfo }: Props) => {
   const { setIsOpen, setUserId } = useContext(UserContext);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [screenSize, setScreenSize] = useState({
-    isPhone: false,
-    isSm: false,
-  });
   const router = useRouter();
   const { data: session } = useSession();
   const { t } = useTranslation();
@@ -31,19 +27,6 @@ export const UserInfo = ({ userInfo }: Props) => {
       setIsFollowing(true);
     }
   }, [userInfo, session?.user.uid]);
-
-  const updateWidth = (e) => {
-    const screenWidth = e.target.screen.width;
-    setScreenSize({
-      isPhone: screenWidth < 500,
-      isSm: screenWidth < 640 && screenWidth > 500,
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, [screenSize]);
 
   return (
     <div className="flex scrollbar-hide relative flex-col">
@@ -60,15 +43,17 @@ export const UserInfo = ({ userInfo }: Props) => {
             className="absolute bottom-[15px] rounded-full p-[3px] sm:p-1.5 bg-custom-primary flex 
           items-center justify-center"
           >
-            <Image
-              className="rounded-full"
-              width={screenSize.isPhone ? 100 : screenSize.isSm ? 120 : 133.5}
-              height={screenSize.isPhone ? 100 : screenSize.isSm ? 120 : 133.5}
-              src={userInfo.image ? userInfo.image : defaultImage}
-              priority
-              blurDataURL="banner.jpg"
-              placeholder="blur"
-            ></Image>
+            <div className="h-[100px] w-[100px] sm:h-[120px] sm:w-[120px] md:h-[133.5px] md:w-[133.5px] relative">
+              <Image
+                className="rounded-full"
+                priority
+                blurDataURL="banner.jpg"
+                placeholder="blur"
+                src={userInfo.image ? userInfo.image : defaultImage}
+                layout="fill"
+                objectFit="contain"
+              />
+            </div>
           </div>
           {userInfo.uid === session?.user.uid ? (
             <button

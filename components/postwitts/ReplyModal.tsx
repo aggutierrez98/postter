@@ -18,7 +18,7 @@ import defaultImage from "public/user-template.png";
 
 export const ReplyModal = () => {
   const { data: session }: { data: Session } = useSession();
-  const { setModalReplyIsOpen, postwittId } =
+  const { setModalReplyIsOpen, postwittId, modalReplyIsOpen } =
     useContext<PostContextProps>(PostContext);
   const [postwitt, setPostwitt] = useState<PostwittInterface>();
   const { t } = useTranslation();
@@ -37,15 +37,17 @@ export const ReplyModal = () => {
   } = useInput();
 
   useEffect(() => {
-    watchPostwitt(postwittId, setPostwitt);
-    return () => {
+    if (modalReplyIsOpen) {
       watchPostwitt(postwittId, setPostwitt);
-      // setShowEmojis(false);
-    };
-  }, [postwittId]);
+      return () => {
+        watchPostwitt(postwittId, setPostwitt);
+        // setShowEmojis(false);
+      };
+    }
+  }, [postwittId, modalReplyIsOpen]);
 
   return (
-    <Transition.Root show={true} as={Fragment}>
+    <Transition.Root show={modalReplyIsOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-50 inset-0 phone:pt-8 overflow-auto"
@@ -57,10 +59,10 @@ export const ReplyModal = () => {
         >
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-150"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            leave="ease-in duration-200"
+            leave="ease-in duration-150"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
@@ -69,10 +71,10 @@ export const ReplyModal = () => {
 
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-150"
             enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             enterTo="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
+            leave="ease-in duration-150"
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >

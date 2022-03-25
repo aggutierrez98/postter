@@ -1,3 +1,11 @@
+export const moveToStart = (
+  array: any[],
+  conditionCallback: (value: any, index: number, obj: any[]) => unknown
+) => {
+  array.unshift(array.splice(array.findIndex(conditionCallback), 1)[0]);
+  return array;
+};
+
 export const compareObjects = (a: any, b: any) => {
   if (a === b) return true;
 

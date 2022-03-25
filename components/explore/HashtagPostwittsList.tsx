@@ -1,9 +1,18 @@
 import { PostwittInterface } from "interfaces/index";
-import { Postwitt } from "components";
+import { Postwitt, LoadingPostwitts } from "components";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
-export const HashtagPostwittsList = ({ hashtag, postwitts }) => {
+import { useLoadHashtagPostwitts, useNearScreen } from "hooks";
+export const HashtagPostwittsList = ({ hashtag }) => {
   const router = useRouter();
+  const { postwitts, loading, loadNextPage, hasMore } = useLoadHashtagPostwitts(
+    { hashtag }
+  );
+  const { obsRef } = useNearScreen({
+    loading,
+    loadNextPage,
+    hasMore,
+  });
 
   return (
     <div className=" border-l border-r border-custom-secondary min-h-full">
@@ -28,15 +37,21 @@ export const HashtagPostwittsList = ({ hashtag, postwitts }) => {
         </div>
       </div>
       <div className="pb-72">
-        {postwitts.map((postwitt: PostwittInterface) => {
-          return (
-            <Postwitt
-              key={postwitt.id}
-              postwittId={postwitt.id}
-              postwitt={postwitt}
-            />
-          );
-        })}
+        {postwitts.length > 0 && (
+          <>
+            {postwitts.map((postwitt: PostwittInterface) => {
+              return (
+                <Postwitt
+                  key={postwitt.id}
+                  postwittId={postwitt.id}
+                  postwitt={postwitt}
+                />
+              );
+            })}
+            <div id="visor" ref={obsRef}></div>
+          </>
+        )}
+        {loading && <LoadingPostwitts />}
       </div>
     </div>
   );

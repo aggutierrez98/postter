@@ -4,11 +4,16 @@ import { UserInterface } from "interfaces";
 interface Props {
   postwitts?: any[];
   userData: UserInterface;
+  observableRef: (node: any) => void;
 }
 
-export const PostwittsByUserList = ({ userData, postwitts }: Props) => {
+export const PostwittsByUserList = ({
+  userData,
+  postwitts,
+  observableRef,
+}: Props) => {
   return (
-    <div className="pb-72">
+    <>
       {postwitts.map((postwitt) => {
         return (
           <Postwitt
@@ -22,6 +27,7 @@ export const PostwittsByUserList = ({ userData, postwitts }: Props) => {
           />
         );
       })}
-    </div>
+      <div id="visor" ref={observableRef}></div>
+    </>
   );
 };

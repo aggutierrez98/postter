@@ -1,3 +1,7 @@
+export { PostwittFeed } from "./PostwittFeed";
+export { RepliesList } from "./RepliesList";
+export { UserImage } from "./UserImage";
+export { UserPopover } from "./UserPopover";
 export { MenuPostwitt } from "./MenuPostwitt";
 export { ModalConfirmation } from "./ModalConfirmation";
 export { ReplyModal } from "./ReplyModal";

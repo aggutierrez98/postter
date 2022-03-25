@@ -12,49 +12,50 @@ import { useTranslation } from "hooks";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 export const ResponsiveLeftMenu = () => {
-  const { setModalLeftMenuIsOpen } = useContext<PostContextProps>(PostContext);
+  const { setModalLeftMenuIsOpen, modalLeftMenuIsOpen } =
+    useContext<PostContextProps>(PostContext);
   const { data: session } = useSession();
   const [userInfo, setUserInfo] = useState<UserInterface>(session?.user);
   const { t } = useTranslation();
   useEffect(() => {
-    if (session) {
+    if (session && modalLeftMenuIsOpen) {
       watchUser(session?.user.uid, setUserInfo);
       return () => {
         watchUser(session?.user.uid, setUserInfo);
       };
     }
-  }, [session?.user, session]);
+  }, [session?.user, session, modalLeftMenuIsOpen]);
   const { setModalConfigIsOpen } = useContext(UserContext);
 
   return (
-    <Transition.Root show={true} as={Fragment}>
+    <Transition.Root show={modalLeftMenuIsOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-50 inset-0"
         onClose={setModalLeftMenuIsOpen}
       >
-        <div className="flex items-start justify-start min-h-screen phone:hidden ">
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Dialog.Overlay className="fixed inset-0 bg-[#5b7083] bg-opacity-40 transition-opacity" />
-          </Transition.Child>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-150"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Dialog.Overlay className="fixed inset-0 bg-[#5b7083] bg-opacity-40 transition-opacity" />
+        </Transition.Child>
 
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enterTo="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          >
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-150"
+          enterFrom="opacity-0 translate-x-[-280px] "
+          enterTo="opacity-100 translate-x-0"
+          leave="ease-in duration-150"
+          leaveFrom="opacity-100 translate-x-0 "
+          leaveTo="opacity-0 translate-x-[-280px]"
+        >
+          <div className="flex items-start justify-start min-h-screen phone:hidden ">
             <div className=" bg-custom-primary shadow-xl transform transition-all sm:my-8 sm:align-middle w-[280px] h-screen">
               <div className="flex items-center justify-between px-1.5 py-2 border-b border-custom-secondary">
                 <h3 className="text-custom-text text-lg font-bold ml-2 truncate">
@@ -127,8 +128,8 @@ export const ResponsiveLeftMenu = () => {
                 </button>
               </div>
             </div>
-          </Transition.Child>
-        </div>
+          </div>
+        </Transition.Child>
       </Dialog>
     </Transition.Root>
   );

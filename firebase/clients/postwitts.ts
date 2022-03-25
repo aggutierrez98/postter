@@ -16,6 +16,9 @@ import {
   runTransaction,
   documentId,
   collectionGroup,
+  limit,
+  DocumentReference,
+  Query,
 } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { UserInterface } from "interfaces";
@@ -23,8 +26,11 @@ import { db, storage } from "../firebase.config";
 import { getUser } from "./users";
 
 type Callback = Dispatch<SetStateAction<DocumentData>>;
+type CallbackLoading = Dispatch<SetStateAction<Boolean>>;
 type InputData = { text: string; file: string; hashtags?: string[] };
 const postwittsRef = collection(db, "postwitts");
+
+const LIMIT_CHARGE_POSTWITTS = 6;
 
 export const getPostwittIds = async () => {
   const userSnapshots = await getDocs(postwittsRef);
@@ -43,70 +49,191 @@ export const watchPostwitt = (id: string, callback: Callback) => {
   });
 };
 
-export const watchPostwitts = (callback: Callback) => {
-  onSnapshot(query(postwittsRef, orderBy("timestamp", "desc")), (snapshot) => {
-    callback(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  });
-};
-
-export const watchPostwittsByUser = (
-  userId: string | string[],
-  callback: Callback
+export const watchPostwitts = async (
+  callback: Callback,
+  setLoading: CallbackLoading,
+  pageNumber = 1
 ) => {
-  const q = query(
-    postwittsRef,
-    where("userId", "==", userId),
-    orderBy("timestamp", "desc")
-  );
+  const limitNumber = pageNumber * LIMIT_CHARGE_POSTWITTS;
 
-  onSnapshot(q, (snapshotPostwitts) => {
-    const postwittsByUser = [];
-    snapshotPostwitts.forEach((doc) => {
-      postwittsByUser.push({ ...doc.data(), id: doc.id });
-    });
-    callback(postwittsByUser);
-  });
-};
-
-export const watchPostwittsByUserByLikes = (
-  userId: string,
-  callback: Callback
-) => {
   onSnapshot(
-    query(
-      collectionGroup(db, "likes"),
-      where("userId", "==", userId),
-      orderBy("timestamp", "desc")
-    ),
-    (snapshotLikes) => {
-      if (snapshotLikes.docs.length <= 0) {
-        callback([]);
-        return;
-      }
-
-      onSnapshot(
-        query(
-          collection(db, "postwitts"),
-          where(
-            documentId(),
-            "in",
-            snapshotLikes.docs.map((s) => s.data().postwittId)
-          )
-        ),
-        (snapshotLikes) => {
-          const newSnaps = snapshotLikes.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }));
-          callback(newSnaps);
-        }
-      );
+    query(postwittsRef, orderBy("timestamp", "desc"), limit(limitNumber)),
+    (snapshot) => {
+      callback(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setLoading(false);
     }
   );
 };
 
-export const watchPostwittReplies = (id: string, callback: Callback) => {
-  const q = query(
+// // export const watchPostwittsByUser = (
+// //   userId: string | string[],
+// //   callback: Callback,
+// //   setLoading: CallbackLoading,
+// //   pageNumber = 1
+// // ) => {
+// //   const limitNumber = pageNumber * LIMIT_CHARGE_POSTWITTS;
+
+// //   const postwittsByUser = [];
+// //   let repostsByUser = []
+
+// //   onSnapshot(query(
+// //     postwittsRef,
+// //     where("userId", "==", userId),
+// //     orderBy("timestamp", "desc"),
+// //     limit(limitNumber)
+// //   ), (snapshotPostwitts) => {
+
+// //     onSnapshot(
+// //       query(
+// //         collectionGroup(db, "reposts"),
+// //         where("userId", "==", userId),
+// //         orderBy("timestamp", "desc")
+// //       ),
+// //       (snapshotReposts) => {
+// //         if (snapshotReposts.docs.length <= 0) {
+// //           callback(postwittsByUser)
+// //           setLoading(false)
+// //           return;
+// //         }
+
+// //         onSnapshot(
+// //           query(
+// //             collection(db, "postwitts"),
+// //             where(
+// //               documentId(),
+// //               "in",
+// //               snapshotReposts.docs.map((s) => s.data().idPostwitt)
+// //             )
+// //           ),
+// //           (snapshotLikes) => {
+// //             repostsByUser = snapshotLikes.docs.map((doc, index) => {
+// //               return {
+// //                 ...doc.data(),
+// //                 id: doc.data().userId,
+// //                 timestamp: snapshotReposts.docs[index].data().timestamp,
+// //                 repostedBy: snapshotReposts.docs[index].data().userName,
+// //                 timePostedOriginal: doc.data().timestamp,
+// //                 idOriginal: doc.id,
+// //               };
+// //             });
+
+// //             snapshotPostwitts.forEach((doc) => {
+// //               postwittsByUser.push({ ...doc.data(), id: doc.id });
+// //             });
+
+// //             console.log({ postwittsByUser, repostsByUser })
+
+// //             const totalPosts = [...postwittsByUser, ...repostsByUser].sort(
+// //               (a, b) => b.timestamp - a.timestamp)
+
+// //             callback(totalPosts)
+// //             setLoading(false)
+// //           }
+// //         );
+// //       }
+// //     );
+// //   });
+// // };
+
+export const watchPostwittsByUser = (
+  userId: string | string[],
+  callback: Callback,
+  setLoading: CallbackLoading,
+  pageNumber: number = 1,
+  option: number = 0
+) => {
+  const limitNumber = pageNumber * LIMIT_CHARGE_POSTWITTS;
+
+  if (option === 0 || option === 2) {
+    const q = query(
+      postwittsRef,
+      where("userId", "==", userId),
+      where("replied", "==", null),
+      orderBy("timestamp", "desc"),
+      limit(limitNumber)
+    );
+
+    onSnapshot(q, (snapshotPostwitts) => {
+      const postwittsByUser = [];
+      snapshotPostwitts.forEach((doc) => {
+        postwittsByUser.push({ ...doc.data(), id: doc.id });
+      });
+      callback(postwittsByUser);
+      setLoading(false);
+    });
+  } else if (option === 1) {
+    const q = query(
+      postwittsRef,
+      where("userId", "==", userId),
+      orderBy("timestamp", "desc"),
+      limit(limitNumber)
+    );
+
+    onSnapshot(q, (snapshotPostwitts) => {
+      const postwittsByUser = [];
+      snapshotPostwitts.forEach((doc) => {
+        postwittsByUser.push({ ...doc.data(), id: doc.id });
+      });
+      callback(postwittsByUser);
+      setLoading(false);
+    });
+  } else if (option === 3) {
+    onSnapshot(
+      query(
+        collectionGroup(db, "likes"),
+        where("userId", "==", userId),
+        orderBy("timestamp", "desc"),
+        limit(limitNumber)
+      ),
+      (snapshotLikes) => {
+        if (snapshotLikes.docs.length <= 0) {
+          callback([]);
+          return;
+        }
+
+        onSnapshot(
+          query(
+            collection(db, "postwitts"),
+            where(
+              documentId(),
+              "in",
+              snapshotLikes.docs.map((s) => s.data().postwittId)
+            )
+          ),
+          (snapshotLikes) => {
+            const newSnaps = snapshotLikes.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }));
+            callback(newSnaps);
+            setLoading(false);
+          }
+        );
+      }
+    );
+  }
+};
+
+export const watchPostwittReplies = (
+  id: string,
+  callback: Callback,
+  setLoading?: CallbackLoading,
+  pageNumber?: number
+) => {
+  let limitNumber: number;
+  let q: Query<DocumentData> | DocumentReference<any>;
+
+  if (pageNumber) {
+    limitNumber = pageNumber * LIMIT_CHARGE_POSTWITTS;
+    q = query(
+      postwittsRef,
+      where("replied", "==", id),
+      orderBy("timestamp", "desc"),
+      limit(limitNumber)
+    );
+  }
+
+  q = query(
     postwittsRef,
     where("replied", "==", id),
     orderBy("timestamp", "desc")
@@ -119,20 +246,27 @@ export const watchPostwittReplies = (id: string, callback: Callback) => {
     });
 
     callback(replies);
+    if (setLoading) setLoading(false);
   });
 };
 
 export const watchBookmarkedPostwitts = (
   bookmarkedIds: string[],
-  callback: Callback
+  callback: Callback,
+  setLoading: CallbackLoading,
+  pageNumber: number = 1
 ) => {
+  const limitNumber = pageNumber * LIMIT_CHARGE_POSTWITTS;
+
   const docs = collection(db, "postwitts");
 
   if (bookmarkedIds?.length > 0) {
     onSnapshot(
       query(
         docs,
-        where(documentId(), "in", bookmarkedIds)
+        where(documentId(), "in", bookmarkedIds),
+        limit(limitNumber)
+
         // orderBy("timestamp", "desc")
       ),
       (snapshotPostwitts) => {
@@ -142,6 +276,7 @@ export const watchBookmarkedPostwitts = (
         });
 
         callback(bookmarkedPostwitts);
+        setLoading(false);
       }
     );
   } else callback([]);

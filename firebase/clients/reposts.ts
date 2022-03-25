@@ -19,6 +19,8 @@ import { UserInterface } from "interfaces";
 type Callback = Dispatch<SetStateAction<DocumentData>>;
 //   type InputData = { text: string; file: string };
 
+const LIMIT_CHARGE_POSTWITTS = 6;
+
 export const watchPostwittReposts = (id: string, callback: Callback) => {
   onSnapshot(collection(db, "postwitts", id, "reposts"), (snapshot) =>
     callback(snapshot.docs)
@@ -78,7 +80,10 @@ export const watchReposts = (callback: Callback) => {
 export const watchPostwittsByUserByReposts = async (
   userId: string,
   callback: Callback
+  // pageNumber = 1
 ) => {
+  // const limitNumber = pageNumber * LIMIT_CHARGE_POSTWITTS;
+
   onSnapshot(
     query(
       collectionGroup(db, "reposts"),

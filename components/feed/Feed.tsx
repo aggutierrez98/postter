@@ -1,33 +1,23 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 import defaultImage from "public/user-template.png";
 import { PostContext } from "context";
 import { PostwittInterface } from "interfaces";
-import { NewPostwitt, Postwitt } from "components";
-import { watchPostwitts, watchReposts } from "@f/index";
-import { useTranslation } from "hooks";
+import { NewPostwitt, Postwitt, LoadingPostwitts } from "components";
+import { useLoadPostwitts, useNearScreen, useTranslation } from "hooks";
 
 export const Feed = () => {
-  const [totalPostwitts, setTotalPostwitts] = useState([]);
-  const [reposts, setReposts] = useState([]);
-  const [postwitts, setPostwitts] = useState([]);
   const { data: session } = useSession();
   const { setModalLeftMenuIsOpen } = useContext(PostContext);
   const { t } = useTranslation();
-
-  useEffect(() => watchPostwitts(setTotalPostwitts), []);
-  useEffect(() => watchReposts(setReposts), []);
-  useEffect(
-    () =>
-      setPostwitts(
-        [...totalPostwitts, ...reposts].sort(
-          (a, b) => b.timestamp - a.timestamp
-        )
-      ),
-    [reposts, totalPostwitts]
-  );
+  const { postwitts, loading, loadNextPage, hasMore } = useLoadPostwitts();
+  const { obsRef } = useNearScreen({
+    loading,
+    loadNextPage,
+    hasMore,
+  });
 
   return (
     <div className="border-l border-r border-custom-secondary min-h-full">
@@ -48,19 +38,25 @@ export const Feed = () => {
         </div>
       </div>
       <div className="hidden phone:flex">{session && <NewPostwitt />}</div>
-      <div className="pb-72 border-t border-custom-secondary ">
-        {postwitts.map((postwitt: PostwittInterface) => {
-          return (
-            <Postwitt
-              key={postwitt.id}
-              postwittId={postwitt.id}
-              postwitt={postwitt}
-              repostedBy={postwitt.repostedBy}
-              idOriginal={postwitt.idOriginal}
-              timePostedOriginal={postwitt.timePostedOriginal}
-            />
-          );
-        })}
+      <div className="pb-72 border-t border-custom-secondary relative">
+        {postwitts.length > 0 && (
+          <>
+            {postwitts.map((postwitt: PostwittInterface) => {
+              return (
+                <Postwitt
+                  key={postwitt.id}
+                  postwittId={postwitt.id}
+                  postwitt={postwitt}
+                  repostedBy={postwitt.repostedBy}
+                  idOriginal={postwitt.idOriginal}
+                  timePostedOriginal={postwitt.timePostedOriginal}
+                />
+              );
+            })}
+            <div id="visor" ref={obsRef}></div>
+          </>
+        )}
+        {loading && <LoadingPostwitts />}
       </div>
     </div>
   );

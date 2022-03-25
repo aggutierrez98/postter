@@ -1,91 +1,26 @@
 import { Tab } from "@headlessui/react";
-import { useEffect, useState } from "react";
-import {
-  watchPostwittsByUser,
-  watchPostwittsByUserByLikes,
-  watchPostwittsByUserByReposts,
-} from "@f/index";
+import { Fragment, useState } from "react";
 import { PostwittsByUserList, TabFilterSelector } from "components";
-import { useTranslation } from "hooks";
+import { useLoadPostwittsByUser, useNearScreen, useTranslation } from "hooks";
+import { LoadingPostwitts } from "components";
 
 export const TabsShowPostwitts = ({ userData }) => {
-  const [totalPostwitts, setTotalPostwitts] = useState([]);
-  const [postwittsLiked, setPostwittsLiked] = useState([]);
-  const [reposts, setReposts] = useState([]);
-  const [postwitts, setPostwitts] = useState([]);
-  const [index, setIndex] = useState(0);
   const { t } = useTranslation();
+  const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    watchPostwittsByUser(userData.uid, setTotalPostwitts);
-    watchPostwittsByUserByLikes(userData.uid, setPostwittsLiked);
-    watchPostwittsByUserByReposts(userData.uid, setReposts);
-    return () => {
-      watchPostwittsByUser(userData.uid, setTotalPostwitts);
-      watchPostwittsByUserByLikes(userData.uid, setPostwittsLiked);
-      watchPostwittsByUserByReposts(userData.uid, setReposts);
-    };
-  }, [userData?.uid]);
-
-  useEffect(() => {
-    if (totalPostwitts.length === 0) return;
-
-    if (index === 0) {
-      setPostwitts(() => {
-        let newPostwitts = [];
-        totalPostwitts.forEach((post) => {
-          if (post?.replied === null) {
-            if (post.id === userData.pinned) {
-              newPostwitts.unshift(post);
-            } else {
-              newPostwitts.push(post);
-            }
-          }
-        });
-
-        newPostwitts = [...newPostwitts, ...reposts].sort(
-          (a, b) => b.timestamp - a.timestamp
-        );
-        return newPostwitts;
-      });
-    } else if (index === 1) {
-      setPostwitts(() => {
-        let newPostwitts = [];
-
-        totalPostwitts.forEach((post) => {
-          if (post.id === userData.pinned) {
-            newPostwitts.unshift(post);
-          } else {
-            newPostwitts.push(post);
-          }
-        });
-
-        newPostwitts = [...newPostwitts, ...reposts].sort(
-          (a, b) => b.timestamp - a.timestamp
-        );
-
-        return newPostwitts;
-      });
-    } else if (index === 2) {
-      setPostwitts(() => {
-        return totalPostwitts.filter((postwitt) => postwitt.image);
-      });
-    } else if (index === 3) {
-      setPostwitts(() => postwittsLiked);
-    }
-
-    return () => {
-      setPostwitts([]);
-    };
-  }, [index, totalPostwitts, reposts, userData, postwittsLiked]);
+  const { postwitts, loading, hasMore, loadNextPage } = useLoadPostwittsByUser({
+    userData,
+    option: index,
+  });
+  const { obsRef } = useNearScreen({
+    loading,
+    loadNextPage,
+    hasMore,
+  });
 
   return (
-    <div>
-      <Tab.Group
-        onChange={(index) => {
-          setIndex(index);
-        }}
-      >
+    <div className="pb-72 border-t border-custom-secondary relative">
+      <Tab.Group as={Fragment} onChange={setIndex}>
         <Tab.List className="border-custom-secondary border-b pb-2 flex justify-between text-custom-placeholder overflow-x-auto">
           <Tab as="div">
             {({ selected }) => (
@@ -111,18 +46,54 @@ export const TabsShowPostwitts = ({ userData }) => {
             )}
           </Tab>
         </Tab.List>
-        <Tab.Panels>
+        <Tab.Panels as={Fragment}>
           <Tab.Panel>
-            <PostwittsByUserList userData={userData} postwitts={postwitts} />
+            <>
+              {postwitts.length > 0 && (
+                <PostwittsByUserList
+                  userData={userData}
+                  postwitts={postwitts}
+                  observableRef={obsRef}
+                />
+              )}
+              {loading && <LoadingPostwitts />}
+            </>
           </Tab.Panel>
           <Tab.Panel>
-            <PostwittsByUserList userData={userData} postwitts={postwitts} />
+            <>
+              {postwitts.length > 0 && (
+                <PostwittsByUserList
+                  userData={userData}
+                  postwitts={postwitts}
+                  observableRef={obsRef}
+                />
+              )}
+              {loading && <LoadingPostwitts />}
+            </>
           </Tab.Panel>
           <Tab.Panel>
-            <PostwittsByUserList userData={userData} postwitts={postwitts} />
+            <>
+              {postwitts.length > 0 && (
+                <PostwittsByUserList
+                  userData={userData}
+                  postwitts={postwitts}
+                  observableRef={obsRef}
+                />
+              )}
+              {loading && <LoadingPostwitts />}
+            </>
           </Tab.Panel>
           <Tab.Panel>
-            <PostwittsByUserList userData={userData} postwitts={postwitts} />
+            <>
+              {postwitts.length > 0 && (
+                <PostwittsByUserList
+                  userData={userData}
+                  postwitts={postwitts}
+                  observableRef={obsRef}
+                />
+              )}
+              {loading && <LoadingPostwitts />}
+            </>
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

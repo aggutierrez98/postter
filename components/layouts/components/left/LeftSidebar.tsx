@@ -12,12 +12,13 @@ import PersonIcon from "@mui/icons-material/Person";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import SettingsIcon from "@mui/icons-material/Settings";
-import icon from "public/favicon.ico";
+import icon from "public/post.png";
 import defaultImage from "public/user-template.png";
 import { LeftSidebarLink } from "components";
 import { PostContext, UserContext } from "context";
 import { useTranslation } from "hooks";
 import { useRouter } from "next/router";
+import Link from "next/link";
 // // import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 // // import NotificationsIcon from "@mui/icons-material/Notifications";
 // // import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
@@ -47,9 +48,14 @@ export const LeftSidebar = () => {
         className="hidden phone:flex flex-col items-center xl:items-start px-2 h-screen static md:ml-20 xl:ml-[10vw] xl:min-w-[270px] 3xl:ml-[15vw]
       4xl:ml-[20vw]"
       >
-        <div className="flex items-center justify-center h-14 hoverAnimation ">
-          <Image src={icon} width={30} height={30} />
-        </div>
+        <Link href="/" passHref>
+          <div className="flex items-center justify-center h-14 hoverAnimation mt-1 xl:mt-2">
+            <Image src={icon} width={45} height={30} />
+            <h1 className="hidden xl:block text-3xl ml-3 text-[#1d9bf0]">
+              Postter
+            </h1>
+          </div>
+        </Link>
         <div className="space-y-2 mt-1 mb-2.5 ">
           <LeftSidebarLink
             text={t("home")}

@@ -5,10 +5,11 @@ import { NewPostwitt } from "components";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 export const ModalNewPostwitt = () => {
-  const { setModalNewIsOpen } = useContext<PostContextProps>(PostContext);
+  const { setModalNewIsOpen, modalNewIsOpen } =
+    useContext<PostContextProps>(PostContext);
 
   return (
-    <Transition.Root show={true} as={Fragment}>
+    <Transition.Root show={modalNewIsOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-50 inset-0 phone:pt-8 overflow-auto"
@@ -20,10 +21,10 @@ export const ModalNewPostwitt = () => {
         >
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-150"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            leave="ease-in duration-200"
+            leave="ease-in duration-150"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
@@ -32,10 +33,10 @@ export const ModalNewPostwitt = () => {
 
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-150"
             enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             enterTo="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
+            leave="ease-in duration-150"
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >

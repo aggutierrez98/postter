@@ -1,4 +1,4 @@
-import { compareObjects } from "helpers/deepCompare";
+import { compareObjects } from "helpers";
 import { useCallback, useState } from "react";
 import { useMemoCompare } from "./useMemoCompare";
 

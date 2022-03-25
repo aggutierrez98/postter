@@ -84,6 +84,7 @@
     "page_not_found": "pagina no encotrada",
     "back_to_main_page": "volver a la pagina principal",
     "click_here": "hacer click aqui",
-    "dont_miss": "No te pierdas lo que está pasando"
+    "dont_miss": "No te pierdas lo que está pasando",
+    "nothing_found": "No se encontraron resultados"
   }
 }

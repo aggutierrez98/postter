@@ -1,11 +1,9 @@
 import { DocumentData } from "firebase/firestore";
-import { Postwitt } from "components";
-import { useEffect, useState } from "react";
-import { watchBookmarkedPostwitts } from "@f/index";
+import { Postwitt, LoadingPostwitts } from "components";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
 import { UserInterface } from "interfaces";
-import { useTranslation } from "hooks";
+import { useLoadBookmarked, useNearScreen, useTranslation } from "hooks";
 
 interface Props {
   bookmarks: string[];
@@ -15,12 +13,14 @@ interface Props {
 export const BookmarksFeed = ({ bookmarks, userInfo }: Props) => {
   const { t } = useTranslation();
   const router = useRouter();
-  const [postwitts, setPostwitts] = useState([]);
+  const { postwitts, loading, loadNextPage, hasMore } =
+    useLoadBookmarked(bookmarks);
 
-  useEffect(
-    () => watchBookmarkedPostwitts(bookmarks, setPostwitts),
-    [bookmarks]
-  );
+  const { obsRef } = useNearScreen({
+    loading,
+    loadNextPage,
+    hasMore,
+  });
 
   return (
     <div className="border-l border-r border-custom-secondary min-h-full">
@@ -45,15 +45,21 @@ export const BookmarksFeed = ({ bookmarks, userInfo }: Props) => {
         </div>
       </div>
       <div className="pb-72">
-        {postwitts.map((postwitt: DocumentData) => {
-          return (
-            <Postwitt
-              key={postwitt.id}
-              postwittId={postwitt.id}
-              postwitt={postwitt.data()}
-            />
-          );
-        })}
+        {postwitts.length > 0 && (
+          <>
+            {postwitts.map((postwitt: DocumentData) => {
+              return (
+                <Postwitt
+                  key={postwitt.id}
+                  postwittId={postwitt.id}
+                  postwitt={postwitt.data()}
+                />
+              );
+            })}
+            <div id="visor" ref={obsRef}></div>
+          </>
+        )}
+        {loading && <LoadingPostwitts />}
       </div>
     </div>
   );

@@ -84,6 +84,7 @@
     "page_not_found": "page not found",
     "back_to_main_page": "go back to main page",
     "click_here": "click here",
-    "dont_miss": "Don't miss what's happening"
+    "dont_miss": "Don't miss what's happening",
+    "nothing_found": "nothing found"
   }
 }

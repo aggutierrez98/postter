@@ -18,12 +18,6 @@ export default function HashtagPage({
   trendingResults,
   followResults,
 }: Props) {
-  const [hastagPostwitts, setHastagPostwitts] = useState([]);
-
-  useEffect(() => {
-    watchHastagsPostwitts(hashtag, setHastagPostwitts);
-  }, [hashtag]);
-
   return (
     <MainLayout trendingResults={trendingResults} followResults={followResults}>
       <Head>
@@ -33,7 +27,7 @@ export default function HashtagPage({
         <meta property="og:description" content={`${hashtag} postwitts`} />
         <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
-      <HashtagPostwittsList hashtag={hashtag} postwitts={hastagPostwitts} />
+      <HashtagPostwittsList hashtag={hashtag} />
     </MainLayout>
   );
 }
