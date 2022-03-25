@@ -1,20 +1,20 @@
 import Head from "next/head";
 import { Feed, MainLayout } from "components";
-import {
-  TrendingResultInterface,
-  FollowResultInterface,
-} from "interfaces/index";
+// import {
+//   TrendingResultInterface,
+//   FollowResultInterface,
+// } from "interfaces/index";
 import { useTranslation } from "hooks";
 import { ReactElement } from "react";
 
-interface Props {
-  trendingResults: TrendingResultInterface[];
-  followResults: FollowResultInterface[];
-}
+// interface Props {
+//   trendingResults: TrendingResultInterface[];
+//   followResults: FollowResultInterface[];
+// }
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 
-export default function Home({ trendingResults, followResults }: Props) {
+export default function Home() {
   const { t } = useTranslation();
 
   return (
@@ -24,7 +24,7 @@ export default function Home({ trendingResults, followResults }: Props) {
         <meta name="description" content={t("meta_home_description")} />
         <meta property="og:title" content={`${t("home")} / Postter`} />
         <meta property="og:description" content={t("meta_home_description")} />
-        <meta name="og:image" content={`${origin}/banner.jpg`} />
+        <meta name="og:image" content={`${origin}/banner.svg`} />
       </Head>
       <Feed />
     </>

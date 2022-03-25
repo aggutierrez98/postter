@@ -33,7 +33,7 @@ export default function BookmarksPage({
           property="og:description"
           content={t("meta_explore_description")}
         />
-        <meta name="og:image" content={`${origin}/banner.jpg`} />
+        <meta name="og:image" content={`${origin}/banner.svg`} />
       </Head>
       <ExploreFeed hashtagsFromServer={hashtags} />
     </MainLayout>

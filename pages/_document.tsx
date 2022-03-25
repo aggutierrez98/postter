@@ -24,7 +24,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/icon.ico" />
           <link
             href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap"
             rel="stylesheet"

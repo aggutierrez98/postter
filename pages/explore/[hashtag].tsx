@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { FollowResultInterface, TrendingResultInterface } from "interfaces";
-import { getHashtags, watchHastagsPostwitts } from "@f/index";
+import { getHashtags } from "@f/index";
 import { HashtagPostwittsList, MainLayout } from "components";
 
 interface Props {
@@ -25,7 +24,7 @@ export default function HashtagPage({
         <meta property="description" content={`${hashtag} postwitts`} />
         <meta property="og:title" content={`${hashtag} / Postter`} />
         <meta property="og:description" content={`${hashtag} postwitts`} />
-        <meta name="og:image" content={`${origin}/banner.jpg`} />
+        <meta name="og:image" content={`${origin}/banner.svg`} />
       </Head>
       <HashtagPostwittsList hashtag={hashtag} />
     </MainLayout>

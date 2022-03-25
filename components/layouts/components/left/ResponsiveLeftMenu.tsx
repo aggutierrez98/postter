@@ -3,7 +3,7 @@ import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Fragment, useContext, useEffect, useState } from "react";
-import defaultImage from "public/user-template.png";
+import defaultImage from "public/user-template.svg";
 import { watchUser } from "@f/index";
 import { PostContext, PostContextProps, UserContext } from "context";
 import { UserInterface } from "interfaces";

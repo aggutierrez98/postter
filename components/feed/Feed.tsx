@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import defaultImage from "public/user-template.png";
 import { PostContext } from "context";
 import { PostwittInterface } from "interfaces";
 import { NewPostwitt, Postwitt, LoadingPostwitts } from "components";

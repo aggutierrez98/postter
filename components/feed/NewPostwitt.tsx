@@ -5,7 +5,7 @@ import { useInput, useTranslation } from "hooks";
 import { AddImage } from "./AddImage";
 import { Session } from "next-auth";
 import Image from "next/image";
-import defaultImage from "public/user-template.png";
+import defaultImage from "public/user-template.svg";
 
 export const NewPostwitt = () => {
   const { data: session }: { data: Session } = useSession();

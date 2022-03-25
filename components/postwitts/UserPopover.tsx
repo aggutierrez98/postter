@@ -3,7 +3,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { useTranslation } from "hooks";
 import { UserInterface } from "interfaces";
 import Image from "next/image";
-import defaultImage from "public/user-template.png";
+import defaultImage from "public/user-template.svg";
 import React, { Fragment, useEffect, useState } from "react";
 
 export const UserPopover = ({ userId, open }) => {

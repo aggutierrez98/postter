@@ -13,7 +13,7 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import SettingsIcon from "@mui/icons-material/Settings";
 import icon from "public/post.png";
-import defaultImage from "public/user-template.png";
+import defaultImage from "public/user-template.svg";
 import { LeftSidebarLink } from "components";
 import { PostContext, UserContext } from "context";
 import { useTranslation } from "hooks";

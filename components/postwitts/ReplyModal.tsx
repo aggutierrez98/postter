@@ -14,7 +14,7 @@ import {
 import { watchPostwitt } from "@f/index";
 import { PostwittInterface } from "interfaces";
 import Image from "next/image";
-import defaultImage from "public/user-template.png";
+import defaultImage from "public/user-template.svg";
 
 export const ReplyModal = () => {
   const { data: session }: { data: Session } = useSession();
