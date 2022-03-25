@@ -24,7 +24,7 @@ export default function Home() {
         <meta name="description" content={t("meta_home_description")} />
         <meta property="og:title" content={`${t("home")} / Postter`} />
         <meta property="og:description" content={t("meta_home_description")} />
-        <meta name="og:image" content={`${origin}/banner.svg`} />
+        <meta name="og:image" content={`${origin}/banner.png`} />
       </Head>
       <Feed />
     </>

@@ -35,7 +35,7 @@ export default function PostwittPage({
         />
         <meta
           name="og:image"
-          content={postData.image ? postData.image : `${origin}/banner.svg`}
+          content={postData.image ? postData.image : `${origin}/banner.png`}
         />
       </Head>
       <PostwittFeed postData={postData} />

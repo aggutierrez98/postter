@@ -24,7 +24,7 @@ export default function HashtagPage({
         <meta property="description" content={`${hashtag} postwitts`} />
         <meta property="og:title" content={`${hashtag} / Postter`} />
         <meta property="og:description" content={`${hashtag} postwitts`} />
-        <meta name="og:image" content={`${origin}/banner.svg`} />
+        <meta name="og:image" content={`${origin}/banner.png`} />
       </Head>
       <HashtagPostwittsList hashtag={hashtag} />
     </MainLayout>

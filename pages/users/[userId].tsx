@@ -52,7 +52,7 @@ export default function UserPage({
               ? userInfo.bannerImg
               : userData.bannerImg
               ? userData.bannerImg
-              : `${origin}/banner.svg`
+              : `${origin}/banner.png`
           }
         />
       </Head>
