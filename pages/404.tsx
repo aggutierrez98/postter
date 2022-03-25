@@ -25,7 +25,7 @@ const Custom404 = ({ trendingResults, followResults }: Props) => {
           property="og:description"
           content={t("meta_not_found_description")}
         />
-        <meta name="og:image" content={`${origin}/banner.png`} />
+        <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
       <div className="flex items-center justify-center flex-col h-[250px] w-full">
         <h2 className="text-custom-text text-2xl">{t("page_not_found")}</h2>

@@ -42,7 +42,7 @@ export default function BookmarksPage({
           property="og:description"
           content={t(`bookmarks from ${userInfo?.name}`)}
         />
-        <meta name="og:image" content={`${origin}/banner.png`} />
+        <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
       <BookmarksFeed
         bookmarks={userInfo?.bookmarks || bookmarks}
