@@ -12,6 +12,7 @@
     "email": "email",
     "password": "contraseña",
     "login": "ingresar",
+    "logout": "cerrar sesion",
     "register": "registrarse",
     "dont_have_account": "no tienes cuenta?",
     "already_have_account": "ya tienes cuenta?",

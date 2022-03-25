@@ -12,6 +12,7 @@
     "email": "email",
     "password": "password",
     "login": "login",
+    "logout": "logout",
     "register": "register",
     "dont_have_account": "dont have an account?",
     "already_have_account": "already have account?",

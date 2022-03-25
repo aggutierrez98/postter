@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Fragment, useContext, useEffect, useState } from "react";
 import defaultImage from "public/user-template.png";
@@ -10,6 +10,7 @@ import { UserInterface } from "interfaces";
 import { LeftMenuLinkList } from "components";
 import { useTranslation } from "hooks";
 import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const ResponsiveLeftMenu = () => {
   const { setModalLeftMenuIsOpen, modalLeftMenuIsOpen } =
@@ -17,8 +18,9 @@ export const ResponsiveLeftMenu = () => {
   const { data: session } = useSession();
   const [userInfo, setUserInfo] = useState<UserInterface>(session?.user);
   const { t } = useTranslation();
+
   useEffect(() => {
-    if (session && modalLeftMenuIsOpen) {
+    if (session) {
       watchUser(session?.user.uid, setUserInfo);
       return () => {
         watchUser(session?.user.uid, setUserInfo);
@@ -55,7 +57,7 @@ export const ResponsiveLeftMenu = () => {
           leaveFrom="opacity-100 translate-x-0 "
           leaveTo="opacity-0 translate-x-[-280px]"
         >
-          <div className="flex items-start justify-start min-h-screen phone:hidden ">
+          <div className="flex items-start justify-start min-h-screen phone:hidden">
             <div className=" bg-custom-primary shadow-xl transform transition-all sm:my-8 sm:align-middle w-[280px] h-screen">
               <div className="flex items-center justify-between px-1.5 py-2 border-b border-custom-secondary">
                 <h3 className="text-custom-text text-lg font-bold ml-2 truncate">
@@ -117,7 +119,8 @@ export const ResponsiveLeftMenu = () => {
                 )}
                 <LeftMenuLinkList userInfo={userInfo} />
                 <button
-                  className="text-custom-text hover:font-bold flex items-center  space-x-2 w-full py-[16px]"
+                  className="text-custom-text hover:font-bold flex items-center space-x-2 w-full py-[16px] focus-visible:outline-none 
+                    focus-visible:font-bold"
                   onClick={() => {
                     setModalConfigIsOpen(true);
                   }}
@@ -126,6 +129,21 @@ export const ResponsiveLeftMenu = () => {
                   <span className="inline text-[15px]">{t("settings")}</span>
                   <span className="hidden xl:inline">{t("options")}</span>
                 </button>
+                {session && (
+                  <button
+                    className="text-custom-text hover:font-bold flex items-center space-x-2 w-full py-[16px] focus-visible:outline-none 
+                   focus-visible:font-bold"
+                    onClick={() => {
+                      signOut({
+                        callbackUrl: `${window.location.origin}/auth/login`,
+                      });
+                    }}
+                  >
+                    <LogoutIcon className="h-[20px] w-[20px]" />
+                    <span className="inline text-[15px]">{t("logout")}</span>
+                    <span className="hidden xl:inline">{t("options")}</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>

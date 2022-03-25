@@ -68,7 +68,8 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
             <IosShareOutlinedIcon className="h-5 group-hover:text-custom-link" />
           </Menu.Button>
           <Transition
-            as={Fragment}
+            className="w-0 absolute top-[0] right-[0] "
+            as={"div"}
             show={open}
             enter="transition duration-100 ease-out"
             enterFrom="opacity-0"
@@ -77,10 +78,14 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
+            <div
+              onClick={(e) => e.preventDefault()}
+              className="fixed inset-0 h-screen w-screen cursor-default"
+            />
             <Menu.Items
               onClick={(e) => e.preventDefault()}
               className="top-[0] right-[0] absolute bg-custom-primary text-custom-placeholder rounded-sm flex flex-col 
-            items-start px-5 py-1 text-[18px] z-[1]"
+                  items-start px-5 py-1 text-[18px] z-10"
             >
               {isBookmarked ? (
                 <Menu.Item

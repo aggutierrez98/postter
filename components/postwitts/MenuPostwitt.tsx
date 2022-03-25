@@ -62,6 +62,10 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
+            <div
+              onClick={(e) => e.preventDefault()}
+              className="fixed inset-0 h-screen w-screen cursor-default"
+            />
             <Menu.Items
               onClick={(e) => e.preventDefault()}
               className="top-[-10px] right-0 absolute bg-custom-primary text-custom-placeholder rounded-sm flex flex-col 

@@ -78,9 +78,9 @@ export const ModalOptions = () => {
                     }  w-5 h-5 transition ease-in-out duration-150 transform rounded-full bg-custom-primary flex items-center justify-center`}
                   >
                     {themeState ? (
-                      <DarkModeIcon className="h-4 w-4 text-custom-alternative" />
+                      <DarkModeIcon className="h-4 w-4 p-1 text-custom-alternative" />
                     ) : (
-                      <LightModeIcon className="h-4 w-4 text-custom-alternative" />
+                      <LightModeIcon className="h-4 w-4 p-1 text-custom-alternative" />
                     )}
                   </div>
                 </Switch>

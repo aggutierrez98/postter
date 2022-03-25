@@ -9,13 +9,15 @@ import {
   ModalOptions,
   ModalLoggedOut,
 } from "components";
-import { ReactElement } from "react";
+import { ReactElement, useCallback, useContext, useEffect } from "react";
 import {
   FollowResultInterface,
   TrendingResultInterface,
 } from "interfaces/index";
 import { useSession } from "next-auth/react";
 import { useToogleTheme, useTranslation } from "hooks";
+import { useRouter } from "next/router";
+import { PostContext, UserContext } from "context";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -31,6 +33,38 @@ export const MainLayout = ({
   useTranslation();
   useToogleTheme();
   const { data: session } = useSession();
+  const { events } = useRouter();
+
+  const {
+    setModalLeftMenuIsOpen,
+    setModalNewIsOpen,
+    setModalReplyIsOpen,
+    setModalConfirmIsOpen,
+  } = useContext(PostContext);
+  const { setModalConfigIsOpen, setIsOpen } = useContext(UserContext);
+
+  const close = useCallback(() => {
+    setModalLeftMenuIsOpen(false);
+    setModalNewIsOpen(false);
+    setModalReplyIsOpen(false);
+    setModalConfirmIsOpen(false);
+    setModalConfigIsOpen(false);
+    setIsOpen(false);
+  }, [
+    setModalLeftMenuIsOpen,
+    setModalNewIsOpen,
+    setModalReplyIsOpen,
+    setModalConfirmIsOpen,
+    setModalConfigIsOpen,
+    setIsOpen,
+  ]);
+
+  useEffect(() => {
+    events.on("routeChangeStart", close);
+    return () => {
+      events.off("routeChangeStart", close);
+    };
+  }, [close, events]);
 
   return (
     <div>
