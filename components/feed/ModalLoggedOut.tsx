@@ -8,7 +8,7 @@ export const ModalLoggedOut = () => {
   return (
     <Dialog
       open={true}
-      as="div"
+      as="footer"
       className="hidden phone:block fixed z-50 bottom-0 w-full h-[72px] shadow-mh"
       onClose={() => {}}
     >

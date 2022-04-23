@@ -15,7 +15,7 @@ export const LeftMenuLinkList = ({ userInfo }) => {
   const { data: session } = useSession();
 
   return (
-    <div className="flex flex-col w-full mt-2">
+    <nav className="flex flex-col w-full mt-2">
       <LeftMenuLink
         text={t("home")}
         Icon={HomeOutlinedIcon}
@@ -50,6 +50,6 @@ export const LeftMenuLinkList = ({ userInfo }) => {
           route={`/auth/login`}
         />
       )}
-    </div>
+    </nav>
   );
 };

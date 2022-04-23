@@ -29,14 +29,14 @@ export const UserInfo = ({ userInfo }: Props) => {
   }, [userInfo, session?.user.uid]);
 
   return (
-    <div className="flex scrollbar-hide relative flex-col">
+    <section className="flex scrollbar-hide relative flex-col">
       <Image
         className="object-cover object-center"
         width={600}
         height={200}
         src={userInfo.bannerImg ? userInfo.bannerImg : defaultBanner}
         priority
-      ></Image>
+      />
       <div className="px-4 py-3">
         <div className="flex w-full flex-col justify-between relative h-[70px]">
           <div
@@ -127,6 +127,6 @@ export const UserInfo = ({ userInfo }: Props) => {
           </span>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

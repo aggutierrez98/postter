@@ -21,7 +21,7 @@ export const RightSidebar = ({ trendingResults, followResults }: Props) => {
   }, [height]);
 
   return (
-    <div
+    <aside
       style={{
         height: height + "px",
       }}
@@ -34,6 +34,6 @@ export const RightSidebar = ({ trendingResults, followResults }: Props) => {
           followResults={followResults}
         />
       </div>
-    </div>
+    </aside>
   );
 };

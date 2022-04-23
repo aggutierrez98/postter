@@ -67,30 +67,28 @@ export const MainLayout = ({
   }, [close, events]);
 
   return (
-    <div>
-      <main className="bg-custom-primary min-h-screen flex justify-center mx-auto max-h-screen">
-        <LeftSidebar />
-        <div
-          id="main"
-          className="flex flex-grow overflow-y-auto md:pr-10 justify-start xl:justify-end 3xl:justify-start relative"
-        >
-          <div className="w-[600px] min-w-0 max-w-2xl flex-grow min-h-full">
-            {children}
-          </div>
-          <RightSidebar
-            trendingResults={trendingResults}
-            followResults={followResults}
-          />
-        </div>
-        <ModalNewPostwitt />
-        <ReplyModal />
-        <ModalEditUser />
-        <ModalConfirmation />
-        <ResponsiveLeftMenu />
-        <ModalOptions />
+    <div className="bg-custom-primary min-h-screen flex justify-center mx-auto max-h-screen">
+      <LeftSidebar />
+      <div
+        id="main"
+        className="flex flex-grow overflow-y-auto md:pr-10 justify-start xl:justify-end 3xl:justify-start relative"
+      >
+        <main className="w-[600px] min-w-0 max-w-2xl flex-grow min-h-full">
+          {children}
+        </main>
+        <RightSidebar
+          trendingResults={trendingResults}
+          followResults={followResults}
+        />
+      </div>
+      <ModalNewPostwitt />
+      <ReplyModal />
+      <ModalEditUser />
+      <ModalConfirmation />
+      <ResponsiveLeftMenu />
+      <ModalOptions />
 
-        {!session && <ModalLoggedOut />}
-      </main>
+      {!session && <ModalLoggedOut />}
     </div>
   );
 };

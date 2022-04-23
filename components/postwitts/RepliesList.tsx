@@ -16,7 +16,7 @@ export const RepliesList = ({ postId }) => {
 
   return (
     <>
-      <div className="pb-72">
+      <section className="pb-72">
         {replies.length > 0 && (
           <>
             {replies.map((reply: DocumentData) => {
@@ -32,7 +32,7 @@ export const RepliesList = ({ postId }) => {
           </>
         )}
         {loading && <LoadingPostwitts />}
-      </div>
+      </section>
     </>
   );
 };

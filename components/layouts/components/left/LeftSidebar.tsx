@@ -1,6 +1,6 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Image from "next/image";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
@@ -19,6 +19,7 @@ import { PostContext, UserContext } from "context";
 import { useTranslation } from "hooks";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { SessionButton } from "./SessionButton";
 // // import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 // // import NotificationsIcon from "@mui/icons-material/Notifications";
 // // import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
@@ -44,19 +45,19 @@ export const LeftSidebar = () => {
 
   return (
     <>
-      <div
-        className="hidden phone:flex flex-col items-center xl:items-start px-2 h-screen static md:ml-20 xl:ml-[10vw] xl:min-w-[270px] 3xl:ml-[15vw]
-      4xl:ml-[20vw]"
+      <aside
+        className="hidden phone:flex flex-col items-center xl:items-start px-2 h-screen static md:ml-20 xl:ml-[10vw] 
+          xl:min-w-[270px] 3xl:ml-[15vw] 4xl:ml-[20vw]"
       >
-        <Link href="/" passHref>
-          <div className="flex items-center justify-center h-14 hoverAnimation mt-1 xl:mt-2">
-            <Image src={icon} width={45} height={30} />
-            <h1 className="hidden xl:block text-3xl ml-3 text-[#1d9bf0]">
-              Postter
-            </h1>
-          </div>
-        </Link>
-        <div className="space-y-2 mt-1 mb-2.5 ">
+        <nav className="space-y-2 mt-1 mb-2.5">
+          <Link href="/" passHref>
+            <div className="flex items-center justify-center h-14 hoverAnimation mt-1 xl:mt-2">
+              <Image src={icon} width={45} height={30} />
+              <h1 className="hidden xl:block text-3xl ml-3 text-[#1d9bf0]">
+                Postter
+              </h1>
+            </div>
+          </Link>
           <LeftSidebarLink
             text={t("home")}
             Icon={HomeOutlinedIcon}
@@ -91,7 +92,7 @@ export const LeftSidebar = () => {
             <SettingsIcon className="h-7" />
             <span className="hidden xl:inline">{t("options")}</span>
           </button>
-        </div>
+        </nav>
 
         <button
           onClick={() => {
@@ -106,35 +107,9 @@ export const LeftSidebar = () => {
           </div>
           <span className="hidden xl:inline">Postwitt</span>
         </button>
-        {session && (
-          <div
-            className="text-custom-text flex items-center justify-center mt-auto hoverAnimation xl:-mr-5 "
-            onClick={() =>
-              signOut({
-                callbackUrl: `${window.location.origin}/auth/login`,
-              })
-            }
-          >
-            <Image
-              width={40}
-              height={40}
-              src={session?.user.image ? session?.user.image : defaultImage}
-              alt=""
-              className="rounded-full"
-            />
-            <div className="hidden xl:inline leading-5 ml-2">
-              <h4 className="font-bold truncate">{session.user.name}</h4>
-              <p className="text-custom-terciary truncate">
-                @{session.user.tag}
-              </p>
-            </div>
-            <div className="hidden xl:inline ml-5">
-              <MoreHorizOutlinedIcon />
-            </div>
-          </div>
-        )}
-      </div>
-      <div
+        {session && <SessionButton />}
+      </aside>
+      <nav
         className="flex justify-around phone:hidden fixed bottom-[0] w-full h-[53px] bg-custom-primary border-black border-0 border-top-2 
           dark:border-custom-secondary border-t-[1px] z-[2]"
       >
@@ -174,7 +149,7 @@ export const LeftSidebar = () => {
           <AddCardIcon />
           <span className="hidden xl:inline">Postwitt</span>
         </button>
-      </div>
+      </nav>
     </>
   );
 };

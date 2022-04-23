@@ -12,7 +12,7 @@ export const RightInfoList = ({ followResults, trendingResults }) => {
   return (
     <div className="">
       {" "}
-      <div className="text-custom-text space-y-3 bg-custom-secondary pt-2 rounded-xl">
+      <section className="text-custom-text space-y-3 bg-custom-secondary pt-2 rounded-xl">
         <h4 className="font-bold text-xl px-4">{t("who_to_follow")}</h4>
         {followResults.map((result: FollowResultInterface, index: number) => (
           <FollowResult key={index} result={result} />
@@ -23,8 +23,8 @@ export const RightInfoList = ({ followResults, trendingResults }) => {
         >
           {t("show more")}
         </button>
-      </div>
-      <div className="text-custom-text space-y-3 bg-custom-secondary pt-2 rounded-xl w-full mt-2">
+      </section>
+      <section className="text-custom-text space-y-3 bg-custom-secondary pt-2 rounded-xl w-full mt-2">
         <h4 className="font-bold text-xl px-4">{t("whats_happening")}</h4>
         {trendingResults.map(
           (result: TrendingResultInterface, index: number) => (
@@ -37,7 +37,7 @@ export const RightInfoList = ({ followResults, trendingResults }) => {
         >
           {t("show more")}
         </button>
-      </div>
+      </section>
     </div>
   );
 };

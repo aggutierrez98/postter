@@ -58,7 +58,7 @@ export const ResponsiveLeftMenu = () => {
           leaveTo="opacity-0 translate-x-[-280px]"
         >
           <div className="flex items-start justify-start min-h-screen phone:hidden">
-            <div className=" bg-custom-primary shadow-xl transform transition-all sm:my-8 sm:align-middle w-[280px] h-screen">
+            <menu className=" bg-custom-primary shadow-xl transform transition-all sm:my-8 sm:align-middle w-[280px] h-screen">
               <div className="flex items-center justify-between px-1.5 py-2 border-b border-custom-secondary">
                 <h3 className="text-custom-text text-lg font-bold ml-2 truncate">
                   {t("account")}
@@ -145,7 +145,7 @@ export const ResponsiveLeftMenu = () => {
                   </button>
                 )}
               </div>
-            </div>
+            </menu>
           </div>
         </Transition.Child>
       </Dialog>

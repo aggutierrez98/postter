@@ -19,9 +19,12 @@ export const TabsShowPostwitts = ({ userData }) => {
   });
 
   return (
-    <div className="pb-72 border-t border-custom-secondary relative">
+    <section className="pb-72 border-t border-custom-secondary relative">
       <Tab.Group as={Fragment} onChange={setIndex}>
-        <Tab.List className="border-custom-secondary border-b pb-2 flex justify-between text-custom-placeholder overflow-x-auto">
+        <Tab.List
+          as="hgroup"
+          className="border-custom-secondary border-b pb-2 flex justify-between text-custom-placeholder overflow-x-auto"
+        >
           <Tab as="div">
             {({ selected }) => (
               <TabFilterSelector selected={selected} title="Postwitts" />
@@ -47,7 +50,7 @@ export const TabsShowPostwitts = ({ userData }) => {
           </Tab>
         </Tab.List>
         <Tab.Panels as={Fragment}>
-          <Tab.Panel>
+          <Tab.Panel as={Fragment}>
             <>
               {postwitts.length > 0 && (
                 <PostwittsByUserList
@@ -59,7 +62,7 @@ export const TabsShowPostwitts = ({ userData }) => {
               {loading && <LoadingPostwitts />}
             </>
           </Tab.Panel>
-          <Tab.Panel>
+          <Tab.Panel as={Fragment}>
             <>
               {postwitts.length > 0 && (
                 <PostwittsByUserList
@@ -71,7 +74,7 @@ export const TabsShowPostwitts = ({ userData }) => {
               {loading && <LoadingPostwitts />}
             </>
           </Tab.Panel>
-          <Tab.Panel>
+          <Tab.Panel as={Fragment}>
             <>
               {postwitts.length > 0 && (
                 <PostwittsByUserList
@@ -83,7 +86,7 @@ export const TabsShowPostwitts = ({ userData }) => {
               {loading && <LoadingPostwitts />}
             </>
           </Tab.Panel>
-          <Tab.Panel>
+          <Tab.Panel as={Fragment}>
             <>
               {postwitts.length > 0 && (
                 <PostwittsByUserList
@@ -97,6 +100,6 @@ export const TabsShowPostwitts = ({ userData }) => {
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
-    </div>
+    </section>
   );
 };

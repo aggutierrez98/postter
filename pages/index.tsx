@@ -1,16 +1,7 @@
 import Head from "next/head";
 import { Feed, MainLayout } from "components";
-// import {
-//   TrendingResultInterface,
-//   FollowResultInterface,
-// } from "interfaces/index";
 import { useTranslation } from "hooks";
 import { ReactElement } from "react";
-
-// interface Props {
-//   trendingResults: TrendingResultInterface[];
-//   followResults: FollowResultInterface[];
-// }
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 

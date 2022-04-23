@@ -27,14 +27,14 @@ const Custom404 = ({ trendingResults, followResults }: Props) => {
         />
         <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
-      <div className="flex items-center justify-center flex-col h-[250px] w-full">
+      <section className="flex items-center justify-center flex-col h-[250px] w-full">
         <h2 className="text-custom-text text-2xl">{t("page_not_found")}</h2>
         <Link href="/" passHref>
           <button className="mt-4 flex py-2 px-4 bg-custom-alternative rounded-full text-custom-text hover:opacity-80 transition-all">
             {t("back_to_main_page")}
           </button>
         </Link>
-      </div>
+      </section>
     </MainLayout>
   );
 };
