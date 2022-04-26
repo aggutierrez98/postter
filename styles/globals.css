@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+#main {
+  overflow-y: overlay;
+}
+
 :root {
-  overflow: overlay;
+  /* overflow: overlay; */
 
   --dark-primary: #261c2c;
   --dark-secondary: #3e2c41;

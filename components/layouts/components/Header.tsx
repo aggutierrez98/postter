@@ -18,7 +18,7 @@ export const Header = ({ title, tagText, isHome = false }: Props) => {
   return (
     <header
       className="flex items-center px-1.5 py-2 border-b border-custom-secondary text-custom-text font-semibold 
-        text-xl gap-x-4 top-0 z-50 bg-custom-primary"
+        text-xl gap-x-4 top-0 z-50 bg-custom-primary sticky"
     >
       {isHome ? (
         <span className="phone:hidden xl:mr-2.5">

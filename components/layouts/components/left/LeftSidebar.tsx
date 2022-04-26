@@ -9,11 +9,9 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PersonIcon from "@mui/icons-material/Person";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import SettingsIcon from "@mui/icons-material/Settings";
 import icon from "public/post.png";
-import defaultImage from "public/user-template.svg";
 import { LeftSidebarLink } from "components";
 import { PostContext, UserContext } from "context";
 import { useTranslation } from "hooks";

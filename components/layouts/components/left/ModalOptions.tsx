@@ -64,8 +64,8 @@ export const ModalOptions = () => {
               </div>
             </div>
 
-            <div className="p-5 text-custom-text">
-              <div className="flex text-custom-text">
+            <div className="p-5 text-custom-text text-xs phone:text-base">
+              <div className="flex text-custom-text items-center">
                 <p>{t("switch theme")}</p>
                 <Switch
                   checked={themeState}
@@ -90,7 +90,7 @@ export const ModalOptions = () => {
                 <Listbox value={language} onChange={changeLang}>
                   <div className="relative mt-1 ml-5">
                     <Listbox.Button
-                      className="relative w-[250px] py-2 pl-3 pr-10 text-left bg-custom-primary rounded-lg shadow-xl cursor-default 
+                      className="relative w-[180px] phone:w-[250px] py-2 pl-3 pr-10 text-left bg-custom-primary rounded-lg shadow-xl cursor-default 
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75  sm:text-sm"
                     >
                       <span className="block truncate">{language?.name}</span>
@@ -108,8 +108,8 @@ export const ModalOptions = () => {
                       leaveTo="opacity-0"
                     >
                       <Listbox.Options
-                        className="absolute w-full py-1 mt-1 overflow-auto text-base bg-custom-primary rounded-md shadow-lg max-h-60 ring-1 ç
-                      ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                        className="absolute w-full py-1 mt-1 overflow-auto text-base bg-custom-primary rounded-md shadow-lg max-h-60 ring-1 
+                        ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                       >
                         {langOptions.map((lang, langId) => (
                           <Listbox.Option
@@ -126,7 +126,7 @@ export const ModalOptions = () => {
                             {({ selected }) => (
                               <>
                                 <span
-                                  className={`block truncate ${
+                                  className={`block truncate text-xs phone:text-base ${
                                     selected ? "font-medium" : "font-normal"
                                   }`}
                                 >

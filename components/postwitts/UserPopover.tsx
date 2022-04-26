@@ -38,11 +38,11 @@ export const UserPopover = ({ userId, open }) => {
                 src={userInfo?.image ? userInfo.image : defaultImage}
               />
             </div>
-            <span className="flex flex-col text-custom-text mt-[10px] mb-[5px]">
+            <span className="flex flex-col text-custom-text mt-[10px] mb-[5px] truncate w-full">
               <span className="font-bold">{userInfo?.name}</span>
               <span className=" text-custom-placeholder">@{userInfo?.tag}</span>
             </span>
-            <span className=" text-custom-text">
+            <span className=" text-custom-text truncate w-full">
               {userInfo?.biography ? userInfo.biography : "No biography"}
             </span>
             <div className="text-custom-text mt-[5px]">

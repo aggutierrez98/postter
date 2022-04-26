@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useLayoutEffect, useState } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { Popover, Transition } from "@headlessui/react";
@@ -10,30 +10,43 @@ export const SessionButton = () => {
     data: { user },
   } = useSession();
 
+  const [isButtonShown, setIsButtonShown] = useState(false);
+  useLayoutEffect(() => {
+    setIsButtonShown(true);
+  }, []);
+
   return (
     <Popover className="flex flex-grow relative">
-      {({ open }) => (
+      {({ open: isPopoverOpen }) => (
         <>
-          <Popover.Button className="self-end justify-self-end text-custom-text flex height-full items-center justify-center hoverAnimation xl:-mr-5 mb-2">
-            <Image
-              width={40}
-              height={40}
-              src={user?.image ? user?.image : defaultImage}
-              alt=""
-              className="rounded-full"
-            />
-            <div className="hidden xl:inline leading-5 ml-2">
-              <h4 className="font-bold truncate">{user?.name}</h4>
-              <p className="text-custom-terciary truncate">@{user?.tag}</p>
-            </div>
-            <div className="hidden xl:inline ml-5">
-              <MoreHorizOutlinedIcon />
-            </div>
-          </Popover.Button>
+          <Transition
+            as={Fragment}
+            show={isButtonShown}
+            enter="transition ease-out duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+          >
+            <Popover.Button className="self-end justify-self-end text-custom-text flex height-full items-center justify-center hoverAnimation xl:-mr-5 mb-2">
+              <Image
+                width={40}
+                height={40}
+                src={user?.image ? user?.image : defaultImage}
+                alt=""
+                className="rounded-full"
+              />
+              <div className="hidden xl:inline leading-5 ml-2">
+                <h4 className="font-bold truncate">{user?.name}</h4>
+                <p className="text-custom-terciary truncate">@{user?.tag}</p>
+              </div>
+              <div className="hidden xl:inline ml-5">
+                <MoreHorizOutlinedIcon />
+              </div>
+            </Popover.Button>
+          </Transition>
 
           <Transition
             as={Fragment}
-            show={open}
+            show={isPopoverOpen}
             enter="transition ease-out duration-200"
             enterFrom="opacity-0 translate-y-1"
             enterTo="opacity-100 translate-y-0"

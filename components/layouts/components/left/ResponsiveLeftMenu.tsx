@@ -72,7 +72,7 @@ export const ResponsiveLeftMenu = () => {
                   <CloseOutlinedIcon className="h-[22px] text-white" />
                 </div>
               </div>
-              <div className="flex pt-[16px] px-[16px] w-full flex-col items-start h-[70px]">
+              <div className="flex pt-[16px] px-[16px] w-full flex-col items-start">
                 {session && (
                   <>
                     <div
@@ -92,7 +92,7 @@ export const ResponsiveLeftMenu = () => {
                         @{userInfo?.tag}
                       </span>
                     </span>
-                    <span className=" text-custom-text font-bold">
+                    <span className="text-custom-text font-bold truncate w-full">
                       {userInfo?.biography
                         ? userInfo.biography
                         : "No biography"}
@@ -117,7 +117,7 @@ export const ResponsiveLeftMenu = () => {
                     </div>
                   </>
                 )}
-                <LeftMenuLinkList userInfo={userInfo} />
+                <LeftMenuLinkList />
                 <button
                   className="text-custom-text hover:font-bold flex items-center space-x-2 w-full py-[16px] focus-visible:outline-none 
                     focus-visible:font-bold"

@@ -10,7 +10,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import TagIcon from "@mui/icons-material/Tag";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 
-export const LeftMenuLinkList = ({ userInfo }) => {
+export const LeftMenuLinkList = () => {
   const { t } = useTranslation();
   const { data: session } = useSession();
 
@@ -28,7 +28,7 @@ export const LeftMenuLinkList = ({ userInfo }) => {
             text={t("profile")}
             Icon={PersonOutlineOutlinedIcon}
             ActiveIcon={PersonIcon}
-            route={`/users/${userInfo.uid}`}
+            route={`/users/${session.user.uid}`}
           />
           <LeftMenuLink
             text={t("explore")}
@@ -40,7 +40,7 @@ export const LeftMenuLinkList = ({ userInfo }) => {
             text={t("bookmarks")}
             Icon={BookmarkBorderOutlinedIcon}
             ActiveIcon={BookmarkIcon}
-            route={`/bookmarks/${userInfo.uid}`}
+            route={`/bookmarks/${session.user.uid}`}
           />
         </>
       ) : (

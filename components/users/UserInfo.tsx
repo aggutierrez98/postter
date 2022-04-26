@@ -99,7 +99,7 @@ export const UserInfo = ({ userInfo }: Props) => {
             @{userInfo.tag}
           </div>
         </div>
-        <div className=" text-custom-text font-bold">
+        <div className=" text-custom-text font-bold truncate">
           {userInfo.biography ? userInfo.biography : t("no_biography")}
         </div>
         <div className="text-custom-placeholder leading-9 flex ml-[-5px] flex-col sm:flex-row">

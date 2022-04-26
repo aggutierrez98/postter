@@ -88,7 +88,7 @@ export const MainLayout = ({
       <ResponsiveLeftMenu />
       <ModalOptions />
 
-      {!session && <ModalLoggedOut />}
+      {session !== undefined && !session && <ModalLoggedOut />}
     </div>
   );
 };
