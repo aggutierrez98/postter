@@ -12,13 +12,9 @@ interface Props {
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 
-export default function HashtagPage({
-  hashtag,
-  trendingResults,
-  followResults,
-}: Props) {
+export default function HashtagPage({ hashtag }: Props) {
   return (
-    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+    <>
       <Head>
         <title>{hashtag} / Postter</title>
         <meta property="description" content={`${hashtag} postwitts`} />
@@ -27,7 +23,7 @@ export default function HashtagPage({
         <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
       <HashtagPostwittsList hashtag={hashtag} />
-    </MainLayout>
+    </>
   );
 }
 

@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { NextPage } from "next";
-import { Fallback } from "components";
+import { Fallback, MainLayout } from "components";
 import { UserProvider, PostProvider } from "context";
 import "../styles/globals.css";
 import "../styles/emoji.css";
@@ -19,7 +19,18 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout): ReactElement {
-  const getLayout = Component.getLayout || ((page) => page);
+  const getLayout = (page: ReactElement) => {
+    const { trendingResults, followResults } = page.props;
+
+    return (
+      <MainLayout
+        trendingResults={trendingResults}
+        followResults={followResults}
+      >
+        {page}
+      </MainLayout>
+    );
+  };
 
   return (
     <SessionProvider session={session}>

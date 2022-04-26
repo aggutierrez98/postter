@@ -19,18 +19,13 @@ interface Props {
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 
-export default function BookmarksPage({
-  userId,
-  bookmarks,
-  trendingResults,
-  followResults,
-}: Props) {
+export default function BookmarksPage({ userId, bookmarks }: Props) {
   const [userInfo, setUserInfo] = useState<UserInterface>();
   const { t } = useTranslation();
   useEffect(() => watchUser(userId, setUserInfo), [userId]);
 
   return (
-    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+    <>
       <Head>
         <title>{t("bookmarks")} / Postter</title>
         <meta
@@ -48,7 +43,7 @@ export default function BookmarksPage({
         bookmarks={userInfo?.bookmarks || bookmarks}
         userInfo={userInfo}
       />
-    </MainLayout>
+    </>
   );
 }
 

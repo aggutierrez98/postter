@@ -2,7 +2,7 @@ import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 import { fetchPostwitt, getPostwittIds } from "@f/index";
-import { MainLayout, PostwittFeed } from "components";
+import { PostwittFeed } from "components";
 import { useTranslation } from "hooks";
 
 interface Props {
@@ -13,15 +13,11 @@ interface Props {
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 
-export default function PostwittPage({
-  postData,
-  trendingResults,
-  followResults,
-}: Props) {
+export default function PostwittPage({ postData }: Props) {
   const { t } = useTranslation();
 
   return (
-    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+    <>
       <Head>
         <title>{t(`${postData.userName} on Postter: ${postData.text}`)}</title>
         <meta name="description" content={t("meta_postwitt_description")} />
@@ -39,7 +35,7 @@ export default function PostwittPage({
         />
       </Head>
       <PostwittFeed postData={postData} />
-    </MainLayout>
+    </>
   );
 }
 

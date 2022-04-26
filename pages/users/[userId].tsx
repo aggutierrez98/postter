@@ -7,7 +7,7 @@ import {
   UserInterface,
 } from "interfaces";
 import { getUser, watchUser, getUsersIds } from "@f/index";
-import { Profile, MainLayout } from "components";
+import { Profile } from "components";
 import { useTranslation } from "hooks";
 
 interface Props {
@@ -18,17 +18,13 @@ interface Props {
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 
-export default function UserPage({
-  userData,
-  trendingResults,
-  followResults,
-}: Props) {
+export default function UserPage({ userData }: Props) {
   const [userInfo, setUserInfo] = useState<UserInterface>();
   useEffect(() => watchUser(userData.uid, setUserInfo), [userData?.uid]);
   const { t } = useTranslation();
 
   return (
-    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+    <>
       <Head>
         <title>
           {userInfo ? userInfo.name : userData.name} (
@@ -57,7 +53,7 @@ export default function UserPage({
         />
       </Head>
       <Profile userData={userInfo ? userInfo : userData} />
-    </MainLayout>
+    </>
   );
 }
 

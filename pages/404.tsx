@@ -1,22 +1,15 @@
-import { MainLayout } from "components/layouts/MainLayout";
 import { useTranslation } from "hooks";
-import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-interface Props {
-  trendingResults: TrendingResultInterface[];
-  followResults: FollowResultInterface[];
-}
-
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 
-const Custom404 = ({ trendingResults, followResults }: Props) => {
+const Custom404 = () => {
   const { t } = useTranslation();
 
   return (
-    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+    <>
       <Head>
         <title>{t("page_not_found")}</title>
         <meta name="description" content={t("meta_not_found_description")} />
@@ -35,7 +28,7 @@ const Custom404 = ({ trendingResults, followResults }: Props) => {
           </button>
         </Link>
       </section>
-    </MainLayout>
+    </>
   );
 };
 

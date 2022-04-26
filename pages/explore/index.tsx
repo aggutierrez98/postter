@@ -16,15 +16,11 @@ interface Props {
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 
-export default function BookmarksPage({
-  hashtags,
-  trendingResults,
-  followResults,
-}: Props) {
+export default function BookmarksPage({ hashtags }: Props) {
   const { t } = useTranslation();
 
   return (
-    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+    <>
       <Head>
         <title>{t("explore")} / Postter</title>
         <meta name="description" content={t("meta_explore_description")} />
@@ -36,7 +32,7 @@ export default function BookmarksPage({
         <meta name="og:image" content={`${origin}/banner.jpg`} />
       </Head>
       <ExploreFeed hashtagsFromServer={hashtags} />
-    </MainLayout>
+    </>
   );
 }
 
