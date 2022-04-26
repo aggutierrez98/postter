@@ -22,8 +22,6 @@ export default function App({
   const getLayout = (page: ReactElement) => {
     const { trendingResults, followResults } = page.props;
 
-    console.log({ trendingResults, followResults });
-
     return (
       <MainLayout
         trendingResults={trendingResults}
