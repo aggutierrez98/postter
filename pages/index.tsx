@@ -1,6 +1,7 @@
 import Head from "next/head";
-import { Feed } from "components";
+import { Feed, MainLayout } from "components";
 import { useTranslation } from "hooks";
+import { ReactElement } from "react";
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 
@@ -20,6 +21,16 @@ export default function Home() {
     </>
   );
 }
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  const { trendingResults, followResults } = page.props;
+
+  return (
+    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+      {page}
+    </MainLayout>
+  );
+};
 
 export const getStaticProps = async () => {
   const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(

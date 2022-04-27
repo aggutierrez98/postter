@@ -1,10 +1,9 @@
-import { useTranslation } from "hooks";
+import { useToogleTheme, useTranslation } from "hooks";
 import { GetStaticProps } from "next";
-import { useRouter } from "next/router";
 
 const CustomErrorPage = () => {
-  const router = useRouter();
   const { t } = useTranslation();
+  useToogleTheme();
 
   return (
     <div className="p-12 h-screen w-screen bg-custom-primary">
@@ -12,18 +11,6 @@ const CustomErrorPage = () => {
         <h1 className="font-bold text-5xl sm:text-5xl 2xl:text-7xl text-red-500">
           {t("error_quote")}
         </h1>
-        <div className="flex text-[18px] mt-10">
-          <p className="text-custom-text">{t("back_to_main_page")}: </p>
-          <button
-            className="ml-2 underline text-custom-link"
-            onClick={() => {
-              if (router.pathname === "/") window.location.reload();
-              else router.push("/");
-            }}
-          >
-            {t("click_here")}
-          </button>
-        </div>
       </div>
     </div>
   );

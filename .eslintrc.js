@@ -16,8 +16,8 @@ module.exports = {
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
     "plugin:@next/next/recommended",
-    // "plugin:import/recommended",
     // "plugin:jsx-a11y/recommended",
+    // "plugin:import/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {

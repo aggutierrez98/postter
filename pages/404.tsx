@@ -1,7 +1,9 @@
+import { MainLayout } from "components";
 import { useTranslation } from "hooks";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { ReactElement } from "react";
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 
@@ -29,6 +31,16 @@ const Custom404 = () => {
         </Link>
       </section>
     </>
+  );
+};
+
+Custom404.getLayout = function getLayout(page: ReactElement) {
+  const { trendingResults, followResults } = page.props;
+
+  return (
+    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+      {page}
+    </MainLayout>
   );
 };
 

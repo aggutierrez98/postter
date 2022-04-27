@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 export const Fallback = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  const { themeState } = useToogleTheme();
-  // console.log({ themeState });
+  useToogleTheme();
 
   return (
     <div className="p-12 h-screen w-screen bg-custom-primary">

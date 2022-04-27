@@ -3,6 +3,7 @@ import Head from "next/head";
 import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 import { getHashtags } from "@f/index";
 import { HashtagPostwittsList, MainLayout } from "components";
+import { ReactElement } from "react";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -26,6 +27,16 @@ export default function HashtagPage({ hashtag }: Props) {
     </>
   );
 }
+
+HashtagPage.getLayout = function getLayout(page: ReactElement) {
+  const { trendingResults, followResults } = page.props;
+
+  return (
+    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+      {page}
+    </MainLayout>
+  );
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const hashtags = await getHashtags();

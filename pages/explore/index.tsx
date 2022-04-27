@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 import { getHashtags } from "@f/index";
 import { ExploreFeed, MainLayout } from "components";
 import { useTranslation } from "hooks";
+import { ReactElement } from "react";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -35,6 +36,16 @@ export default function BookmarksPage({ hashtags }: Props) {
     </>
   );
 }
+
+BookmarksPage.getLayout = function getLayout(page: ReactElement) {
+  const { trendingResults, followResults } = page.props;
+
+  return (
+    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+      {page}
+    </MainLayout>
+  );
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(

@@ -19,18 +19,7 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout): ReactElement {
-  const getLayout = (page: ReactElement) => {
-    const { trendingResults, followResults } = page.props;
-
-    return (
-      <MainLayout
-        trendingResults={trendingResults}
-        followResults={followResults}
-      >
-        {page}
-      </MainLayout>
-    );
-  };
+  const getLayout = Component.getLayout || ((page) => page);
 
   return (
     <SessionProvider session={session}>

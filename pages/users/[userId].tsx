@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import {
@@ -7,7 +7,7 @@ import {
   UserInterface,
 } from "interfaces";
 import { getUser, watchUser, getUsersIds } from "@f/index";
-import { Profile } from "components";
+import { MainLayout, Profile } from "components";
 import { useTranslation } from "hooks";
 
 interface Props {
@@ -56,6 +56,16 @@ export default function UserPage({ userData }: Props) {
     </>
   );
 }
+
+UserPage.getLayout = function getLayout(page: ReactElement) {
+  const { trendingResults, followResults } = page.props;
+
+  return (
+    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+      {page}
+    </MainLayout>
+  );
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const ids = await getUsersIds();

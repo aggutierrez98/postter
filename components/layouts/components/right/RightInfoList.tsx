@@ -11,7 +11,6 @@ export const RightInfoList = ({ followResults, trendingResults }) => {
 
   return (
     <div className="">
-      {" "}
       <section className="text-custom-text space-y-3 bg-custom-secondary pt-2 rounded-xl">
         <h4 className="font-bold text-xl px-4">{t("who_to_follow")}</h4>
         {followResults.map((result: FollowResultInterface, index: number) => (

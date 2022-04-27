@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
 import {
@@ -46,6 +46,16 @@ export default function BookmarksPage({ userId, bookmarks }: Props) {
     </>
   );
 }
+
+BookmarksPage.getLayout = function getLayout(page: ReactElement) {
+  const { trendingResults, followResults } = page.props;
+
+  return (
+    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+      {page}
+    </MainLayout>
+  );
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const ids = await getUsersIds();

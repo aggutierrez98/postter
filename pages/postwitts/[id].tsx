@@ -2,8 +2,9 @@ import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 import { fetchPostwitt, getPostwittIds } from "@f/index";
-import { PostwittFeed } from "components";
+import { MainLayout, PostwittFeed } from "components";
 import { useTranslation } from "hooks";
+import { ReactElement } from "react";
 
 interface Props {
   postData: any;
@@ -38,6 +39,16 @@ export default function PostwittPage({ postData }: Props) {
     </>
   );
 }
+
+PostwittPage.getLayout = function getLayout(page: ReactElement) {
+  const { trendingResults, followResults } = page.props;
+
+  return (
+    <MainLayout trendingResults={trendingResults} followResults={followResults}>
+      {page}
+    </MainLayout>
+  );
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const ids = await getPostwittIds();
