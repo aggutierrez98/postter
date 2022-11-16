@@ -127,7 +127,7 @@ const InitPostwitt = ({
             )}
             <div className="p-3 flex cursor-pointer border-b border-custom-secondary transition-all">
               {!postPage && <UserImage postwitt={postwitt} />}
-              <div className="flex flex-col space-y-2 w-full min-w-0">
+              <div className="flex flex-col space-y-2 w-full min-w-0 relative">
                 <div className={`flex flex-col`}>
                   <div className="text-custom-placeholder flex items-center">
                     {postPage ? (
@@ -222,14 +222,19 @@ const InitPostwitt = ({
                   </div>
                 )}
                 {postwitt?.image && (
-                  <div className="relative h-[500px]">
-                    <Image
-                      src={postwitt.image}
-                      layout="fill"
-                      objectFit="contain"
-                      className="rounded-2xl max-h-[700px] object-contain mr-2"
-                    />
-                  </div>
+                  //TODO: Improve image to quit layout shift without losing style
+                  // <div className="w-[100%] h-[300px] relative">
+                  //   <Image
+                  //     src={postwitt.image}
+                  //     layout="fill"
+                  //     objectFit="contain"
+                  //     className="rounded-2xl mr-1 w-[100%]"
+                  //   />
+                  // </div>
+                  <img
+                    className="rounded-2xl max-h-[700px] mr-1"
+                    src={postwitt.image}
+                  />
                 )}
                 <PostwittActions
                   id={repostedBy ? idOriginal : postwittId}

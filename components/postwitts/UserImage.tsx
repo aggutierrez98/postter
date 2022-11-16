@@ -1,6 +1,7 @@
 import { usePopover } from "hooks";
 import Image from "next/image";
 import { UserPopover } from "components";
+import defaultImage from "public/user-template.svg";
 
 export const UserImage = ({ postwitt }) => {
   const { open, onHover } = usePopover();
@@ -17,7 +18,7 @@ export const UserImage = ({ postwitt }) => {
       <Image
         width={44}
         height={44}
-        src={postwitt?.userImg}
+        src={postwitt?.userImg ?? defaultImage}
         alt=""
         className="rounded-full hover:opacity-80 transition-all"
       />

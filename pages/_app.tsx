@@ -7,6 +7,7 @@ import { Fallback, MainLayout } from "components";
 import { UserProvider, PostProvider } from "context";
 import "../styles/globals.css";
 import "../styles/emoji.css";
+import { usePreserveScroll } from "hooks";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -20,6 +21,8 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout): ReactElement {
   const getLayout = Component.getLayout || ((page) => page);
+
+  usePreserveScroll();
 
   return (
     <SessionProvider session={session}>

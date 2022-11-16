@@ -9,24 +9,24 @@ import { UserInterface } from "interfaces";
 import { UserContext } from "context";
 import { followUser, unfollowUser } from "@f/index";
 import { useTranslation } from "hooks";
-import { useRouter } from "next/router";
+import { LoadingCircle } from "components/layouts";
 
 interface Props {
   userInfo: UserInterface;
 }
 
 export const UserInfo = ({ userInfo }: Props) => {
-  const { setIsOpen, setUserId } = useContext(UserContext);
+  const { setIsOpen, setUserId, setModalToLoginOpen, setLoadingChanges } =
+    useContext(UserContext);
   const [isFollowing, setIsFollowing] = useState(false);
-  const router = useRouter();
   const { data: session } = useSession();
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (userInfo?.followers?.includes(session.user.uid)) {
+    if (userInfo?.followers?.includes(session?.user.uid)) {
       setIsFollowing(true);
-    }
-  }, [userInfo, session?.user.uid]);
+    } else setIsFollowing(false);
+  }, [userInfo, session?.user.uid, setLoadingChanges]);
 
   return (
     <section className="flex scrollbar-hide relative flex-col">
@@ -71,7 +71,10 @@ export const UserInfo = ({ userInfo }: Props) => {
               {isFollowing ? (
                 <button
                   onClick={() => {
-                    unfollowUser(session.user.uid, userInfo.uid);
+                    setLoadingChanges(true);
+                    unfollowUser(session.user.uid, userInfo.uid).then(() =>
+                      setLoadingChanges(false)
+                    );
                   }}
                   className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
                     font-bold hover:bg-opacity-90 ease-in-out"
@@ -81,8 +84,11 @@ export const UserInfo = ({ userInfo }: Props) => {
               ) : (
                 <button
                   onClick={() => {
-                    if (!session) return router.push("/auth/login");
-                    followUser(session.user.uid, userInfo.uid);
+                    if (!session) return setModalToLoginOpen(true);
+                    setLoadingChanges(true);
+                    followUser(session.user.uid, userInfo.uid).then(() =>
+                      setLoadingChanges(false)
+                    );
                   }}
                   className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
                     font-bold hover:bg-opacity-90 ease-in-out"
@@ -127,6 +133,8 @@ export const UserInfo = ({ userInfo }: Props) => {
           </span>
         </div>
       </div>
+
+      <LoadingCircle />
     </section>
   );
 };

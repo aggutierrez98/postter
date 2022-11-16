@@ -5,10 +5,9 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import RepeatOutlinedIcon from "@mui/icons-material/RepeatOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { PostContext, PostContextProps } from "context";
+import { PostContext, PostContextProps, UserContext } from "context";
 import { likePostwitt, repostPostwitt } from "@f/index";
 import { MenuSharePostwitt } from "components";
-import { useRouter } from "next/router";
 
 interface Props {
   uid: string;
@@ -33,8 +32,8 @@ export const PostwittActions = ({
 }: Props) => {
   const { setModalReplyIsOpen, setPostwittId } =
     useContext<PostContextProps>(PostContext);
+  const { setModalToLoginOpen } = useContext(UserContext);
   const { data: session } = useSession<boolean>();
-  const router = useRouter();
 
   return (
     <div
@@ -46,13 +45,13 @@ export const PostwittActions = ({
         className="flex items-center space-x-1 group"
         onClick={(e) => {
           e.preventDefault();
-          if (!session) return router.push("/auth/login");
+          if (!session) return setModalToLoginOpen(true);
           setPostwittId(id);
           setModalReplyIsOpen(true);
         }}
       >
         <div className="icon">
-          <ModeCommentOutlinedIcon className="group-hover:text-custom-link" />
+          <ModeCommentOutlinedIcon className="h-5 group-hover:text-custom-link" />
         </div>
         {replies.length > 0 && (
           <span className="group-hover:text-custom-link text-sm">
@@ -64,7 +63,7 @@ export const PostwittActions = ({
         className="flex items-center space-x-1 group"
         onClick={async (e) => {
           e.preventDefault();
-          if (!session) return router.push("/auth/login");
+          if (!session) return setModalToLoginOpen(true);
           repostPostwitt(id, session.user, reposted);
         }}
       >
@@ -89,7 +88,7 @@ export const PostwittActions = ({
         className="flex items-center space-x-1 group"
         onClick={async (e) => {
           e.preventDefault();
-          if (!session) return router.push("/auth/login");
+          if (!session) return setModalToLoginOpen(true);
           likePostwitt(id, session.user, liked);
         }}
       >

@@ -3,12 +3,13 @@ import { Menu, Transition } from "@headlessui/react";
 import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
+import DoneIcon from "@mui/icons-material/Done";
 import { bookmartPostwitt, unBookmartPostwitt } from "@f/index";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useContext } from "react";
 import { useSession } from "next-auth/react";
 import { watchUser } from "@f/index";
 import { UserInterface } from "interfaces";
-import { useRouter } from "next/router";
+import { UserContext } from "../../context/users/UserContext";
 
 const domain = typeof window === "undefined" ? "" : window.location.origin;
 
@@ -24,8 +25,8 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
     success: false,
     action: null,
   });
+  const { setModalToLoginOpen } = useContext(UserContext);
   const { t } = useTranslation();
-  const router = useRouter();
 
   useEffect(() => {
     if (session) {
@@ -121,7 +122,7 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
                 <Menu.Item
                   as="button"
                   onClick={async () => {
-                    if (!session) return router.push("/auth/login");
+                    if (!session) return setModalToLoginOpen(true);
                     const success = await bookmartPostwitt(
                       postwittId,
                       session.user.uid
@@ -153,7 +154,7 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
               <Menu.Item
                 as="button"
                 onClick={() => {
-                  if (!session) return router.push("/auth/login");
+                  // if (!session) return setModalToLoginOpen(true);
                   copyToClipboard(`${domain}/postwitts/${postwittId}`);
                   setTimeout(
                     () =>
@@ -176,9 +177,10 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
           {operation.success && (
             <div
               onClick={(e) => e.preventDefault()}
-              className="fixed bottom-[32px] left-[32px] bg-custom-link text-custom-primary p-[12px] rounded-[3px] z-[2] 
-              text-[18px] pointer-events-none"
+              className="fixed flex items-center justify-between bottom-[32px] left-[32px] bg-custom-link text-custom-primary p-[12px] px-6 rounded-[3px]  
+              text-[20px] phone:text-sm pointer-events-none z-[55]"
             >
+              <DoneIcon className="mr-2" />
               {operation.action === "clipboard" && t("postwitt copy_clipboard")}
               {operation.action === "bookmarked" &&
                 t("postwitt added_bookmarks")}

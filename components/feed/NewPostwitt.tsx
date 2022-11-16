@@ -39,7 +39,7 @@ export const NewPostwitt = () => {
       enterTo="opacity-100"
     >
       <div
-        className={`phone:px-3 py-3 flex space-x-1 phone:space-x-3 w-full scrollbar-hide ${
+        className={`phone:px-3 py-3 pt-1 flex space-x-1 phone:space-x-3 w-full scrollbar-hide ${
           loading && "opacity-60"
         }`}
       >

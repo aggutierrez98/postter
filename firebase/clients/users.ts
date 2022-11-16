@@ -209,7 +209,9 @@ export const followUser = async (followerId: string, followingId: string) => {
 
       const newData = {
         ...oldData,
-        following: [...oldData.following, followingId],
+        following: oldData.following
+          ? [...oldData.following, followingId]
+          : [followingId],
       };
 
       transaction.update(followerRef, newData);
@@ -224,7 +226,9 @@ export const followUser = async (followerId: string, followingId: string) => {
 
       const newData = {
         ...oldData,
-        followers: [...oldData.followers, followerId],
+        followers: oldData.followers
+          ? [...oldData.followers, followerId]
+          : [followerId],
       };
 
       transaction.update(followingRef, newData);

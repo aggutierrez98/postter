@@ -8,6 +8,7 @@ import {
   RightSidebar,
   ModalOptions,
   ModalLoggedOut,
+  ModalToLogin,
 } from "components";
 import { ReactElement, useCallback, useContext, useEffect } from "react";
 import {
@@ -87,6 +88,7 @@ export const MainLayout = ({
       <ModalConfirmation />
       <ResponsiveLeftMenu />
       <ModalOptions />
+      <ModalToLogin />
 
       {session !== undefined && !session && <ModalLoggedOut />}
     </div>

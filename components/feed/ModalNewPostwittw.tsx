@@ -54,7 +54,7 @@ export const ModalNewPostwitt = () => {
                   <CloseOutlinedIcon className="h-[22px] text-custom-text" />
                 </div>
               </div>
-              <div className="px-4 pt-5 pb-2.5 sm:px-6 ">
+              <div className="px-4 pb-2.5 sm:px-6 ">
                 <NewPostwitt />
               </div>
             </div>

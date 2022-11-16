@@ -69,7 +69,7 @@ export const ResponsiveLeftMenu = () => {
                     setModalLeftMenuIsOpen(false);
                   }}
                 >
-                  <CloseOutlinedIcon className="h-[22px] text-white" />
+                  <CloseOutlinedIcon className="h-[22px] text-custom-text" />
                 </div>
               </div>
               <div className="flex pt-[16px] px-[16px] w-full flex-col items-start">

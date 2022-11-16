@@ -10,6 +10,8 @@ import { UserInterface } from "interfaces";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { useTranslation } from "hooks";
 import { useRouter } from "next/router";
+import { UserContext } from "../../context/users/UserContext";
+import { LoadingCircle } from "components/layouts";
 
 interface Props {
   userId: string;
@@ -21,11 +23,11 @@ interface Props {
 export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
   const { setModalConfirmIsOpen, setModalConfirmData, setPostwittId } =
     useContext(PostContext);
+  const { setLoadingChanges, setModalToLoginOpen } = useContext(UserContext);
   const [isFollowing, setIsFollowing] = useState(false);
   const [userData, setUserData] = useState<UserInterface>();
   const { data: session } = useSession();
   const { t } = useTranslation();
-  const router = useRouter();
 
   useEffect(() => watchUser(userId, setUserData), [userId]);
 
@@ -138,7 +140,11 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                     <Menu.Item
                       as="button"
                       onClick={() => {
-                        unfollowUser(session.user.uid, userId);
+                        if (!session) return setModalToLoginOpen(true);
+                        setLoadingChanges(true);
+                        unfollowUser(session.user.uid, userId).then(() =>
+                          setLoadingChanges(false)
+                        );
                       }}
                       className="hover:text-custom-text my-3 flex items-center w-full truncate"
                     >
@@ -149,7 +155,11 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
                     <Menu.Item
                       as="button"
                       onClick={() => {
-                        if (!session) return router.push("/auth/login");
+                        if (!session) return setModalToLoginOpen(true);
+                        setLoadingChanges(true);
+                        followUser(session.user.uid, userId).then(() =>
+                          setLoadingChanges(false)
+                        );
                         followUser(session.user.uid, userId);
                       }}
                       className="hover:text-custom-text my-3 flex items-center w-full truncate"
@@ -162,6 +172,7 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
               )}
             </Menu.Items>
           </Transition>
+          <LoadingCircle />
         </>
       )}
     </Menu>

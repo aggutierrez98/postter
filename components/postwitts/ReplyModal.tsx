@@ -5,6 +5,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Dialog, Transition } from "@headlessui/react";
 import { PostContext, PostContextProps } from "context";
 import { useInput, useTranslation } from "hooks";
+import defaultImage from "public/user-template.svg";
 import {
   AddImage,
   NewPostwittActions,
@@ -14,7 +15,6 @@ import {
 import { watchPostwitt } from "@f/index";
 import { PostwittInterface } from "interfaces";
 import Image from "next/image";
-import defaultImage from "public/user-template.svg";
 
 export const ReplyModal = () => {
   const { data: session }: { data: Session } = useSession();
@@ -90,21 +90,19 @@ export const ReplyModal = () => {
                   <CloseOutlinedIcon className="h-[22px] text-custom-text" />
                 </div>
               </div>
-              <div className="flex px-4 pt-5 pb-2.5 sm:px-6">
+              <div className="flex px-4 pt-1 pb-2.5 sm:px-6">
                 <div className="w-full">
                   <div className="text-custom-placeholder flex relative">
                     <span className="w-0.5 h-full z-[-1] absolute left-5 top-11 bg-custom-terciary" />
-                    {postwitt?.userImg && (
-                      <span className="mr-2">
-                        <Image
-                          src={postwitt.userImg}
-                          width={44}
-                          height={44}
-                          alt=""
-                          className="rounded-full "
-                        />
-                      </span>
-                    )}
+                    <span className="mr-2">
+                      <Image
+                        src={postwitt?.userImg ?? defaultImage}
+                        width={44}
+                        height={44}
+                        alt=""
+                        className="rounded-full "
+                      />
+                    </span>
                     <div className="w-5/6">
                       <div className="inline-block group">
                         <h4 className="font-bold text-[15px] sm:text-base text-custom-text inline-block">

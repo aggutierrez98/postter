@@ -36,9 +36,8 @@ import { SessionButton } from "./SessionButton";
 
 export const LeftSidebar = () => {
   const { data: session } = useSession<boolean>();
-  const router = useRouter();
   const { setModalNewIsOpen } = useContext(PostContext);
-  const { setModalConfigIsOpen } = useContext(UserContext);
+  const { setModalConfigIsOpen, setModalToLoginOpen } = useContext(UserContext);
   const { t } = useTranslation();
 
   return (
@@ -68,18 +67,25 @@ export const LeftSidebar = () => {
             ActiveIcon={TagIcon}
             route={`/explore`}
           />
-          <LeftSidebarLink
-            text={t("bookmarks")}
-            Icon={BookmarkBorderOutlinedIcon}
-            ActiveIcon={BookmarkIcon}
-            route={session ? `/bookmarks/${session.user.uid}` : "/auth/login"}
-          />
-          <LeftSidebarLink
-            text={t("profile")}
-            Icon={PersonOutlineOutlinedIcon}
-            ActiveIcon={PersonIcon}
-            route={session ? `/users/${session.user.uid}` : "/auth/login"}
-          />
+          {session && (
+            <>
+              <LeftSidebarLink
+                text={t("bookmarks")}
+                Icon={BookmarkBorderOutlinedIcon}
+                ActiveIcon={BookmarkIcon}
+                route={
+                  session ? `/bookmarks/${session.user.uid}` : "/auth/login"
+                }
+              />
+              <LeftSidebarLink
+                text={t("profile")}
+                Icon={PersonOutlineOutlinedIcon}
+                ActiveIcon={PersonIcon}
+                route={session ? `/users/${session.user.uid}` : "/auth/login"}
+              />
+            </>
+          )}
+
           <button
             className="text-custom-text flex items-center justify-center xl:justify-start text-xl space-x-3 hoverAnimation hover:opacity-100
               opacity-80 w-full"
@@ -94,7 +100,7 @@ export const LeftSidebar = () => {
 
         <button
           onClick={() => {
-            if (!session) return router.push("/auth/login");
+            if (!session) return setModalToLoginOpen(true);
             setModalNewIsOpen(true);
           }}
           className="my-3 bg-custom-alternative text-white rounded-full w-[50px] xl:w-56 h-[50px] text-lg font-bold 
@@ -107,47 +113,49 @@ export const LeftSidebar = () => {
         </button>
         {session && <SessionButton />}
       </aside>
-      <nav
-        className="flex justify-around phone:hidden fixed bottom-[0] w-full h-[53px] bg-custom-primary border-black border-0 border-top-2 
-          dark:border-custom-secondary border-t-[1px] z-[2]"
-      >
-        <LeftSidebarLink
-          text="Home"
-          Icon={HomeOutlinedIcon}
-          ActiveIcon={HomeIcon}
-          route={"/"}
-        />
-        <LeftSidebarLink
-          text="Explore"
-          Icon={TagOutlinedIcon}
-          ActiveIcon={TagIcon}
-          route={`/explore`}
-        />
-        <LeftSidebarLink
-          text="Bookmarks"
-          Icon={BookmarkBorderOutlinedIcon}
-          ActiveIcon={BookmarkIcon}
-          route={session ? `/bookmarks/${session.user.uid}` : "/auth/login"}
-        />
-        <LeftSidebarLink
-          text="Profile"
-          Icon={PersonOutlineOutlinedIcon}
-          ActiveIcon={PersonIcon}
-          route={session ? `/users/${session.user.uid}` : "/auth/login"}
-        />
-
-        <button
-          onClick={() => {
-            if (!session) return router.push("/auth/login");
-            setModalNewIsOpen(true);
-          }}
-          className="my-3 bg-custom-alternative text-white rounded-full w-[50px] h-[50px] text-lg font-bold 
-            shadow-md hover:opacity-80 transition-all absolute right-[15px] bottom-[60px]"
+      {session && (
+        <nav
+          className="flex justify-around phone:hidden fixed bottom-[0] w-full h-[53px] bg-custom-primary border-0  
+          dark:border-custom-secondary border-t-[1px] z-[2] shadow-2xl"
         >
-          <AddCardIcon />
-          <span className="hidden xl:inline">Postwitt</span>
-        </button>
-      </nav>
+          <LeftSidebarLink
+            text="Home"
+            Icon={HomeOutlinedIcon}
+            ActiveIcon={HomeIcon}
+            route={"/"}
+          />
+          <LeftSidebarLink
+            text="Explore"
+            Icon={TagOutlinedIcon}
+            ActiveIcon={TagIcon}
+            route={`/explore`}
+          />
+          <LeftSidebarLink
+            text="Bookmarks"
+            Icon={BookmarkBorderOutlinedIcon}
+            ActiveIcon={BookmarkIcon}
+            route={session ? `/bookmarks/${session.user.uid}` : "/auth/login"}
+          />
+          <LeftSidebarLink
+            text="Profile"
+            Icon={PersonOutlineOutlinedIcon}
+            ActiveIcon={PersonIcon}
+            route={session ? `/users/${session.user.uid}` : "/auth/login"}
+          />
+
+          <button
+            onClick={() => {
+              if (!session) return setModalToLoginOpen(true);
+              setModalNewIsOpen(true);
+            }}
+            className="my-3 bg-custom-alternative text-white rounded-full w-[50px] h-[50px] text-lg font-bold 
+          shadow-md hover:opacity-80 transition-all absolute right-[15px] bottom-[60px]"
+          >
+            <AddCardIcon />
+            <span className="hidden xl:inline">Postwitt</span>
+          </button>
+        </nav>
+      )}
     </>
   );
 };
