@@ -16,8 +16,13 @@ interface Props {
 }
 
 export const UserInfo = ({ userInfo }: Props) => {
-  const { setIsOpen, setUserId, setModalToLoginOpen, setLoadingChanges } =
-    useContext(UserContext);
+  const {
+    setIsOpen,
+    setUserId,
+    setModalToLoginOpen,
+    setLoadingChanges,
+    loadingChanges,
+  } = useContext(UserContext);
   const [isFollowing, setIsFollowing] = useState(false);
   const { data: session } = useSession();
   const { t } = useTranslation();
@@ -76,22 +81,23 @@ export const UserInfo = ({ userInfo }: Props) => {
                       setLoadingChanges(false)
                     );
                   }}
+                  disabled={loadingChanges}
                   className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
-                    font-bold hover:bg-opacity-90 ease-in-out"
+                    font-bold hover:bg-opacity-90 ease-in-out disabled:bg-custom-placeholder disabled:border-custom-placeholder"
                 >
                   {t("unfollow")}
                 </button>
               ) : (
                 <button
-                  onClick={() => {
+                  onClick={async () => {
                     if (!session) return setModalToLoginOpen(true);
                     setLoadingChanges(true);
-                    followUser(session.user.uid, userInfo.uid).then(() =>
-                      setLoadingChanges(false)
-                    );
+                    await followUser(session.user.uid, userInfo.uid);
+                    setLoadingChanges(false);
                   }}
+                  disabled={loadingChanges}
                   className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
-                    font-bold hover:bg-opacity-90 ease-in-out"
+                    font-bold hover:bg-opacity-90 ease-in-out disabled:bg-custom-placeholder disabled:border-custom-placeholder"
                 >
                   {t("follow")}
                 </button>

@@ -63,7 +63,7 @@ export const ModalToLogin = () => {
                   <Image src={icon} width={60} height={40} />
                   <h1 className="text-[40px] ml-3 text-[#1d9bf0]">Postter</h1>
                 </div>
-                <h2 className="text-[18px] sm:text-2xl md:text-3xl flex-grow-1 mb-10 max-w-[80%]">
+                <h2 className="text-[18px] sm:text-2xl md:text-3xl flex-grow-1 mb-10 max-w-[80%] text-custom-text">
                   {t("create_account")}
                 </h2>
                 <Link href="/auth/login" passHref>

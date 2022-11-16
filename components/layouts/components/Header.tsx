@@ -34,7 +34,6 @@ export const Header = ({ title, tagText, isHome = false }: Props) => {
           className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0"
           onClick={() => {
             router.back();
-            router.push("/");
           }}
         >
           <ArrowBackIcon className="h-5 text-custom-text" />

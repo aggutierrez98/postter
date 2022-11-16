@@ -1,4 +1,10 @@
-import { Fragment, SetStateAction, useLayoutEffect, useState } from "react";
+import {
+  Fragment,
+  MutableRefObject,
+  SetStateAction,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useSession } from "next-auth/react";
 import { TextAreaAutosize, NewPostwittActions } from "components";
 import { useInput, useTranslation } from "hooks";
@@ -8,7 +14,11 @@ import Image from "next/image";
 import defaultImage from "public/user-template.svg";
 import { Transition } from "@headlessui/react";
 
-export const NewPostwitt = () => {
+interface Props {
+  isModal?: boolean;
+}
+
+export const NewPostwitt = ({ isModal = false }: Props) => {
   const { data: session }: { data: Session } = useSession();
   const { t } = useTranslation();
   const [inputIsShowing, setInputIsShowing] = useState(false);
@@ -32,7 +42,7 @@ export const NewPostwitt = () => {
 
   return (
     <Transition
-      show={inputIsShowing}
+      show={isModal ? true : inputIsShowing}
       as={Fragment}
       enter="ease-out duration-300"
       enterFrom="opacity-0"

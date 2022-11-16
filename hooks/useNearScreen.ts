@@ -30,7 +30,10 @@ export const useNearScreen = ({
       ).then(() => {
         observer.current = new IntersectionObserver(
           (entries) => {
-            if (entries[0].isIntersecting && hasMore) {
+            if (
+              (entries[0].isIntersecting && hasMore) ||
+              entries[0].boundingClientRect.bottom < 0
+            ) {
               if (loadNextPage) loadNextPage();
               if (call.current) call.current();
             }
