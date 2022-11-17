@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import icon from "public/post.png";
 import { useTranslation } from "hooks";
+import { LoadingScreen } from "./components/LoadingScreen";
 
 interface Props {
   title: string;
@@ -34,6 +35,7 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
             </h1>
           </div>
           {children}
+          <LoadingScreen />
         </div>
       </main>
     </>

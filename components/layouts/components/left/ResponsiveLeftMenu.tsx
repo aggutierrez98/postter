@@ -27,7 +27,7 @@ export const ResponsiveLeftMenu = () => {
       };
     }
   }, [session?.user, session, modalLeftMenuIsOpen]);
-  const { setModalConfigIsOpen } = useContext(UserContext);
+  const { setModalConfigIsOpen, setIsLoadingScreen } = useContext(UserContext);
 
   return (
     <Transition.Root show={modalLeftMenuIsOpen} as={Fragment}>
@@ -133,10 +133,12 @@ export const ResponsiveLeftMenu = () => {
                   <button
                     className="text-custom-text hover:font-bold flex items-center space-x-2 w-full py-[16px] focus-visible:outline-none 
                    focus-visible:font-bold"
-                    onClick={() => {
-                      signOut({
+                    onClick={async () => {
+                      setIsLoadingScreen(true);
+                      await signOut({
                         callbackUrl: `${window.location.origin}/auth/login`,
                       });
+                      setIsLoadingScreen(false);
                     }}
                   >
                     <LogoutIcon className="h-[20px] w-[20px]" />

@@ -149,7 +149,7 @@ export const LeftSidebar = () => {
               setModalNewIsOpen(true);
             }}
             className="my-3 bg-custom-alternative text-white rounded-full w-[50px] h-[50px] text-lg font-bold 
-          shadow-md hover:opacity-80 transition-all absolute right-[15px] bottom-[60px]"
+            shadow-md hover:opacity-80 transition-all absolute right-[15px] bottom-[60px]"
           >
             <AddCardIcon />
             <span className="hidden xl:inline">Postwitt</span>

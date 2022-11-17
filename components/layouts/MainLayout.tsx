@@ -19,6 +19,7 @@ import { useSession } from "next-auth/react";
 import { useToogleTheme, useTranslation } from "hooks";
 import { useRouter } from "next/router";
 import { PostContext, UserContext } from "context";
+import { LoadingScreen } from "./components/LoadingScreen";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -89,6 +90,7 @@ export const MainLayout = ({
       <ResponsiveLeftMenu />
       <ModalOptions />
       <ModalToLogin />
+      <LoadingScreen />
 
       {session !== undefined && !session && <ModalLoggedOut />}
     </div>

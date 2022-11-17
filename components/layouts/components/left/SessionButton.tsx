@@ -1,9 +1,10 @@
-import { Fragment, useLayoutEffect, useState } from "react";
+import { Fragment, useContext, useLayoutEffect, useState } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { Popover, Transition } from "@headlessui/react";
 import defaultImage from "public/user-template.svg";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import { UserContext } from "../../../../context/users/UserContext";
 
 export const SessionButton = () => {
   const {
@@ -14,6 +15,7 @@ export const SessionButton = () => {
   useLayoutEffect(() => {
     setIsButtonShown(true);
   }, []);
+  const { setIsLoadingScreen } = useContext(UserContext);
 
   return (
     <Popover className="flex flex-grow relative">
@@ -72,11 +74,13 @@ export const SessionButton = () => {
                 </div>
                 <button
                   className="text-custom-text text-left pl-4 p-2 mb-2 hover:bg-black dark:hover:bg-white hover:bg-opacity-[0.12] dark:hover:bg-opacity-[0.03] transition-all"
-                  onClick={() =>
-                    signOut({
+                  onClick={async () => {
+                    setIsLoadingScreen(true);
+                    await signOut({
                       callbackUrl: `${window.location.origin}/auth/login`,
-                    })
-                  }
+                    });
+                    setIsLoadingScreen(false);
+                  }}
                 >
                   Cerrar la sesion de @{user?.tag}
                 </button>

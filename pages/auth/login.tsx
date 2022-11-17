@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 import { emailPattern } from "helpers";
 import { AuthLayout } from "components";
 import { useTranslation } from "hooks";
+import { useContext } from "react";
+import { UserContext } from "../../context/users/UserContext";
 
 type FormData = {
   email: string;
@@ -20,15 +22,17 @@ type FormData = {
 const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
   const router = useRouter();
   const { t } = useTranslation();
-
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
   } = useForm<FormData>();
+  const { setIsLoadingScreen } = useContext(UserContext);
 
   const onLoginUser = async ({ email, password }: FormData) => {
+    setIsLoadingScreen(true);
+
     const res = await signIn("credentials", {
       email,
       password,
@@ -36,8 +40,10 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
     });
 
     if (res.ok) {
+      setIsLoadingScreen(false);
       router.replace("/");
     } else {
+      setIsLoadingScreen(false);
       setError("email", {
         type: "credentials",
         message: "Email/Password are incorrect",
@@ -133,7 +139,6 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
             Object.keys(errors).length === 0 ? "" : "mt-5"
           }`}
           type="submit"
-          //   disabled={isSubmitting}
         >
           {t("login")}
         </button>
@@ -159,7 +164,11 @@ const LoginPage = ({ providers }: { providers: typeof SessionProvider }) => {
               <button
                 className="mb-5 relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all
                 bg-white rounded hover:bg-white group outline-1 outline-[#1d9bf055] outline-none"
-                onClick={() => signIn(provider.id)}
+                onClick={async () => {
+                  setIsLoadingScreen(true);
+                  await signIn(provider.id);
+                  setIsLoadingScreen(false);
+                }}
               >
                 <span
                   className="w-48 h-48 rounded rotate-[-40deg] bg-[#1d9bf0] absolute bottom-0 left-0 -translate-x-full ease-out
