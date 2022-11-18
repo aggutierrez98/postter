@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { watchHastags } from "@f/index";
+import { watchHastags } from "@firebase";
 import { HashtagCard, Header } from "components";
 import { HashtagInterface } from "interfaces";
 import { useTranslation } from "hooks";

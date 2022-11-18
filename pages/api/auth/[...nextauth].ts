@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
-import { getUserByEmail, newUser, userExists, loginRegister } from "@f/index";
+import { getUserByEmail, newUser, userExists, loginRegister } from "@firebase";
 
 export default NextAuth({
   providers: [
@@ -38,24 +38,20 @@ export default NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-
     GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
-
   pages: {
     signIn: "/auth/login",
     newUser: "/auth/register",
   },
-
   session: {
     strategy: "jwt",
     updateAge: 86400, // every day
     maxAge: 2592000, // 30 days
   },
-
   callbacks: {
     async jwt({ token, account, user }) {
       if (account) {
@@ -74,9 +70,9 @@ export default NextAuth({
       }
       return token;
     },
-
     async session({ token, session }) {
       const user = session.user;
+
       user.tag = session.user.name.split(" ").join("").toLocaleLowerCase();
       user.uid = token.sub;
       session.user = user;
@@ -86,7 +82,6 @@ export default NextAuth({
       if (!exist) {
         newUser(user);
       }
-
       return session;
     },
   },

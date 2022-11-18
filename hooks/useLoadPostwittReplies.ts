@@ -1,4 +1,4 @@
-import { watchPostwittReplies } from "@f/index";
+import { watchPostwittReplies } from "@firebase";
 import { QueryDocumentSnapshot } from "firebase/firestore";
 import { PostwittInterface } from "interfaces";
 import { useEffect, useState } from "react";

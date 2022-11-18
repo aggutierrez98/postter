@@ -1,4 +1,4 @@
-import { watchHastagsPostwitts } from "@f/index";
+import { watchHastagsPostwitts } from "@firebase";
 import { useEffect, useState } from "react";
 import { usePaginatedLogic } from "./usePaginetedLogic";
 

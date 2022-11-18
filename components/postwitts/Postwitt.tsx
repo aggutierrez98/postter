@@ -10,7 +10,7 @@ import {
   watchPostwittReplies,
   watchPostwittReposts,
   watchPostwittLikes,
-} from "@f/index";
+} from "@firebase";
 import { PostwittInterface } from "interfaces";
 import {
   TimeFormated,

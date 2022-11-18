@@ -16,8 +16,8 @@
     "emoji-mart": "^3.0.1",
     "firebase": "^9.6.3",
     "intersection-observer": "^0.12.0",
-    "next": "12.0.8",
-    "next-auth": "^4.2.1",
+    "next": "12.2.5",
+    "next-auth": "^4.16.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.4",
@@ -25,7 +25,7 @@
     "sharp": "^0.30.3"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^12.1.0",
+    "@next/eslint-plugin-next": "12.2.5",
     "@tailwindcss/line-clamp": "^0.3.1",
     "@types/jest": "^27.4.0",
     "@types/next-auth": "^3.15.0",

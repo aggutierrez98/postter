@@ -7,7 +7,7 @@ import {
   deletePostwitt,
   userPinupPostwitt,
   userPinoffPostwitt,
-} from "@f/index";
+} from "@firebase";
 import { LoadingCircle } from "components/layouts";
 import { useTranslation } from "hooks";
 

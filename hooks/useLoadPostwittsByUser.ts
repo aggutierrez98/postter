@@ -1,4 +1,4 @@
-import { watchPostwittsByUser, watchPostwittsByUserByReposts } from "@f/index";
+import { watchPostwittsByUser, watchPostwittsByUserByReposts } from "@firebase";
 import { useEffect, useState } from "react";
 import { moveToStart } from "helpers";
 import { usePaginatedLogic } from "./usePaginetedLogic";

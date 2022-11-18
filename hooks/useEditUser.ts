@@ -1,4 +1,4 @@
-import { editUser } from "@f/index";
+import { editUser } from "@firebase";
 import { ChangeEvent, useContext, useRef } from "react";
 import { useForm } from "hooks";
 import { UserContext } from "context";

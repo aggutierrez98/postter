@@ -13,7 +13,6 @@ import { UserInterface } from "interfaces";
 import { db } from "../firebase.config";
 
 type Callback = Dispatch<SetStateAction<DocumentData>>;
-//   type InputData = { text: string; file: string };
 
 export const watchPostwittLikes = (id: string, callback: Callback) => {
   onSnapshot(collection(db, "postwitts", id, "likes"), (snapshot) =>

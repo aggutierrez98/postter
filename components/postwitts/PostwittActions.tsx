@@ -6,7 +6,7 @@ import RepeatOutlinedIcon from "@mui/icons-material/RepeatOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { PostContext, PostContextProps, UserContext } from "context";
-import { likePostwitt, repostPostwitt } from "@f/index";
+import { likePostwitt, repostPostwitt } from "@firebase";
 import { MenuSharePostwitt } from "components";
 
 interface Props {

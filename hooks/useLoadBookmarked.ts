@@ -1,4 +1,4 @@
-import { watchBookmarkedPostwitts } from "@f/index";
+import { watchBookmarkedPostwitts } from "@firebase";
 import { useEffect, useState } from "react";
 import { usePaginatedLogic } from "./usePaginetedLogic";
 

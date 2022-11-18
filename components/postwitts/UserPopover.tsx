@@ -1,4 +1,4 @@
-import { getUser } from "@f/clients";
+import { auth, getUser } from "@firebase";
 import { Popover, Transition } from "@headlessui/react";
 import { useTranslation } from "hooks";
 import { UserInterface } from "interfaces";

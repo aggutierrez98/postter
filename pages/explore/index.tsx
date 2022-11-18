@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { FollowResultInterface, TrendingResultInterface } from "interfaces";
 import { GetStaticProps } from "next";
-import { getHashtags } from "@f/index";
+import { getHashtags } from "@firebase";
 import { ExploreFeed, MainLayout } from "components";
 import { useTranslation } from "hooks";
 import { ReactElement } from "react";
@@ -62,6 +62,6 @@ export const getStaticProps: GetStaticProps = async () => {
       followResults,
       hashtags,
     },
-    // revalidate: 10,
+    revalidate: 86400,
   };
 };

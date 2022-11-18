@@ -8,6 +8,7 @@ import { UserProvider, PostProvider } from "context";
 import "../styles/globals.css";
 import "../styles/emoji.css";
 import { usePreserveScroll } from "hooks";
+import { auth } from "@firebase";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;

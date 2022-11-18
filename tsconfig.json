@@ -2,7 +2,7 @@
   "compilerOptions": {
     "paths": {
       "@p/*": ["pages/*"],
-      "@f/*": ["firebase/*"]
+      "@firebase": ["firebase"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext", "es2017"],
@@ -21,8 +21,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "downlevelIteration": true,
-    "incremental": true,
-
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

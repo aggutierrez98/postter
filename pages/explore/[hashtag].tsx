@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { FollowResultInterface, TrendingResultInterface } from "interfaces";
-import { getHashtags } from "@f/index";
+import { getHashtags } from "@firebase";
 import { HashtagPostwittsList, MainLayout } from "components";
 import { ReactElement } from "react";
 
@@ -67,6 +67,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       followResults,
       hashtag,
     },
-    // revalidate: 10,
+    revalidate: 86400,
   };
 };

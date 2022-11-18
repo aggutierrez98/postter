@@ -12,7 +12,7 @@ import {
   TextAreaAutosize,
   TimeFormated,
 } from "components";
-import { watchPostwitt } from "@f/index";
+import { watchPostwitt } from "@firebase";
 import { PostwittInterface } from "interfaces";
 import Image from "next/image";
 

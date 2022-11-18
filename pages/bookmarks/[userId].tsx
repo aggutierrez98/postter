@@ -6,9 +6,10 @@ import {
   TrendingResultInterface,
   UserInterface,
 } from "interfaces";
-import { getUser, watchUser, getUsersIds } from "@f/index";
+import { getUser, watchUser, getUsersIds } from "@firebase";
 import { BookmarksFeed, MainLayout } from "components";
 import { useTranslation } from "hooks";
+// import { getToken } from "next-auth/jwt";
 
 interface Props {
   trendingResults: TrendingResultInterface[];
@@ -96,6 +97,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       userId,
       bookmarks,
     },
-    // revalidate: 10,
+    revalidate: 86400,
   };
 };

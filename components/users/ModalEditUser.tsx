@@ -7,7 +7,7 @@ import defaultBanner from "public/no-banner.jpg";
 import defaultImage from "public/user-template.svg";
 import { InputCustom } from "components";
 import { useEditUser, useTranslation } from "hooks";
-import { watchUser } from "@f/index";
+import { watchUser } from "@firebase";
 import { UserContext } from "context";
 import { LoadingCircle } from "components";
 

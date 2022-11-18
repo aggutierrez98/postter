@@ -4,10 +4,10 @@ import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 import DoneIcon from "@mui/icons-material/Done";
-import { bookmartPostwitt, unBookmartPostwitt } from "@f/index";
+import { bookmartPostwitt, unBookmartPostwitt } from "@firebase";
 import { Fragment, useEffect, useState, useContext } from "react";
 import { useSession } from "next-auth/react";
-import { watchUser } from "@f/index";
+import { watchUser } from "@firebase";
 import { UserInterface } from "interfaces";
 import { UserContext } from "../../context/users/UserContext";
 

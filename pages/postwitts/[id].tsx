@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { FollowResultInterface, TrendingResultInterface } from "interfaces";
-import { fetchPostwitt, getPostwittIds } from "@f/index";
+import { fetchPostwitt, getPostwittIds } from "@firebase";
 import { MainLayout, PostwittFeed } from "components";
 import { useTranslation } from "hooks";
 import { ReactElement } from "react";
@@ -91,6 +91,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       followResults,
       postData,
     },
-    // revalidate: 10,
+    revalidate: 86400,
   };
 };

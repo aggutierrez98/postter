@@ -5,7 +5,7 @@ import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
 import { PostContext } from "context";
 import { useSession } from "next-auth/react";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
-import { followUser, unfollowUser, watchUser } from "@f/index";
+import { followUser, unfollowUser, watchUser } from "@firebase";
 import { UserInterface } from "interfaces";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { useTranslation } from "hooks";

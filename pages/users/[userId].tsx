@@ -6,7 +6,7 @@ import {
   TrendingResultInterface,
   UserInterface,
 } from "interfaces";
-import { getUser, watchUser, getUsersIds } from "@f/index";
+import { getUser, watchUser, getUsersIds } from "@firebase";
 import { MainLayout, Profile } from "components";
 import { useTranslation } from "hooks";
 

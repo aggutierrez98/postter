@@ -1,5 +1,5 @@
 import { Combobox, Transition } from "@headlessui/react";
-import { getHashtagsByName } from "@f/index";
+import { getHashtagsByName } from "@firebase";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useTranslation } from "hooks";
 import { ChangeEvent, Fragment, useEffect, useState } from "react";

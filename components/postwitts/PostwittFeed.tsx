@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { watchPostwitt } from "@f/index";
+import { watchPostwitt } from "@firebase";
 import { Postwitt, RepliesList, Header } from "components";
 import { PostwittInterface } from "interfaces";
 

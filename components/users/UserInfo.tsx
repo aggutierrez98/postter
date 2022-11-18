@@ -7,7 +7,7 @@ import defaultBanner from "public/no-banner.jpg";
 import defaultImage from "public/user-template.svg";
 import { UserInterface } from "interfaces";
 import { UserContext } from "context";
-import { followUser, unfollowUser } from "@f/index";
+import { followUser, unfollowUser } from "@firebase";
 import { useTranslation } from "hooks";
 import { LoadingCircle } from "components/layouts";
 
