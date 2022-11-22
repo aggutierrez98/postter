@@ -70,6 +70,7 @@ export const ModalToLogin = () => {
                   <button
                     className="bg-custom-primary outline-custom-alternative outline outline-1 text-custom-text rounded-full w-[80%] 
                     h-[55px] text-md md:text-lg font-bold shadow-md hover:opacity-80 transition-all mb-5"
+                    onClick={() => setModalToLoginOpen(false)}
                   >
                     {t("login")}
                   </button>
@@ -78,6 +79,7 @@ export const ModalToLogin = () => {
                   <button
                     className="bg-custom-alternative text-custom-text rounded-full w-[80%] h-[55px] text-md md:text-lg font-bold 
                     shadow-md hover:opacity-80 transition-all"
+                    onClick={() => setModalToLoginOpen(false)}
                   >
                     {t("register")}
                   </button>

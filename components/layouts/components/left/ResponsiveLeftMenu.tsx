@@ -9,7 +9,7 @@ import { PostContext, PostContextProps, UserContext } from "context";
 import { UserInterface } from "interfaces";
 import { LeftMenuLinkList } from "components";
 import { useTranslation } from "hooks";
-import SettingsIcon from "@mui/icons-material/Settings";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 export const ResponsiveLeftMenu = () => {
@@ -125,7 +125,7 @@ export const ResponsiveLeftMenu = () => {
                     setModalConfigIsOpen(true);
                   }}
                 >
-                  <SettingsIcon className="h-[20px] w-[20px]" />
+                  <SettingsOutlinedIcon className="h-[20px] w-[20px]" />
                   <span className="inline text-[15px]">{t("settings")}</span>
                   <span className="hidden xl:inline">{t("options")}</span>
                 </button>

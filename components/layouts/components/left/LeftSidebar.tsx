@@ -10,7 +10,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import AddCardIcon from "@mui/icons-material/AddCard";
-import SettingsIcon from "@mui/icons-material/Settings";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import icon from "public/post.png";
 import { LeftSidebarLink } from "components";
 import { PostContext, UserContext } from "context";
@@ -93,7 +93,7 @@ export const LeftSidebar = () => {
               setModalConfigIsOpen(true);
             }}
           >
-            <SettingsIcon className="h-7" />
+            <SettingsOutlinedIcon className="h-7" />
             <span className="hidden xl:inline">{t("options")}</span>
           </button>
         </nav>
