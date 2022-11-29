@@ -25,6 +25,7 @@ export default NextAuth({
           placeholder: "placeholderPassword",
         },
       },
+      //@ts-ignore
       async authorize(credentials) {
         return await loginRegister(
           credentials.email,
