@@ -3,13 +3,17 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
-import defaultBanner from "public/no-banner.jpg";
-import defaultImage from "public/user-template.svg";
 import { UserInterface } from "interfaces";
 import { UserContext } from "context";
 import { followUser, unfollowUser } from "@firebase";
 import { useTranslation } from "hooks";
 import { LoadingCircle } from "components/layouts";
+import {
+  blurAvatarSrc,
+  blurBannerSrc,
+  defaultAvatar,
+  defaultBanner,
+} from "helpers";
 
 interface Props {
   userInfo: UserInterface;
@@ -39,6 +43,8 @@ export const UserInfo = ({ userInfo }: Props) => {
         className="object-cover object-center"
         width={600}
         height={200}
+        blurDataURL={blurBannerSrc}
+        placeholder="blur"
         src={userInfo.bannerImg ? userInfo.bannerImg : defaultBanner}
         priority
       />
@@ -52,58 +58,59 @@ export const UserInfo = ({ userInfo }: Props) => {
               <Image
                 className="rounded-full"
                 priority
-                blurDataURL="banner.jpg"
+                blurDataURL={blurAvatarSrc}
                 placeholder="blur"
-                src={userInfo.image ? userInfo.image : defaultImage}
+                src={userInfo.image ? userInfo.image : defaultAvatar}
                 layout="fill"
                 objectFit="contain"
               />
             </div>
           </div>
-          {userInfo.uid === session?.user.uid ? (
-            <button
-              onClick={() => {
-                setIsOpen(true);
-                setUserId(userInfo.uid);
-              }}
-              className="h-[36px] w-[120px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-text font-bold bg-custom-primary
+          {session?.user &&
+            (userInfo.uid === session?.user.uid ? (
+              <button
+                onClick={() => {
+                  setIsOpen(true);
+                  setUserId(userInfo.uid);
+                }}
+                className="h-[36px] w-[120px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-text font-bold bg-custom-primary
               hover:bg-opacity-80 ease-in-out"
-            >
-              {t("edit profile")}
-            </button>
-          ) : (
-            <>
-              {isFollowing ? (
-                <button
-                  onClick={() => {
-                    setLoadingChanges(true);
-                    unfollowUser(session.user.uid, userInfo.uid).then(() =>
-                      setLoadingChanges(false)
-                    );
-                  }}
-                  disabled={loadingChanges}
-                  className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
+              >
+                {t("edit profile")}
+              </button>
+            ) : (
+              <>
+                {isFollowing ? (
+                  <button
+                    onClick={() => {
+                      setLoadingChanges(true);
+                      unfollowUser(session.user.uid, userInfo.uid).then(() =>
+                        setLoadingChanges(false)
+                      );
+                    }}
+                    disabled={loadingChanges}
+                    className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
                     font-bold hover:bg-opacity-90 ease-in-out disabled:bg-custom-placeholder disabled:border-custom-placeholder"
-                >
-                  {t("unfollow")}
-                </button>
-              ) : (
-                <button
-                  onClick={async () => {
-                    if (!session) return setModalToLoginOpen(true);
-                    setLoadingChanges(true);
-                    await followUser(session.user.uid, userInfo.uid);
-                    setLoadingChanges(false);
-                  }}
-                  disabled={loadingChanges}
-                  className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
+                  >
+                    {t("unfollow")}
+                  </button>
+                ) : (
+                  <button
+                    onClick={async () => {
+                      if (!session) return setModalToLoginOpen(true);
+                      setLoadingChanges(true);
+                      await followUser(session.user.uid, userInfo.uid);
+                      setLoadingChanges(false);
+                    }}
+                    disabled={loadingChanges}
+                    className="h-[36px] w-[90px] self-end border-[1px] rounded-3xl border-custom-terciary text-custom-primary bg-custom-text 
                     font-bold hover:bg-opacity-90 ease-in-out disabled:bg-custom-placeholder disabled:border-custom-placeholder"
-                >
-                  {t("follow")}
-                </button>
-              )}
-            </>
-          )}
+                  >
+                    {t("follow")}
+                  </button>
+                )}
+              </>
+            ))}
         </div>
         <div className="flex flex-col h-[55px] text-custom-text">
           <div className="font-bold text-lg">{userInfo.name}</div>

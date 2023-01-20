@@ -87,6 +87,8 @@
     "click_here": "click here",
     "dont_miss": "Don't miss what's happening",
     "nothing_found": "nothing found",
-    "create_account": "Create your account and join the Postter community to interact with other users"
+    "create_account": "Create your account and join the Postter community to interact with other users",
+    "no_hashtags_already": "There is no hashtags already",
+    "no_bookmarks_saved": "No postwitts bookmarked"
   }
 }

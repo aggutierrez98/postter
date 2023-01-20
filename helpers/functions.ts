@@ -2,7 +2,8 @@ export const moveToStart = (
   array: any[],
   conditionCallback: (value: any, index: number, obj: any[]) => unknown
 ) => {
-  array.unshift(array.splice(array.findIndex(conditionCallback), 1)[0]);
+  const index = array.findIndex(conditionCallback);
+  array.unshift(array.splice(index !== -1 ? index : 0, 1)[0]);
   return array;
 };
 

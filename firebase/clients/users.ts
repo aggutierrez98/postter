@@ -127,6 +127,7 @@ export const editUser = async (id: string, data: UserInterface) => {
 
       const newData = {
         ...oldData,
+        image,
         bannerImg,
         biography,
         location,

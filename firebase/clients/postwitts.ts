@@ -209,7 +209,10 @@ export const watchBookmarkedPostwitts = (
         setLoading(false);
       }
     );
-  } else callback([]);
+  } else {
+    callback([]);
+    setLoading(false);
+  }
 };
 
 export const newPostwitt = async (

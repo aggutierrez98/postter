@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { moveToStart } from "helpers";
 import { usePaginatedLogic } from "./usePaginetedLogic";
 
+const LOAD_OPTIONS = ["postwitts", "postwitts and answers", "media", "likes"];
+
 export const useLoadPostwittsByUser = ({ userData, option }) => {
   const [totalPostwitts, setTotalPostwitts] = useState([]);
   const [reposts, setReposts] = useState([]);
@@ -61,5 +63,5 @@ export const useLoadPostwittsByUser = ({ userData, option }) => {
     };
   }, [option, totalPostwitts, reposts, userData]);
 
-  return { postwitts, loadNextPage, loading, hasMore };
+  return { postwitts, loadNextPage, loading, hasMore, options: LOAD_OPTIONS };
 };

@@ -8,10 +8,9 @@ export const useLoadBookmarked = (bookmarks: string[]) => {
   const { hasMore, loading, setLoading, pageNumber, loadNextPage } =
     usePaginatedLogic(postwitts.length);
 
-  useEffect(
-    () =>
-      watchBookmarkedPostwitts(bookmarks, setPostwitts, setLoading, pageNumber),
-    [bookmarks, pageNumber, setLoading]
-  );
+  useEffect(() => {
+    watchBookmarkedPostwitts(bookmarks, setPostwitts, setLoading, pageNumber);
+  }, [bookmarks, pageNumber, setLoading]);
+
   return { postwitts, loading, loadNextPage, hasMore };
 };

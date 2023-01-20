@@ -7,6 +7,7 @@ import {
   query,
   limit,
   DocumentData,
+  QuerySnapshot,
 } from "@firebase/firestore";
 import { db } from "../firebase.config";
 
@@ -72,7 +73,7 @@ export const watchHastags = (callback: Callback) => {
 };
 
 export const getHashtagsByName = async (name: string) => {
-  let hastagsFromDocs = [];
+  let hashtagsFromDocs = [];
 
   if (name.length <= 0) return [];
 
@@ -83,30 +84,30 @@ export const getHashtagsByName = async (name: string) => {
   if (hashs.docs.length <= 0) return [];
 
   hashs.forEach((doc) => {
-    hastagsFromDocs.push(...doc.data().hashtags);
+    hashtagsFromDocs.push(...doc.data().hashtags);
   });
 
-  hastagsFromDocs = [...hastagsFromDocs].filter(
-    (ele, pos) => [...hastagsFromDocs].indexOf(ele) === pos
+  hashtagsFromDocs = [...hashtagsFromDocs].filter(
+    (ele, pos) => [...hashtagsFromDocs].indexOf(ele) === pos
   );
 
-  hastagsFromDocs = hastagsFromDocs.filter((hashtag) =>
+  hashtagsFromDocs = hashtagsFromDocs.filter((hashtag) =>
     hashtag.toLowerCase().includes(name)
   );
 
-  if (hastagsFromDocs.length <= 0) return [];
+  if (hashtagsFromDocs.length <= 0) return [];
 
   const hashsFinal = await getDocs(
     query(
       collection(db, "postwitts"),
-      where("hashtags", "array-contains-any", hastagsFromDocs)
+      where("hashtags", "array-contains-any", hashtagsFromDocs)
     )
   );
 
   const postwittFromHashtags = hashsFinal.docs.map(
     (doc) => doc.data().hashtags
   );
-  let hashsWithPostwittsCount = hastagsFromDocs.map((hash) => {
+  let hashsWithPostwittsCount = hashtagsFromDocs.map((hash) => {
     let postwitts = 0;
     postwittFromHashtags.forEach((hashsFromPost) => {
       if (hashsFromPost.includes(hash)) postwitts++;
@@ -158,29 +159,32 @@ export const getHashtags = async () => {
 
   if (hastagDocs.docs.length <= 0) return [];
 
-  let hastagsFromDocs = [];
+  let hashtagsFromDocs = [];
   hastagDocs.forEach((doc) => {
-    hastagsFromDocs.push(...doc.data().hashtags);
+    hashtagsFromDocs.push(...doc.data().hashtags);
   });
 
-  hastagsFromDocs = hastagsFromDocs.filter(
-    (ele, pos) => hastagsFromDocs.indexOf(ele) === pos
+  hashtagsFromDocs = hashtagsFromDocs.filter(
+    (ele, pos) => hashtagsFromDocs.indexOf(ele) === pos
   );
 
-  const postwittFromHastagsDocs = await getDocs(
-    query(
-      collection(db, "postwitts"),
-      where("hashtags", "array-contains-any", hastagsFromDocs || [])
-    )
-  );
+  let postwittFromHashtags = [];
+  if (hashtagsFromDocs.length > 0) {
+    const postwittFromHastagsDocs = await getDocs(
+      query(
+        collection(db, "postwitts"),
+        where("hashtags", "array-contains-any", hashtagsFromDocs)
+      )
+    );
+    postwittFromHashtags = postwittFromHastagsDocs.docs.map(
+      (doc) => doc.data().hashtags
+    );
+  }
 
-  const postwittFromHashtags = postwittFromHastagsDocs.docs.map(
-    (doc) => doc.data().hashtags
-  );
   let hashsWithPostwittsCount: {
     hashtag: string;
     postwitts: number;
-  }[] = hastagsFromDocs.map((hash) => {
+  }[] = hashtagsFromDocs.map((hash) => {
     let count = 0;
     postwittFromHashtags.forEach((hashsFromPost) => {
       if (hashsFromPost.includes(hash)) count++;

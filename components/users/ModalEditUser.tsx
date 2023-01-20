@@ -3,16 +3,21 @@ import Image from "next/image";
 import { Dialog, Transition } from "@headlessui/react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import LocalSeeOutlinedIcon from "@mui/icons-material/LocalSeeOutlined";
-import defaultBanner from "public/no-banner.jpg";
-import defaultImage from "public/user-template.svg";
 import { InputCustom } from "components";
 import { useEditUser, useTranslation } from "hooks";
 import { watchUser } from "@firebase";
 import { UserContext } from "context";
 import { LoadingCircle } from "components";
+import {
+  blurAvatarSrc,
+  blurBannerSrc,
+  defaultAvatar,
+  defaultBanner,
+} from "helpers";
 
 export const ModalEditUser = () => {
-  const { setIsOpen, userId, modalIsOpen } = useContext(UserContext);
+  const { setIsOpen, userId, modalIsOpen, loadingChanges } =
+    useContext(UserContext);
 
   const {
     userValues,
@@ -27,7 +32,11 @@ export const ModalEditUser = () => {
     editProfileImg,
   } = useEditUser();
 
-  useEffect(() => watchUser(userId, setUserValues), [userId, setUserValues]);
+  useEffect(() => {
+    if (modalIsOpen === true) {
+      watchUser(userId, setUserValues);
+    }
+  }, [userId, setUserValues, modalIsOpen]);
   const { t } = useTranslation();
 
   return (
@@ -79,7 +88,8 @@ export const ModalEditUser = () => {
                 </div>
                 <button
                   type="submit"
-                  className="rounded-3xl border-text border px-3 mr-2 bg-custom-text text-custom-primary font-bold ml-5 text-lg"
+                  disabled={loadingChanges}
+                  className="rounded-3xl border-text border px-3 mr-2 bg-custom-text text-custom-primary font-bold ml-5 text-lg disabled:bg-custom-placeholder"
                 >
                   {t("save")}
                 </button>
@@ -115,10 +125,12 @@ export const ModalEditUser = () => {
                     width={581}
                     height={193.66}
                     src={
-                      userValues?.bannerImg
+                      userValues.bannerImg
                         ? userValues?.bannerImg
                         : defaultBanner
                     }
+                    blurDataURL={blurBannerSrc}
+                    placeholder="blur"
                   />
                 </div>
                 <div
@@ -144,7 +156,9 @@ export const ModalEditUser = () => {
                     className="object-cover object-center rounded-full absolute"
                     width={112}
                     height={112}
-                    src={userValues?.image ? userValues?.image : defaultImage}
+                    src={userValues?.image ? userValues?.image : defaultAvatar}
+                    blurDataURL={blurAvatarSrc}
+                    placeholder="blur"
                   />
                 </div>
                 <div className="flex flex-col w-full px-5 mt-[-30px]">
