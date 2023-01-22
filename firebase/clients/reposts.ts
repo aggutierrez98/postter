@@ -79,6 +79,7 @@ export const watchReposts = (callback: Callback) => {
 
 export const watchPostwittsByUserByReposts = async (
   userId: string,
+  setLoading: Dispatch<SetStateAction<boolean>>,
   callback: Callback
   // pageNumber = 1
 ) => {
@@ -93,6 +94,7 @@ export const watchPostwittsByUserByReposts = async (
     (snapshotReposts) => {
       if (snapshotReposts.docs.length <= 0) {
         callback([]);
+        setLoading(false);
         return;
       }
 
@@ -117,6 +119,7 @@ export const watchPostwittsByUserByReposts = async (
             };
           });
           callback(newSnaps);
+          setLoading(false);
         }
       );
     }

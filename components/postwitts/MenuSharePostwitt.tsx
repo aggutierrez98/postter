@@ -32,7 +32,26 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
     if (session) {
       watchUser(session?.user.uid, setUserData);
       return () => {
-        watchUser(session?.user.uid, setUserData);
+        setIsBookmarked(false);
+        setUserData({
+          uid: null,
+          name: null,
+          email: null,
+          tag: null,
+          image: null,
+          bannerImg: null,
+          biography: null,
+          location: null,
+          birthday: null,
+          pinned: null,
+          bookmarks: null,
+          following: null,
+          followers: null,
+        });
+        setOperation({
+          success: false,
+          action: null,
+        });
       };
     }
   }, [session, session?.user.uid]);

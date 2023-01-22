@@ -14,6 +14,24 @@ export const UserPopover = ({ userId, open }) => {
     getUser(userId).then((res) => {
       setUserInfo(res.data());
     });
+
+    return () => {
+      setUserInfo({
+        uid: null,
+        name: null,
+        email: null,
+        tag: null,
+        image: null,
+        bannerImg: null,
+        biography: null,
+        location: null,
+        birthday: null,
+        pinned: null,
+        bookmarks: null,
+        following: null,
+        followers: null,
+      });
+    };
   }, [userId]);
 
   return (

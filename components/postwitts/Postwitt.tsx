@@ -20,6 +20,7 @@ import {
 } from "components";
 import { useTranslation } from "hooks";
 import { Transition } from "@headlessui/react";
+import { usePostwitt } from "hooks/usePostwitt";
 
 interface Props {
   postwittId: string;
@@ -42,49 +43,15 @@ const InitPostwitt = ({
   idOriginal,
   timePostedOriginal,
 }: Props) => {
-  const { data: session } = useSession();
   const { t } = useTranslation();
-  const [replies, setReplies] = useState<DocumentData[]>([]);
-  const [likes, setLikes] = useState<DocumentData[]>([]);
-  const [liked, setLiked] = useState<boolean>(false);
-  const [reposted, setReposted] = useState(false);
-  const [reposts, setReposts] = useState([]);
+  const { data: session } = useSession();
 
-  const [isPostwittShown, setIsPostwittShown] = useState(false);
-  useLayoutEffect(() => {
-    setIsPostwittShown(true);
-  }, []);
-
-  useEffect(
-    () =>
-      watchPostwittReplies(repostedBy ? idOriginal : postwittId, setReplies),
-    [postwittId, repostedBy, idOriginal]
-  );
-  useEffect(
-    () => watchPostwittLikes(repostedBy ? idOriginal : postwittId, setLikes),
-    [postwittId, repostedBy, idOriginal]
-  );
-  useEffect(
-    () =>
-      watchPostwittReposts(repostedBy ? idOriginal : postwittId, setReposts),
-    [postwittId, repostedBy, idOriginal]
-  );
-  useEffect(
-    () =>
-      setLiked(
-        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
-      ),
-    [likes, session?.user.uid]
-  );
-  useEffect(
-    () =>
-      setReposted(
-        reposts.findIndex(
-          (repost) => repost.data().userId === session?.user.uid
-        ) !== -1
-      ),
-    [reposts, session?.user.uid]
-  );
+  const { isPostwittShown, liked, likes, replies, reposted, reposts } =
+    usePostwitt({
+      idOriginal,
+      postwittId,
+      repostedBy,
+    });
 
   return (
     <article
@@ -222,6 +189,11 @@ const InitPostwitt = ({
                   </div>
                 )}
                 {postwitt?.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    className="rounded-2xl max-h-[700px] mr-1"
+                    src={postwitt.image}
+                  />
                   //TODO: Improve image to quit layout shift without losing style
                   // <div className="w-[100%] h-[300px] relative">
                   //   <Image
@@ -231,10 +203,6 @@ const InitPostwitt = ({
                   //     className="rounded-2xl mr-1 w-[100%]"
                   //   />
                   // </div>
-                  <img
-                    className="rounded-2xl max-h-[700px] mr-1"
-                    src={postwitt.image}
-                  />
                 )}
                 <PostwittActions
                   id={repostedBy ? idOriginal : postwittId}

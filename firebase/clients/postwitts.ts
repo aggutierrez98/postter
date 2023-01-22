@@ -68,7 +68,7 @@ export const watchPostwitts = async (
 export const watchPostwittsByUser = (
   userId: string | string[],
   callback: Callback,
-  setLoading: CallbackLoading,
+  setLoading: Dispatch<SetStateAction<boolean>>,
   pageNumber: number = 1,
   option: number = 0
 ) => {
@@ -118,6 +118,7 @@ export const watchPostwittsByUser = (
       (snapshotLikes) => {
         if (snapshotLikes.docs.length <= 0) {
           callback([]);
+          setLoading(false);
           return;
         }
 

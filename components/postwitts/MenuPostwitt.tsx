@@ -29,18 +29,31 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
   const { data: session } = useSession();
   const { t } = useTranslation();
 
-  useEffect(() => watchUser(userId, setUserData), [userId]);
+  useEffect(() => {
+    watchUser(userId, setUserData);
+    return () =>
+      setUserData({
+        uid: null,
+        name: null,
+        email: null,
+        tag: null,
+        image: null,
+        bannerImg: null,
+        biography: null,
+        location: null,
+        birthday: null,
+        pinned: null,
+        bookmarks: null,
+        following: null,
+        followers: null,
+      });
+  }, [userId]);
 
   useEffect(() => {
     if (userData?.followers?.includes(session?.user.uid)) {
       setIsFollowing(true);
     } else setIsFollowing(false);
-
-    return () => {
-      if (userData?.followers?.includes(session?.user.uid)) {
-        setIsFollowing(true);
-      } else setIsFollowing(false);
-    };
+    return () => setIsFollowing(false);
   }, [userData, setIsFollowing, session?.user.uid]);
 
   return (

@@ -1,7 +1,7 @@
 import { watchPostwittsByUser, watchPostwittsByUserByReposts } from "@firebase";
 import { useEffect, useState } from "react";
 import { moveToStart } from "helpers";
-import { usePaginatedLogic } from "./usePaginetedLogic";
+import { usePaginatedLogic } from "hooks";
 
 const LOAD_OPTIONS = ["postwitts", "postwitts and answers", "media", "likes"];
 
@@ -11,7 +11,7 @@ export const useLoadPostwittsByUser = ({ userData, option }) => {
   const [postwitts, setPostwitts] = useState([]);
 
   const { hasMore, loading, setLoading, pageNumber, loadNextPage } =
-    usePaginatedLogic(totalPostwitts.length);
+    usePaginatedLogic(totalPostwitts.length, option);
 
   useEffect(() => {
     watchPostwittsByUser(
@@ -21,18 +21,11 @@ export const useLoadPostwittsByUser = ({ userData, option }) => {
       pageNumber,
       option
     );
-    watchPostwittsByUserByReposts(userData.uid, setReposts);
-    return () => {
-      watchPostwittsByUser(
-        userData.uid,
-        setTotalPostwitts,
-        setLoading,
-        pageNumber,
-        option
-      );
-      watchPostwittsByUserByReposts(userData.uid, setReposts);
-    };
-  }, [userData.uid, pageNumber, option, setLoading]);
+  }, [userData.uid, option, pageNumber, setLoading]);
+
+  useEffect(() => {
+    watchPostwittsByUserByReposts(userData.uid, setLoading, setReposts);
+  }, [userData.uid, setLoading]);
 
   useEffect(() => {
     if (totalPostwitts.length === 0) return;
@@ -61,7 +54,7 @@ export const useLoadPostwittsByUser = ({ userData, option }) => {
     return () => {
       setPostwitts([]);
     };
-  }, [option, totalPostwitts, reposts, userData]);
+  }, [option, totalPostwitts, reposts, userData, setLoading]);
 
   return { postwitts, loadNextPage, loading, hasMore, options: LOAD_OPTIONS };
 };

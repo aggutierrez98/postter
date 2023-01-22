@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-export const usePaginatedLogic = (valorCompare: any) => {
+export const usePaginatedLogic = (valorCompare: any, option?: string) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
@@ -20,6 +20,11 @@ export const usePaginatedLogic = (valorCompare: any) => {
       setHasMore(true);
     }
   }, [valor]);
+
+  useEffect(() => {
+    setLoading(true);
+    setPageNumber(1);
+  }, [option]);
 
   const loadNextPage = useCallback(() => {
     setLoading(true);
