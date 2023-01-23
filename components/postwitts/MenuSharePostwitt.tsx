@@ -105,7 +105,7 @@ export const MenuSharePostwitt = ({ postwittId }: { postwittId: string }) => {
             <Menu.Items
               onClick={(e) => e.preventDefault()}
               className="top-[0] right-[0] absolute bg-custom-primary text-custom-placeholder rounded-sm flex flex-col 
-                  items-start px-5 py-1 text-[18px] z-10 shadow-sh"
+                  items-start px-5 py-1 text-[18px] z-10 shadow-sh focus-visible:outline-none"
             >
               {isBookmarked ? (
                 <Menu.Item

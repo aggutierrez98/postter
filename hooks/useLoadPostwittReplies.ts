@@ -13,6 +13,8 @@ export const useLoadPostwittsReplies = ({ postId }) => {
 
   useEffect(() => {
     watchPostwittReplies(postId, setReplies, setLoading, pageNumber);
+
+    return () => setReplies([]);
   }, [postId, setLoading, pageNumber]);
 
   return { replies, loading, loadNextPage, hasMore };

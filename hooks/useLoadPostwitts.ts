@@ -22,6 +22,8 @@ export const useLoadPostwitts = () => {
     setPostwitts(
       [...totalPostwitts, ...reposts].sort((a, b) => b.timestamp - a.timestamp)
     );
+
+    return () => setPostwitts([]);
   }, [reposts, totalPostwitts]);
 
   return { postwitts, loading, loadNextPage, hasMore };

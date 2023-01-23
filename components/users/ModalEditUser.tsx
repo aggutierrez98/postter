@@ -125,9 +125,11 @@ export const ModalEditUser = () => {
                     width={581}
                     height={193.66}
                     src={
-                      userValues.bannerImg
-                        ? userValues?.bannerImg
-                        : defaultBanner
+                      userValues.uid
+                        ? userValues.bannerImg
+                          ? userValues.bannerImg
+                          : defaultBanner
+                        : blurBannerSrc
                     }
                     blurDataURL={blurBannerSrc}
                     placeholder="blur"
@@ -135,7 +137,7 @@ export const ModalEditUser = () => {
                 </div>
                 <div
                   className="self-start ml-5 bottom-[50px] h-[122px] w-[122px] relative bg-custom-primary rounded-full flex 
-                    items-center justify-center"
+                    items-center justify-center overflow-hidden"
                 >
                   <div
                     title={t("change_profile_image")}
@@ -156,9 +158,15 @@ export const ModalEditUser = () => {
                     className="object-cover object-center rounded-full absolute"
                     width={112}
                     height={112}
-                    src={userValues?.image ? userValues?.image : defaultAvatar}
                     blurDataURL={blurAvatarSrc}
                     placeholder="blur"
+                    src={
+                      userValues.uid
+                        ? userValues.image
+                          ? userValues.image
+                          : defaultAvatar
+                        : blurAvatarSrc
+                    }
                   />
                 </div>
                 <div className="flex flex-col w-full px-5 mt-[-30px]">

@@ -52,7 +52,7 @@ export const UserInfo = ({ userInfo }: Props) => {
         <div className="flex w-full flex-col justify-between relative h-[70px]">
           <div
             className="absolute bottom-[15px] rounded-full p-[3px] sm:p-1.5 bg-custom-primary flex 
-          items-center justify-center"
+          items-center justify-center  overflow-hidden"
           >
             <div className="h-[100px] w-[100px] sm:h-[120px] sm:w-[120px] md:h-[133.5px] md:w-[133.5px] relative">
               <Image

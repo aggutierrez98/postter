@@ -88,17 +88,13 @@ export const editUser = async (id: string, data: UserInterface) => {
     location = null,
     birthday = null,
     image = null,
-    // // bookmarts,
-    // // pinned,
-    // // following,
-    // // followers,
   } = data;
 
   try {
     const userDoc = await getUser(id);
     const docRef = doc(db, "users", userDoc.id);
 
-    if (!image.includes("https://lh3.googleusercontent.com/")) {
+    if (image.startsWith("data:image")) {
       const imageRef = ref(storage, `users/${docRef.id}/profile`);
 
       await uploadString(imageRef, image, "data_url").then(async () => {

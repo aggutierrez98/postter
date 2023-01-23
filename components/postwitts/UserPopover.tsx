@@ -50,7 +50,7 @@ export const UserPopover = ({ userId, open }) => {
           <div className="flex w-full flex-col items-start ">
             <div className="bg-custom-primary flex items-center justify-center">
               <Image
-                className="rounded-full"
+                className="rounded-full object-contain object-center"
                 width={40}
                 height={40}
                 src={userInfo?.image ? userInfo.image : defaultImage}
