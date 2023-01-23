@@ -1,12 +1,17 @@
 import { Fragment, SetStateAction, useLayoutEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { TextAreaAutosize, NewPostwittActions } from "components";
+import {
+  TextAreaAutosize,
+  NewPostwittActions,
+  LoadingCircle,
+} from "components";
 import { useInput, useTranslation } from "hooks";
 import { AddImage } from "./AddImage";
 import { Session } from "next-auth";
 import Image from "next/image";
 import defaultImage from "public/user-template.svg";
 import { Transition } from "@headlessui/react";
+import { LoadingScreen } from "../layouts/components/LoadingScreen";
 
 interface Props {
   isModal?: boolean;

@@ -2,6 +2,7 @@ import { ChangeEvent, MouseEvent, useContext, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import { PostContext, PostContextProps } from "context";
 import { newPostwitt } from "@firebase";
+import { UserContext } from "../context/users/UserContext";
 
 export const useInput = () => {
   const { setModalReplyIsOpen, setModalNewIsOpen, postwittId } =
@@ -12,6 +13,7 @@ export const useInput = () => {
   const [showEmojis, setShowEmojis] = useState<boolean>(false);
   const { data: session } = useSession<boolean>();
   const [text, setText] = useState<string>("");
+  const { setIsLoadingScreen, setLoadingChanges } = useContext(UserContext);
 
   const getHastags = (text: string) => {
     const hastagRegex = /\B(#[a-zA-Z-0-9]+\b)(?!;)/g;
@@ -26,6 +28,7 @@ export const useInput = () => {
   const newPostwittHandler = async () => {
     if (loading) return;
     setLoading(true);
+    setIsLoadingScreen(true);
 
     const hashtags = getHastags(text);
 
@@ -36,6 +39,7 @@ export const useInput = () => {
     });
 
     setLoading(false);
+    setIsLoadingScreen(false);
     setShowEmojis(false);
     setSelectedFile(null);
     setText("");
@@ -45,6 +49,7 @@ export const useInput = () => {
   const replyPostwittHandler = async (e: MouseEvent<HTMLElement>) => {
     if (loading) return;
     setLoading(true);
+    setLoadingChanges(true);
     e.preventDefault();
 
     await newPostwitt(
@@ -58,6 +63,7 @@ export const useInput = () => {
 
     setModalReplyIsOpen(false);
     setLoading(false);
+    setLoadingChanges(false);
     setText("");
     setSelectedFile(null);
   };

@@ -34,6 +34,7 @@ export const ReplyModal = () => {
     text,
     setText,
     replyPostwittHandler,
+    loading,
   } = useInput();
 
   useEffect(() => {
@@ -170,7 +171,7 @@ export const ReplyModal = () => {
                           hover:bg-opacity-[.75] transition-all disabled:hover:bg-custom-alternative disabled:opacity-50 disabled:cursor-default"
                           type="submit"
                           onClick={replyPostwittHandler}
-                          disabled={!text.trim()}
+                          disabled={!text.trim() || loading}
                         >
                           Reply
                         </button>

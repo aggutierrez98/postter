@@ -84,7 +84,7 @@ export const MenuPostwitt = ({ isUser, userId, postwittId, pinned }: Props) => {
             <Menu.Items
               onClick={(e) => e.preventDefault()}
               className="top-[-10px] right-0 absolute bg-custom-primary text-custom-placeholder rounded-sm flex flex-col 
-                items-start px-5 py-1 text-[18px] z-[1] shadow-sh"
+                items-start px-5 py-1 text-[18px] z-[1] shadow-sh focus-visible:outline-none"
             >
               {isUser ? (
                 <>
