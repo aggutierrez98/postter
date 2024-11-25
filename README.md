@@ -8,7 +8,7 @@ React, NextJS, Typescript, Tailwind & Firebase
 
 #### Made by: Agustin Gutierrez
 
-## Functionalities replicated
+## Features replicated
 
 - Visual style replicated with some personal-taste changes
 - Twitts and replies with the name of postwitts
@@ -29,7 +29,7 @@ React, NextJS, Typescript, Tailwind & Firebase
 - Follwing and followed counters included in profile page too
 - Seach bar when you can search postwitts by hashtag and visualuze them in explore pages
 
-### Other things also included
+### Other added features
 
 - User authorization and authentication using next-auth with Google, github and credentials providers
 - Firebase auth included to save email and password
