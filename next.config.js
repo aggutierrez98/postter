@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  experimental: {
-    outputStandalone: true,
-  },
+  // experimental: {
+  //   outputStandalone: true,
+  // },
+  output: "standalone",
   images: {
     domains: [
       "rb.gy",
