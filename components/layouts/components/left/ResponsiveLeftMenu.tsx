@@ -76,7 +76,7 @@ export const ResponsiveLeftMenu = () => {
                 {session && (
                   <>
                     <div
-                      className="bg-custom-primary flex 
+                      className="bg-custom-primary flex
                     items-center justify-center"
                     >
                       <Image
@@ -119,7 +119,7 @@ export const ResponsiveLeftMenu = () => {
                 )}
                 <LeftMenuLinkList />
                 <button
-                  className="text-custom-text hover:font-bold flex items-center space-x-2 w-full py-[16px] focus-visible:outline-none 
+                  className="text-custom-text hover:font-bold flex items-center space-x-2 w-full py-[16px] focus-visible:outline-none
                     focus-visible:font-bold"
                   onClick={() => {
                     setModalConfigIsOpen(true);
@@ -131,14 +131,26 @@ export const ResponsiveLeftMenu = () => {
                 </button>
                 {session && (
                   <button
-                    className="text-custom-text hover:font-bold flex items-center space-x-2 w-full py-[16px] focus-visible:outline-none 
-                   focus-visible:font-bold"
+                    type="button"
+                    className="text-custom-text hover:font-bold flex items-center space-x-2 w-full py-[16px] focus-visible:outline-none
+                      focus-visible:font-bold"
                     onClick={async () => {
                       setIsLoadingScreen(true);
                       await signOut({
                         callbackUrl: `${window.location.origin}/auth/login`,
                       });
                       setIsLoadingScreen(false);
+                      import("helpers/braze").then(
+                        ({
+                          wipeData,
+                          changeUser,
+                          requestImmediateDataFlush,
+                        }) => {
+                          wipeData();
+                          changeUser("");
+                          requestImmediateDataFlush();
+                        }
+                      );
                     }}
                   >
                     <LogoutIcon className="h-[20px] w-[20px]" />

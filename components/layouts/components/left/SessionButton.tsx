@@ -73,6 +73,7 @@ export const SessionButton = () => {
                   </div>
                 </div>
                 <button
+                  type="button"
                   className="text-custom-text text-left pl-4 p-2 mb-2 hover:bg-black dark:hover:bg-white hover:bg-opacity-[0.12] dark:hover:bg-opacity-[0.03] transition-all"
                   onClick={async () => {
                     setIsLoadingScreen(true);
@@ -80,6 +81,13 @@ export const SessionButton = () => {
                       callbackUrl: `${window.location.origin}/auth/login`,
                     });
                     setIsLoadingScreen(false);
+                    import("helpers/braze").then(
+                      ({ wipeData, changeUser, requestImmediateDataFlush }) => {
+                        wipeData();
+                        changeUser("");
+                        requestImmediateDataFlush();
+                      }
+                    );
                   }}
                 >
                   Cerrar la sesion de @{user?.tag}

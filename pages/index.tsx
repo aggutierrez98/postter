@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Feed, MainLayout } from "components";
 import { useTranslation } from "hooks";
-import { ReactElement, useEffect } from "react";
+import { type ReactElement, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
@@ -14,13 +14,19 @@ export default function Home() {
     if (typeof window !== "undefined" && session?.user) {
       import("helpers/braze").then(
         ({ changeUser, openSession, getUser, requestImmediateDataFlush }) => {
+          console.log({ userId: getUser().getUserId() });
+          // if (getUser().getUserId() !== session.user.uid) {
+
+          // }
+
+          console.log("acatualizando usuario");
           changeUser(session.user.uid);
+          // changeUser("1234");
           openSession();
 
           // TODO: Should be done in update user / register user NOT LOGIN
-          getUser().setFirstName(session.user.name || "");
-          getUser().setEmail(session.user.email || "");
-
+          getUser().setEmail(session.user.email);
+          getUser().setFirstName(session.user.name);
           requestImmediateDataFlush();
         }
       );
